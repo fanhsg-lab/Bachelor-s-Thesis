@@ -404,10 +404,13 @@ class quizAdapter(
 
     class ViewHolderTypeFive(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val textView: TextView = itemView.findViewById(R.id.mistakestext)
+        private val textViewtitlos: TextView = itemView.findViewById(R.id.titlosmistakes)
+
         private lateinit var originalText: String
-        private val button: Button = itemView.findViewById(R.id.falsebut_image)
         private lateinit var spannableString: SpannableString
         private val coloredWords = mutableSetOf<IntRange>()
+
+
 
         init {
             textView.movementMethod = LinkMovementMethod.getInstance()
@@ -455,8 +458,9 @@ class quizAdapter(
                                     spannableString.removeSpan(spans[0])
                                     coloredWords.remove(IntRange(wordStart, wordEnd))
                                 } else {
+                                    val customColor = Color.parseColor("#7D729F")
                                     // If no color span exists, apply a new color span to the word
-                                    spannableString.setSpan(ForegroundColorSpan(Color.BLUE), wordStart, wordEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                    spannableString.setSpan(ForegroundColorSpan(customColor), wordStart, wordEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                                     coloredWords.add(IntRange(wordStart, wordEnd))
                                 }
                                 // Update the TextView with the modified text (with new color spans)
@@ -476,6 +480,7 @@ class quizAdapter(
             originalText = question.question_text
             spannableString = SpannableString(originalText)
             textView.text = spannableString
+            textViewtitlos.text = question.question_text2
         }
 
         fun showColoredText(): List<String> {

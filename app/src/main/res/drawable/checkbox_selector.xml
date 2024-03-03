@@ -1,0 +1,7 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- When checkbox is selected/checked -->
+    <item android:state_checked="true" android:drawable="@color/yourColorWhenChecked" />
+    <!-- When checkbox is pressed -->
+    <!-- Default case -->
+    <item android:drawable="@color/yourDefaultColor" />
+</selector>

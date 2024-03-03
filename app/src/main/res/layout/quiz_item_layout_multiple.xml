@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back">
+    android:background="@drawable/background4">
 
 
     <TextView
@@ -38,7 +38,6 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@drawable/inner_layout_shadow"
         android:elevation="20dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,15 +50,21 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginTop="32dp"
-            android:background="@drawable/shadows"
-            android:padding="5dp"
-            android:textColor="#131010"
-            android:textSize="20sp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text3multiplechoice"
-            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+            android:background="@drawable/checkbox_selector"
+        android:clickable="true"
+        android:focusable="true"
+        android:button="@android:color/transparent"
+        android:padding="5dp"
+        android:textColor="#131010"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text3multiplechoice"
+        tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+
+
 
         <CheckBox
             android:id="@+id/text2multiplechoice"
@@ -71,7 +76,7 @@
             android:padding="5dp"
             android:textColor="#131010"
             android:textSize="20sp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text1multiplechoice"
@@ -87,7 +92,7 @@
             android:padding="5dp"
             android:textColor="#131010"
             android:textSize="20sp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text4multiplechoice"
@@ -103,7 +108,7 @@
             android:padding="5dp"
             android:textColor="#131010"
             android:textSize="20sp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/quetextmultiplechoice"
@@ -119,7 +124,7 @@
             android:padding="5dp"
             android:textColor="#131010"
             android:textSize="20sp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/quetextmultiplechoice"

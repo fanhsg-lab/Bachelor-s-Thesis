@@ -24,11 +24,14 @@
     <color name="soft_gray">#646475</color>
     <color name="light_grayish_blue">#d3d6e2</color>
     <color name="lighter_grayish_blue">#e4e6f1</color>
+
     <color name="dark_grayish_blue">#81889a</color>
     <color name="medium_gray">#9c9da3</color>
     <color name="text_color">#353a4f</color>
-    <color name="border">#242835</color>
+    <color name="muted_purple">#7D729F</color>
 
-
+    <color name="yourColorWhenChecked">#FFCDD2</color>
+    <color name="yourColorWhenPressed">#AED581</color>
+    <color name="yourDefaultColor">#FFFFFF</color>
 
     </resources>
