@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/historyFragment"
+        android:title="Map"
+        android:icon="@drawable/map" />
+    <item
+        android:id="@+id/moduleFragment"
+        android:title="Module"
+        android:icon="@drawable/module" />
+    <item
+        android:id="@+id/leaderboardFragment"
+        android:title="Leaderboard"
+        android:icon="@drawable/leaderboard" />
+    <item
+        android:id="@+id/allQuestionsFragment"
+        android:title="All Questions"
+        android:icon="@drawable/all_questions" />
+    <item
+        android:id="@+id/accountFragment"
+        android:title="Account"
+        android:icon="@drawable/account" />
+</menu>

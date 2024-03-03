@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/souloulayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background4">
+
+
+    <TextView
+        android:id="@+id/souloutext"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:padding="5dp"
+        android:fontFamily="@font/kodemono"
+        android:textColor="@color/lighter_grayish_blue"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titlossoulou"
+        android:lineSpacingExtra="-2dp" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/falsebut_image"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/next_button_drawable"
+        android:text="false"
+        android:textSize="18dp"
+        android:fontFamily="@font/madimione"
+        android:textColor="@color/text_color"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/souloutext" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/truebut_image"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="200dp"
+        android:padding="0dp"
+        android:background="@drawable/next_button_drawable"
+        android:text="true"
+        android:fontFamily="@font/madimione"
+        android:textSize="18dp"
+        android:textColor="@color/text_color"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/souloutext" />
+
+    <TextView
+        android:id="@+id/titlossoulou"
+        style="@style/titlosStyle"
+        android:layout_width="300sp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/next_button_drawable"
+        android:padding="15dp"
+        android:text="true_false"
+        android:fontFamily="@font/alice"
+        android:textSize="18dp"
+        android:textColor="@color/text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

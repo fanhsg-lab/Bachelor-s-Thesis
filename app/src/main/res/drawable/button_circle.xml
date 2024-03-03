@@ -1,0 +1,6 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#FF4081" /> <!-- Change the color as per your preference -->
+    <corners android:radius="10dp" />
+    <!-- Set a large radius value for a perfect circle -->
+    </shape>

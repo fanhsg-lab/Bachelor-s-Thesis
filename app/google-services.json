@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "531851423460",
+    "project_id": "usersdatabase3",
+    "storage_bucket": "usersdatabase3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531851423460:android:f44f7e4a51c889742c86f1",
+        "android_client_info": {
+          "package_name": "com.example.ptyxiakh3"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgcdNuBKbC1LTV2YYu7LRNn185VolBSm0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
