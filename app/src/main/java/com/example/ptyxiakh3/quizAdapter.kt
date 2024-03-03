@@ -287,17 +287,19 @@ class quizAdapter(
                 buttonClickOrder.clear()
                 buttonClickHistory.clear()
 
-                // Make all buttons visible again
-                itemView.findViewById<Button>(R.id.button1).visibility = View.VISIBLE
-                itemView.findViewById<Button>(R.id.button2).visibility = View.VISIBLE
-                itemView.findViewById<Button>(R.id.button3).visibility = View.VISIBLE
-                itemView.findViewById<Button>(R.id.button4).visibility = View.VISIBLE
-                itemView.findViewById<Button>(R.id.button5).visibility = View.VISIBLE
-                itemView.findViewById<Button>(R.id.button6).visibility = View.VISIBLE
-                itemView.findViewById<Button>(R.id.button7).visibility = View.VISIBLE
-                itemView.findViewById<Button>(R.id.button8).visibility = View.VISIBLE
-                itemView.findViewById<Button>(R.id.button9).visibility = View.VISIBLE
-                itemView.findViewById<Button>(R.id.button10).visibility = View.VISIBLE
+                val size = question.possibleAnswers.size
+
+                val buttonIds = listOf(
+                    R.id.button1, R.id.button2, R.id.button3, R.id.button4,
+                    R.id.button5, R.id.button6, R.id.button7, R.id.button8,
+                    R.id.button9, R.id.button10
+                )
+
+                buttonIds.forEachIndexed { index, buttonId ->
+                    val visibility = if (index < size) View.VISIBLE else View.GONE
+                    itemView.findViewById<Button>(buttonId).visibility = visibility
+                }
+
             }
 
             val undoButton =  itemView.findViewById<Button>(R.id.undoButton)
