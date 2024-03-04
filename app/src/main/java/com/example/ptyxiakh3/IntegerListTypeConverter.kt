@@ -24,14 +24,21 @@ class IntegerListTypeConverter {
 class StringListTypeConverter {
     @TypeConverter
     fun fromString(value: String?): List<String>? {
-        return value?.split(",") // Assuming you separate module names with commas
+        if (value == null) {
+            return null
+        }
+        val listType = object : TypeToken<List<String>>() {}.type
+        return Gson().fromJson(value, listType)
     }
 
     @TypeConverter
-    fun toString(value: List<String>?): String? {
-        return value?.joinToString(",")
+    fun toString(list: List<String>?): String? {
+        if (list == null) {
+            return null
+        }
+        val gson = Gson()
+        return gson.toJson(list)
     }
-
 }
 class LongListTypeConverter {
     @TypeConverter

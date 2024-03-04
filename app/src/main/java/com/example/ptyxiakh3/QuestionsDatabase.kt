@@ -163,8 +163,7 @@ abstract class QuestionsDatabase : RoomDatabase() {
                 difficulty = 2,
                 style = "Queue",
                 modules = listOf("Geography", "Europe","Chapter2"),
-                possibleAnswers = listOf("αν α * 0 τότε","διάβασε α , β",  "\t\t\t\t χ <---- β * α", "\t\t\t\t γράψε χ","αλλιώς ! η εξίσωση έχει τη μορφή 0χ+β=0" ,"\t\t\t\t αν β # 0 τότε","\t\t\t\t\t\t\t\t γράψε ‘αόριστη’","\t\t\t\t αλλιώς","\t\t\t\t\t\t\t\t γράψε ‘αδύνατη’","\t\t\t\t τέλοςαν","τέλοςαν","13"),
-                correctAnswers = listOf(14235678910111213) // Paris
+                possibleAnswers = listOf("αν α * 0 τότε","διάβασε α , β",  "γράψε χ", "αλλιώς ","αν β # 0 τότε" ,"γράψε ‘αόριστη’","8","9","10","11","12","13"), correctAnswers = listOf(14235678910111213) // Paris
             )
 
             val question7 = Question(

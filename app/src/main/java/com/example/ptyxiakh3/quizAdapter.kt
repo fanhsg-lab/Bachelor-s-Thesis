@@ -386,9 +386,14 @@ class quizAdapter(
             // ... (existing code)
             var index = 1
             titletext.text=question.question_text2
+            Log.d("QuizAdapter22", "Possible Answers Before Iteration: ${question.possibleAnswers.joinToString()}")
+
+            Log.d("QuizAdapter22", "Possible Answers: ${question.possibleAnswers.joinToString()}")
+
             question.possibleAnswers.forEach { possibleAnswer ->
                 // Do something with each possible question, for example:
                 queueModels.add(QueueItem(possibleAnswer,index))
+                Log.d("QuizAdapter22", "Item : $possibleAnswer")
                 index++
             }
 
