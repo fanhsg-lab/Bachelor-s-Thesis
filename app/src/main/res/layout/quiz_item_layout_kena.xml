@@ -9,7 +9,20 @@
     android:padding="16dp">
 
 
-    <!-- Reset Button -->
+    <TextView
+        android:id="@+id/titloskena"
+        style="@style/titlosStyle"
+        android:layout_width="300sp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/next_button_drawable"
+        android:fontFamily="@font/alice"
+        android:padding="15dp"
+        android:text="true_false"
+        android:textColor="@color/text_color"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/paragraphTextView"
@@ -17,13 +30,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         android:fontFamily="@font/kodemono"
+        android:text="our CardView whilivity\ mava: with  that  be [____]."
         android:textColor="@color/lighter_grayish_blue"
         android:textSize="20sp"
-        android:text="our CardView whilivity\ mava: with  that  be [____]."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/titloskena" />
 
 
 

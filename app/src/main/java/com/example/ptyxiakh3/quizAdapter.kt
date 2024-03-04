@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ptyxiakh3.DbQuery.myProfile
 import com.example.ptyxiakh3.data.Question
 import com.google.android.flexbox.FlexboxLayout
+import org.w3c.dom.Text
 
 class quizAdapter(
     private val context: Context,
@@ -194,6 +195,7 @@ class quizAdapter(
     inner class ViewHolderTypeThree(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val Paragraph: TextView = itemView.findViewById(R.id.paragraphTextView)
+        private val titlos: TextView = itemView.findViewById(R.id.titloskena)
         private var initialFlexboxHeight: Int = 0
 
 
@@ -209,7 +211,7 @@ class quizAdapter(
                 }
             }
 
-
+            titlos.text=question.question_text2
             Paragraph.text=question.question_text
             lateinit var paragraphTextView: TextView
             val placeholders = listOf("[____]", "[____]", "[____]", "[____]", "[____]", "[____]", "[____]", "[____]", "[____]", "[____]", "[____]", "[____]")
@@ -333,6 +335,7 @@ class quizAdapter(
 
         private val recyclerView: RecyclerView = itemView.findViewById(R.id.queueRecycler)
         private val queueModels: ArrayList<QueueItem> = ArrayList()
+        private val titletext: TextView = itemView.findViewById(R.id.Queuetext)
 
 
         // Define ItemTouchHelper.Callback here
@@ -382,6 +385,7 @@ class quizAdapter(
         fun bind(question: Question) {
             // ... (existing code)
             var index = 1
+            titletext.text=question.question_text2
             question.possibleAnswers.forEach { possibleAnswer ->
                 // Do something with each possible question, for example:
                 queueModels.add(QueueItem(possibleAnswer,index))

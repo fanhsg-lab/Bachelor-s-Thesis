@@ -7,30 +7,22 @@
     android:background="@drawable/background4">
 
 
-    <TextView
-        android:id="@+id/titlosmultiplechoice"
-        android:layout_width="wrap_content"
-        android:layout_height="34dp"
-        android:background="@drawable/next_button_drawable"
-        android:padding="5dp"
-        android:text="choose_the_correct_answer_s"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/quetextmultiplechoice"
-        android:layout_width="350dp"
+        style="@style/titlosStyle"
+        android:layout_width="300sp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/shadows"
-        android:elevation="20dp"
-        android:padding="5dp"
-        android:textColor="#131010"
-        android:textSize="20sp"
+        android:background="@drawable/next_button_drawable"
+        android:fontFamily="@font/alice"
+        android:padding="15dp"
+        android:text="true_false"
+        android:textColor="@color/text_color"
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titlosmultiplechoice" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
 
     <LinearLayout
@@ -44,6 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/quetextmultiplechoice">
 
+
         <CheckBox
             android:id="@+id/text1multiplechoice"
             android:layout_width="match_parent"
@@ -51,20 +44,18 @@
             android:layout_margin="10dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/checkbox_selector"
-        android:clickable="true"
-        android:focusable="true"
-        android:button="@android:color/transparent"
-        android:padding="5dp"
-        android:textColor="#131010"
-        android:textSize="20sp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text3multiplechoice"
-        tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
-
-
-
+            android:padding="5dp"
+            android:textColor="#131010"
+            android:button="@android:color/transparent"
+            android:text="adfasdfasdf"
+            android:fontFamily="@font/alice"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text2multiplechoice"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck"/>
 
         <CheckBox
             android:id="@+id/text2multiplechoice"
@@ -72,11 +63,15 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginTop="32dp"
-            android:background="@drawable/shadows"
+            android:background="@drawable/checkbox_selector"
             android:padding="5dp"
             android:textColor="#131010"
+            android:button="@android:color/transparent"
+            android:text="adfasdfasdf"
+            android:fontFamily="@font/alice"
+            android:gravity="center"
             android:textSize="20sp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text1multiplechoice"
@@ -88,11 +83,15 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginTop="32dp"
-            android:background="@drawable/shadows"
+            android:background="@drawable/checkbox_selector"
             android:padding="5dp"
             android:textColor="#131010"
+            android:button="@android:color/transparent"
+            android:text="adfasdfasdf"
+            android:fontFamily="@font/alice"
+            android:gravity="center"
             android:textSize="20sp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text4multiplechoice"
@@ -104,11 +103,15 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginTop="36dp"
-            android:background="@drawable/shadows"
+            android:background="@drawable/checkbox_selector"
             android:padding="5dp"
             android:textColor="#131010"
+            android:button="@android:color/transparent"
+            android:text="adfasdfasdf"
+            android:fontFamily="@font/alice"
+            android:gravity="center"
             android:textSize="20sp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/quetextmultiplechoice"
@@ -120,11 +123,15 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginTop="36dp"
-            android:background="@drawable/shadows"
+            android:background="@drawable/checkbox_selector"
             android:padding="5dp"
             android:textColor="#131010"
+            android:button="@android:color/transparent"
+            android:text="adfasdfasdf"
+            android:fontFamily="@font/alice"
+            android:gravity="center"
             android:textSize="20sp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/quetextmultiplechoice"
