@@ -41,11 +41,20 @@ class MyCustomAdapter(private val context: Context, private val data: LinkedHash
     }
 
     override fun getGroupView(groupPosition: Int, isExpanded: Boolean, convertView: View?, parent: ViewGroup?): View {
-        val groupTitle = getGroup(groupPosition) as String
-        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.group_header, parent, false)
-        view.findViewById<TextView>(R.id.groupHeader).text = groupTitle
+        val groupTitle = getGroup(groupPosition) as String // Get the group title
+
+        // Check if an existing view is being reused, otherwise inflate the view
+        val view: View = convertView ?: LayoutInflater.from(context).inflate(R.layout.group_item, parent, false)
+
+        // Lookup the TextView in the custom layout
+        val textView = view.findViewById<TextView>(R.id.groupName)
+        textView.text = groupTitle // Set the group title to the TextView
+
+        // Customize your view here - for example, set an icon indicating expanded/collapsed state if you have one
+
         return view
     }
+
 
     override fun getChildView(groupPosition: Int, childPosition: Int, isLastChild: Boolean, convertView: View?, parent: ViewGroup?): View {
         val (quizText, difficulty, questionId) = getChild(groupPosition, childPosition) as Triple<String, Int, Long>

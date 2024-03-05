@@ -5,9 +5,24 @@
     android:padding="10dp">
 
     <!-- Customize your child item here -->
+    <View
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/circle_shape"
+        android:layout_marginEnd="10dp"/>
+
     <TextView
         android:id="@+id/childItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="fasdfa"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/childItem2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="adfasdf"
+        android:paddingStart="10dp"
         android:textSize="14sp"/>
 </LinearLayout>
