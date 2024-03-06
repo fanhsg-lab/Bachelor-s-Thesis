@@ -38,4 +38,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sample_text" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/popup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/expandableListView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_menu"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/popuptextview"
+            android:layout_width="0dp"
+            android:layout_height="210dp"
+            android:background="@drawable/shadows2"
+            android:text="gia na doume"
+            android:elevation="20dp"
+            android:padding="5dp"
+            android:textColor="#131010"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

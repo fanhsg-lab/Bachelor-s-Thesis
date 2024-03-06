@@ -61,7 +61,7 @@ class BookmarkFragment : Fragment() {
                     val adapter = BookmarkAdapter(requireContext(), questions, findNavController())
 
                     if(DbQuery.g_bmIdList.size==flagN) {
-
+                        questions.sortBy { it.question_id }
                         Log.d("BookmarkViewHolder", "apappa")
                         Log.d("BookmarkViewHolder", questions.size.toString())
                         recyclerView.adapter = adapter

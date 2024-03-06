@@ -12,11 +12,15 @@ import android.widget.BaseExpandableListAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 
 class MyCustomAdapter(
     private val context: Context,
-    private val data: LinkedHashMap<String, List<Quartet<String, Int, Long, String>>>
+    private val data: LinkedHashMap<String, List<Quartet<String, Int, Long, String>>>,
+    private val childItemClickListener: ChildItemClickListener // Add this
 ) : BaseExpandableListAdapter() {
 
     override fun getGroupCount(): Int {
@@ -92,9 +96,8 @@ class MyCustomAdapter(
 
         // Set an OnClickListener to show a Toast message with the quiz text
         view.setOnClickListener {
-            //Toast.makeText(context, "Quiz: $quizText", Toast.LENGTH_SHORT).show()
+            childItemClickListener.onChildItemClick(groupPosition, childPosition, questionId)
         }
-
         return view
     }
 

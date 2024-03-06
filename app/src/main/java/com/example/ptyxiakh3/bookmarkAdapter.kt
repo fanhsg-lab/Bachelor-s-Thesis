@@ -32,6 +32,7 @@ class BookmarkAdapter(
         // Log to check the binding process
         Log.d("BookmarkViewHolder", "Binding bookmark: ${question.question_id}")
         holder.quesNo.text ="Question's ID: "+ question.question_id.toString()
+        holder.quesstyle.text ="Style: "+ question.style.toString()
 
         // Binding the data to the views
         if(question.style=="SouLou") {
@@ -183,6 +184,7 @@ class BookmarkAdapter(
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val quesNo: TextView = itemView.findViewById(R.id.quesNo)
+        val quesstyle: TextView = itemView.findViewById(R.id.quesstyle)
         val questionText: TextView = itemView.findViewById(R.id.question)
         val text: TextView = itemView.findViewById(R.id.text)
         val optionA: TextView = itemView.findViewById(R.id.optionA)
