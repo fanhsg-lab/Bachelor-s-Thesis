@@ -224,163 +224,163 @@ abstract class QuestionsDatabase : RoomDatabase() {
                 quiz = 1.3,
                 difficulty = 1,
                 style = "multiple choice",
-                modules = listOf("for","if"),
+                modules = listOf("for","if","Chapter1"),
                 possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
                 correctAnswers = listOf(1) // George Orwell
             )
 
             val question12 = Question(
-                question_number =3.4,
+                question_number =3.5,
                 question_text = "Question with ID 12",
                 question_text2=" ",
                 quiz = 1.3,
                 difficulty = 3,
                 style = "multiple choice",
-                modules = listOf("for",),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
+                modules = listOf("for","Chapter2"),
+                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More","Chapter2"),
                 correctAnswers = listOf(1) // George Orwell
             )
 
             val question13 = Question(
-                question_number =3.4,
+                question_number =3.6,
                 question_text = "Question with ID 13",
                 question_text2=" ",
                 quiz = 1.3,
                 difficulty = 1,
                 style = "multiple choice",
-                modules = listOf("if"),
+                modules = listOf("if","Chapter1"),
                 possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
                 correctAnswers = listOf(1) // George Orwell
             )
 
 
             val question14 = Question(
-                question_number =3.4,
+                question_number =4.1,
                 question_text = "Question with ID 14",
                 question_text2=" ",
                 quiz = 1.3,
                 difficulty = 3,
                 style = "multiple choice",
-                modules = listOf("for","if"),
+                modules = listOf("for","if","Chapter1"),
                 possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
                 correctAnswers = listOf(1) // George Orwell
             )
 
             val question15 = Question(
-                question_number =3.4,
+                question_number =4.2,
                 question_text = "Question with ID 15",
                 question_text2=" ",
                 quiz = 1.3,
                 difficulty = 1,
                 style = "multiple choice",
-                modules = listOf("for","if"),
+                modules = listOf("for","if","Chapter3"),
                 possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
                 correctAnswers = listOf(1) // George Orwell
             )
 
             val question16 = Question(
-                question_number =3.4,
+                question_number =4.3,
                 question_text = "Question with ID 16",
                 question_text2=" ",
                 difficulty = 1,
                 style = "multiple choice",
-                modules = listOf("for","if"),
+                modules = listOf("for","if","Chapter3"),
                 possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
                 correctAnswers = listOf(1) // George Orwell
             )
 
             val question17 = Question(
-                question_number =3.4,
+                question_number =4.4,
                 question_text = "Question with ID 17",
                 question_text2=" ",
                 quiz = 1.4,
                 difficulty = 1,
                 style = "multiple choice",
-                modules = listOf("for","if"),
+                modules = listOf("for","if","Chapter3"),
                 possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
                 correctAnswers = listOf(1) // George Orwell
             )
 
             val question18 = Question(
-                question_number =3.4,
+                question_number =4.5,
                 question_text = "Question with ID 18",
                 question_text2=" ",
                 quiz = 1.4,
                 difficulty = 3,
                 style = "multiple choice",
-                modules = listOf("for","if"),
+                modules = listOf("for","if","Chapter3"),
                 possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
                 correctAnswers = listOf(1) // George Orwell
             )
 
             val question19 = Question(
-                question_number =3.4,
+                question_number =5.1,
                 question_text = "Question with ID 19",
                 question_text2=" ",
                 quiz = 1.4,
                 difficulty = 3,
                 style = "multiple choice",
-                modules = listOf("for","if"),
+                modules = listOf("for","if","Chapter3"),
                 possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
                 correctAnswers = listOf(1) // George Orwell
             )
 
             val question20 = Question(
-                question_number =3.4,
+                question_number =5.2,
                 question_text = "Question with ID 20",
                 question_text2=" ",
                 quiz = 1.5,
                 difficulty = 3,
                 style = "multiple choice",
-                modules = listOf("for","if"),
+                modules = listOf("for","if","Chapter2"),
                 possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
                 correctAnswers = listOf(1) // George Orwell
             )
 
             val question21 = Question(
-                question_number =3.4,
+                question_number =5.3,
                 question_text = "Question with ID 21",
                 question_text2=" ",
                 quiz = 1.5,
                 difficulty = 3,
                 style = "multiple choice",
-                modules = listOf("for","if"),
+                modules = listOf("for","if","Chapter2"),
                 possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
                 correctAnswers = listOf(1) // George Orwell
             )
 
             val question22 = Question(
-                question_number =3.4,
+                question_number =5.4,
                 question_text = "Question with ID 22",
                 question_text2=" ",
                 quiz = 1.5,
                 difficulty = 3,
                 style = "multiple choice",
-                modules = listOf("for","if"),
+                modules = listOf("for","if","Chapter2"),
                 possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
                 correctAnswers = listOf(1) // George Orwell
             )
 
             val question23 = Question(
-                question_number =3.4,
+                question_number =5.6,
                 question_text = "Question with ID 23",
                 question_text2=" ",
                 quiz = 1.5,
                 difficulty = 3,
                 style = "multiple choice",
-                modules = listOf("for","if"),
+                modules = listOf("for","if","Chapter2"),
                 possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
                 correctAnswers = listOf(1) // George Orwell
             )
 
             val question24 = Question(
-                question_number =3.4,
+                question_number =6.1,
                 question_text = "Question with ID 24",
                 question_text2=" ",
                 quiz = 1.5,
                 difficulty = 3,
                 style = "multiple choice",
-                modules = listOf("for","if"),
+                modules = listOf("for","if","Chapter2"),
                 possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
                 correctAnswers = listOf(1) // George Orwell
             )

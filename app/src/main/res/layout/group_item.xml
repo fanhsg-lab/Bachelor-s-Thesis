@@ -17,6 +17,7 @@ android:padding="8dp">
         android:fontFamily="@font/alice"
         android:textSize="18dp"
         android:textColor="@color/text_color"
+        android:paddingStart="?android:attr/expandableListPreferredItemPaddingLeft"
         android:textStyle="bold"/>
 
 </LinearLayout>

@@ -1,17 +1,23 @@
 package com.example.ptyxiakh3
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 
-class MyCustomAdapter(private val context: Context, private val data: LinkedHashMap<String, List<Triple<String, Int, Long>>>) : BaseExpandableListAdapter() {
+class MyCustomAdapter(
+    private val context: Context,
+    private val data: LinkedHashMap<String, List<Quartet<String, Int, Long, String>>>
+) : BaseExpandableListAdapter() {
 
     override fun getGroupCount(): Int {
         return data.keys.size
@@ -56,18 +62,32 @@ class MyCustomAdapter(private val context: Context, private val data: LinkedHash
     }
 
 
+    @SuppressLint("SetTextI18n")
     override fun getChildView(groupPosition: Int, childPosition: Int, isLastChild: Boolean, convertView: View?, parent: ViewGroup?): View {
-        val (quizText, difficulty, questionId) = getChild(groupPosition, childPosition) as Triple<String, Int, Long>
+        val (quizText, difficulty, questionId, style) = getChild(groupPosition, childPosition) as Quartet<String, Int, Long, String>
         val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.child_item, parent, false)
         Log.d("AllQ","mphka")
         var (countF, countT) =  FindState(questionId)
         val textView = view.findViewById<TextView>(R.id.childItem)
+        val styletextView = view.findViewById<TextView>(R.id.childItem2)
+        val difficultytextView = view.findViewById<TextView>(R.id.childItem3)
+        val Circle = view.findViewById<ImageView>(R.id.circleid)
         textView.text = quizText
-        val color = getAnswerColor(countT, countT+countF)
+        difficultytextView.text =difficulty.toString()
+        styletextView.text = style
+        val color = getAnswerColor(countT, countT + countF) // Get your dynamic color
+
+// Assuming you are in an Activity or have context available
+        val drawable = ContextCompat.getDrawable(context, R.drawable.circle_red) as GradientDrawable
+        drawable.setColor(color) // Set the color dynamically
+
+// If you are setting this drawable to a View, for example, an ImageView
+        Circle.setImageDrawable(drawable)
+
 
         // Change text color based on difficulty
-        Log.d("AllQ2", "${countT} , ${countF} , ${countF==0 && countT!=0}")
-        textView.setTextColor(color)
+        Log.d("AllQ2", "${countT} , ${countF} , ${countF==0 && countT!=0} , ${quizText}")
+
 
 
         // Set an OnClickListener to show a Toast message with the quiz text
@@ -95,7 +115,7 @@ fun FindState(questionId: Long, ): Pair<Int, Int> {
     // Ensure the indices are within the bounds of the string
     if (startIndex < DbQuery.myProfile.qHistory.length && endIndex <= DbQuery.myProfile.qHistory.length) {
         val currentSegment = DbQuery.myProfile.qHistory.substring(startIndex.toInt(), endIndex.toInt())
-         countF = currentSegment.count { it == 'F' }
+        countF = currentSegment.count { it == 'F' }
         countT = currentSegment.count { it == 'T' }
 
         Log.d("AllQ","Number of 'F': $countF")
@@ -131,4 +151,3 @@ fun getAnswerColor(correctAnswers: Int, totalAnswers: Int): Int {
 fun lerp(start: Int, end: Int, fraction: Float): Int {
     return (start + (end - start) * fraction).toInt()
 }
-

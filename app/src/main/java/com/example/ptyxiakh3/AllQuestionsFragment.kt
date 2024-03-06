@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ExpandableListView
 import android.util.Log
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 
@@ -31,7 +32,7 @@ class  AllQuestionsFragment : Fragment() {
         // Initialize an empty LinkedHashMap
         // Initialize an empty LinkedHashMap with chapters as keys
         val chapters = listOf("Chapter1", "Chapter2", "Chapter3")
-        val data: LinkedHashMap<String, List<Triple<String, Int, Long>>> = linkedMapOf<String, List<Triple<String, Int, Long>>>().apply {
+        val data: LinkedHashMap<String, List<Quartet<String, Int, Long, String>>> = linkedMapOf<String, List<Quartet<String, Int, Long, String>>>().apply {
             chapters.forEach { chapter ->
                 this[chapter] = listOf()
             }
@@ -40,6 +41,8 @@ class  AllQuestionsFragment : Fragment() {
 
 
         val expandableListView: ExpandableListView = view.findViewById(R.id.expandableListView)
+
+
 
 
 // Initialize the adapter here
@@ -53,7 +56,7 @@ class  AllQuestionsFragment : Fragment() {
                 } else {
                     Log.d("QuestionsLog", "Number of questions for $chapter module: ${questions.size}")
                     data[chapter] = questions.map { question ->
-                        Triple(question.question_number.toString(), question.difficulty, question.question_id)
+                        Quartet(question.question_number.toString(), question.difficulty, question.question_id, question.style)
                     }
 
 
@@ -64,12 +67,15 @@ class  AllQuestionsFragment : Fragment() {
 
         }
 
-        expandableListView.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
-            val groupTitle = adapter.getGroup(groupPosition) as String
-            val childTitle = adapter.getChild(groupPosition, childPosition) as String
-            Log.d("ExpandableListView", "Clicked: $groupTitle - $childTitle")
-            true
+
+        expandableListView.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
+            val childItem = adapter.getChild(groupPosition, childPosition) as Quartet<String, Int, Long, String>
+            Log.d("ExpandableListView", "Clicked: ${childItem.first}")
+            Toast.makeText(context, "Clicked: ${childItem.first}", Toast.LENGTH_SHORT).show()
+            true // Return true to indicate that the click was handled
         }
+
+
 
 
         return view
@@ -107,3 +113,4 @@ class  AllQuestionsFragment : Fragment() {
             }
     }
 }
+data class Quartet<A, B, C, D>(val first: A, val second: B, val third: C, val fourth: D)

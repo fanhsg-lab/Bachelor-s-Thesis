@@ -635,11 +635,15 @@ class quizAdapter(
                     if (minMistakes<1) {
 
                         Log.d("Three3", "Result: Correct")
+                        updateQHistory(currentQuestion.question_id.toInt(), true)
                         return Pair(flag,"Sosta")
+
 
                     } else {
                         Log.d("Three3", "Result: False")
+                        updateQHistory(currentQuestion.question_id.toInt(), false)
                         return Pair(false,text)
+
                     }
 
                 }
@@ -792,7 +796,7 @@ class quizAdapter(
                     updatedSegment +
                     myProfile.qHistory.substring(endIndex)
         }
-        Log.d("QuizFragment2", "${myProfile.qHistory}")
+        Log.d("Three3", "${myProfile.qHistory}")
     }
 
 
