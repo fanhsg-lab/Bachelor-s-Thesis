@@ -29,6 +29,8 @@
     <color name="medium_gray">#9c9da3</color>
     <color name="text_color">#353a4f</color>
     <color name="muted_purple">#7D729F</color>
+    <color name="muted_orange">#f57c00 </color>
+
 
     <color name="yourColorWhenChecked">#FFCDD2</color>
     <color name="yourColorWhenPressed">#AED581</color>

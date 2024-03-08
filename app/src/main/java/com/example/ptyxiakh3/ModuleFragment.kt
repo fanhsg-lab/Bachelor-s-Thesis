@@ -48,52 +48,52 @@ class ModuleFragment : Fragment() {
     }
 
     private fun setupModuleModels() {
-        val myList = listOf("if", "for")
-        var modulesToLoad = myList.size
-
+        val myList = listOf("if", "for", "Chapter1", "Chapter3")
+        moduleModels.clear() // Clear existing data to handle reset correctly
+        // Initialize moduleModels with placeholders for each module in myList
         myList.forEach { moduleItem ->
+            moduleModels.add(ModuleModel(moduleItem, 0, 0)) // Assuming 0, 0 can serve as a placeholder
+        }
+
+        myList.forEachIndexed { index, moduleItem ->
             questionsViewModel.getQuestionsByModule(moduleItem).observe(viewLifecycleOwner, Observer { questions ->
-                val totalQuestions = questions.size
+                val sortedQuestions = questions.sortedBy { it.question_id }
+
                 var Nquestions = 0
                 var NotNquestions = 0
-                var processedQuestions = 0
-                questions.forEach { question ->
+
+                sortedQuestions.forEach { question ->
                     val startIndex = ((question.question_id - 1) * 5).toInt()
-                    processedQuestions++
-                    Log.d("QuestionLog", "Question ID ${question.question_id}")
-                    Log.d("QuestionLog", "Question ID ${DbQuery.myProfile.qHistory}")
                     val historySegment = DbQuery.myProfile.qHistory.substring(startIndex, startIndex + 5)
                     if (historySegment.all { it == 'N' }) {
                         Nquestions++
                     } else {
                         NotNquestions++
                     }
+                }
 
-                    if (processedQuestions == totalQuestions) {
-                        var allQ = NotNquestions + Nquestions
-                        Log.d("QuestionLog", "Question ID ${allQ} + ${NotNquestions}")
-                        moduleModels.add(ModuleModel(moduleItem, allQ, NotNquestions))
-                        modulesToLoad--
-                        if (modulesToLoad <= 0) {
-                            setupRecyclerView()
-                        }
-                    }
+                val allQ = NotNquestions + Nquestions
+                // Update the placeholder at the correct position with actual data
+                moduleModels[index] = ModuleModel(moduleItem, allQ, NotNquestions)
+
+                // Check if this is the last module to load, then setupRecyclerView
+                if (moduleModels.none { it.tests == 0 && it.answered == 0 }) { // Assuming 0, 0 signifies unloaded data
+                    setupRecyclerView()
                 }
             })
-        }
-
-        if (myList.isEmpty()) {
-            setupRecyclerView()
         }
     }
 
     private fun setupRecyclerView() {
         view?.findViewById<RecyclerView>(R.id.module_recycler_view)?.let { recyclerView ->
-            val adapter = AdapterModule(requireContext(), moduleModels, findNavController())
+            // Ensure the adapter is notified of data changes
+            val adapter = (recyclerView.adapter as? AdapterModule) ?: AdapterModule(requireContext(), moduleModels, findNavController())
             recyclerView.adapter = adapter
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            adapter.notifyDataSetChanged() // Notify the adapter that the data set has changed
         }
     }
+
 
     // Other methods like deleteAllUsers and insertDataToDatabase...
     // ...

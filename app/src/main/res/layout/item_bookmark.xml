@@ -19,17 +19,19 @@
             android:id="@+id/quesNo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="4"
+            android:fontFamily="@font/alice"
             android:text="Question No. 1"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/quesstyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="3"
+            android:fontFamily="@font/alice"
             android:text="Style: Multiple Choice"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <View
@@ -43,14 +45,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/question"
+        android:textSize="16sp"
         android:text="Question"
-        android:textColor="@color/black"
+        android:fontFamily="@font/kodemono"
         android:layout_marginBottom="8dp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/kodemono"
         android:text="A : 123"
+        android:textSize="15sp"
         android:id="@+id/text"
         />
 
@@ -58,7 +63,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="A : 123"
+        android:fontFamily="@font/kodemono"
         android:id="@+id/optionA"
+        android:textSize="15sp"
         android:paddingTop="5dp"
         />
 
@@ -66,6 +73,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="B : 123"
+        android:textSize="15sp"
+        android:fontFamily="@font/kodemono"
         android:id="@+id/optionB"
         />
 
@@ -73,6 +82,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="C : 123"
+        android:textSize="15sp"
+        android:fontFamily="@font/kodemono"
         android:id="@+id/optionC"
         />
 
@@ -80,6 +91,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="D : 123"
+        android:textSize="15sp"
+        android:fontFamily="@font/kodemono"
         android:id="@+id/optionD"
         />
 
@@ -88,9 +101,12 @@
         android:layout_height="wrap_content"
         android:id="@+id/result"
         android:text="WRONG"
-        android:textSize="18sp"
-        android:layout_marginTop="8dp"
-        android:textColor="@color/red"
+        android:layout_marginRight="10dp"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        android:gravity="end"
+        android:layout_marginTop="0dp"
+        android:textColor="@color/muted_orange"
         />
 
 </LinearLayout>

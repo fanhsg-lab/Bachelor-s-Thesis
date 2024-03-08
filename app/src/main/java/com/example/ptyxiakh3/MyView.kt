@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import androidx.annotation.Nullable
+import androidx.core.content.res.ResourcesCompat
 
 
 /**
@@ -100,8 +101,8 @@ class MyView @JvmOverloads constructor(
 
         clipSquare(canvas)
 
-       // drawCircle(canvas)
-       // drawSquare(canvas)
+        //drawCircle(canvas)
+        //drawSquare(canvas)
 
         drawWave(canvas)
 
@@ -125,16 +126,23 @@ class MyView @JvmOverloads constructor(
 
     private fun drawText(canvas: Canvas) {
         Log.d("sxolia","screenHeignt " + screenHeignt +"screenWidth " + screenWidth)
-        val targetRect = Rect(0, -100 , 900, 0)
+        val targetRect = Rect(0, -100 , 600, 0)
         val fontMetrics = textPaint!!.fontMetricsInt
         val baseline = (targetRect.bottom + targetRect.top - fontMetrics.bottom - fontMetrics.top) / 2
         textPaint!!.textAlign = Paint.Align.CENTER
+        textPaint!!.color = Color.RED
+        textPaint!!.textSize = 50f // Sets the font size to 50 pixels
+        textPaint!!.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+        textPaint!!.typeface = ResourcesCompat.getFont(context, R.font.alice)
+        textPaint!!.style = Paint.Style.FILL
         canvas.drawText((textProgress).toString()+"%", targetRect.centerX().toFloat(), baseline.toFloat(), textPaint!!)
 
         val targetRect2 = Rect(0, -screenHeignt, screenWidth, 0)
         val fontMetrics2 = textPaint!!.fontMetricsInt
         val baseline2 = (targetRect2.bottom + targetRect2.top - fontMetrics2.bottom - fontMetrics2.top) / 2
         textPaint!!.textAlign = Paint.Align.CENTER
+        textPaint!!.color = Color.RED
+
         canvas.drawText(textMiddle, targetRect2.centerX().toFloat(), baseline2.toFloat(), textPaint!!)
     }
 
@@ -149,7 +157,7 @@ class MyView @JvmOverloads constructor(
         path!!.moveTo(startPoint.x.toFloat(), startPoint.y.toFloat())
         for (i in 0..3) {
             val startX = startPoint.x + i * wave * 2
-            val endX = startX + 2 * wave
+            val endX = startX +10 + 2 * wave
             if (i % 2 == 0) {
                 path!!.quadTo(
                     ((startX + endX) / 2).toFloat(),

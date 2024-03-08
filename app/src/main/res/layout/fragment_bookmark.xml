@@ -4,24 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background4"
     tools:context=".BookmarkFragment">
 
-    <TextView
-        android:id="@+id/titlosbookmark"
-        style="@style/titlosStyle"
-        android:layout_width="300sp"
+    <LinearLayout
+        android:id="@+id/ll4"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/next_button_drawable"
-        android:padding="15dp"
-        android:layout_marginBottom="10dp"
-        android:text="true_false"
-        android:fontFamily="@font/alice"
-        android:textSize="18dp"
-        android:textColor="@color/text_color"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingEnd="15dp"
+        android:paddingBottom="5dp"
+        android:paddingStart="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ques_list_gridB"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/qa_catName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/madimione"
+            android:gravity="center"
+            android:text="Bookmarks"
+            android:textColor="@color/text_color"
+            android:textSize="25sp" />
+
+        <ImageView
+            android:id="@+id/qa_bookmarkB"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_bookmark" />
+    </LinearLayout>
+
+
+
+
+
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -33,7 +59,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titlosbookmark">
+        app:layout_constraintTop_toBottomOf="@+id/ll4">
 
     </androidx.recyclerview.widget.RecyclerView>
 

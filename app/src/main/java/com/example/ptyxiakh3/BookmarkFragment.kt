@@ -7,8 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -50,14 +53,16 @@ class BookmarkFragment : Fragment() {
 
         val bottomNavigationView = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView1)
         bottomNavigationView?.visibility = View.GONE
-
+        var index=0
         DbQuery.g_bmIdList.forEach { id ->
             questionsViewModel.getQuestionById(id).observe(viewLifecycleOwner, Observer { question ->
                 question?.let {
+                    index++
                     questions.add(it)
                     Log.d("bookmark", it.toString())
                     flagN++
                     val recyclerView: RecyclerView = view.findViewById<RecyclerView>(R.id.ba_recycler_view)
+
                     val adapter = BookmarkAdapter(requireContext(), questions, findNavController())
 
                     if(DbQuery.g_bmIdList.size==flagN) {
@@ -72,6 +77,16 @@ class BookmarkFragment : Fragment() {
                 }
             })
         }
+
+        val backImageView: ImageView = view.findViewById(R.id.ques_list_gridB)
+        backImageView.setOnClickListener {
+            // Using Navigation Component to navigate up
+
+            findNavController().navigateUp()
+
+        }
+
+
 
 
 

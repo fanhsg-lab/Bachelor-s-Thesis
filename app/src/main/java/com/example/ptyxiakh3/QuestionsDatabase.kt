@@ -126,7 +126,7 @@ abstract class QuestionsDatabase : RoomDatabase() {
                 style = "multiple choice",
                 modules = listOf("Science", "Chemistry","Chapter1"),
                 possibleAnswers = listOf("Oxygen", "Hydrogen", "Carbon Dioxide", "Nitrogen"),
-                correctAnswers = listOf(3) // Nitrogen
+                correctAnswers = listOf(2,3) // Nitrogen
             )
 
 

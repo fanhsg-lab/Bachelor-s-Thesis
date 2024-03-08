@@ -5,11 +5,13 @@ import android.graphics.Color
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ptyxiakh3.data.Question
@@ -86,11 +88,20 @@ class BookmarkAdapter(
             // Create a SpannableString from the updated text
             val spannableString = SpannableString(updatedQuestionText)
 
+
             // Apply color spans to each answer
             placeholders.forEach { (answer, range) ->
-                val colorSpan = ForegroundColorSpan(Color.RED) // Change Color.RED to your desired color
+                // Assuming you have a Context available as 'context'
+                val textColor = ContextCompat.getColor(context, R.color.muted_orange)
+                val colorSpan = ForegroundColorSpan(textColor)
+
+                val sizeSpan = RelativeSizeSpan(1.3f) // Adjust the 1.5f to your desired size multiplier
+
                 spannableString.setSpan(colorSpan, range.first, range.last, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+                spannableString.setSpan(sizeSpan, range.first, range.last, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+
             }
+
 
             // Set the spannable string to your TextView
             holder.text.text = spannableString
@@ -114,10 +125,16 @@ class BookmarkAdapter(
                     val endIndex = startIndex + answer.length
 
                     // Create a span to change the color of the answer
-                    val colorSpan = ForegroundColorSpan(Color.RED) // Change Color.RED to your desired color
+                    val textColor = ContextCompat.getColor(context, R.color.muted_orange)
+                    val colorSpan = ForegroundColorSpan(textColor)
 
                     // Apply the color span on the spannable string
                     spannableString.setSpan(colorSpan, startIndex, endIndex, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+
+                    val sizeSpan = RelativeSizeSpan(1.3f) // Adjust the 1.5f to your desired size multiplier
+
+                    spannableString.setSpan(sizeSpan, startIndex, endIndex, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+
 
                     // Find the next occurrence of the answer
                     startIndex = spannableString.indexOf(answer, startIndex + 1, ignoreCase = true)
@@ -149,11 +166,11 @@ class BookmarkAdapter(
 
                 // Check if the current option is a correct answer
                 if (question.correctAnswers.contains(index.toLong())) { // Assuming correctAnswers are 1-indexed
-                    // Set the text color to green for correct answers
-                    optionTextView?.setTextColor(Color.GREEN)
-                } else {
-                    // Optionally, set the text color to default for incorrect answers
-                    optionTextView?.setTextColor(Color.BLACK) // Use your default color
+                    // Assuming 'this' or 'getActivity()' can be used to obtain a Context. Adjust accordingly.
+                    optionTextView?.setTextColor(ContextCompat.getColor(context, R.color.muted_orange));
+
+                    optionTextView?.textSize= (0.48*optionTextView?.textSize!!).toFloat()
+
                 }
             }
         }
