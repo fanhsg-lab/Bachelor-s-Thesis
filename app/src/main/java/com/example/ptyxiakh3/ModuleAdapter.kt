@@ -67,15 +67,15 @@ class AdapterModule(private val context: Context, private val ModuleModels: Arra
                 // Cycle through the drawables
                 when (currentButtonState) {
                     ButtonState.CIRCLE -> {
-                        button.setBackgroundResource(R.drawable.historybutton)
+                        button.setBackgroundResource(R.drawable.modulebutton4)
                         currentButtonState = ButtonState.HISTORY
                     }
                     ButtonState.HISTORY -> {
-                        button.setBackgroundResource(R.drawable.button_circle)
+                        button.setBackgroundResource(R.drawable.modulebutton2)
                         currentButtonState = ButtonState.SHADOW
                     }
                     ButtonState.SHADOW -> {
-                        button.setBackgroundResource(R.drawable.button_shadow)
+                        button.setBackgroundResource(R.drawable.modulebutton3)
                         currentButtonState = ButtonState.CIRCLE
                     }
                 }

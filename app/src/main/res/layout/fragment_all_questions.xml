@@ -8,21 +8,43 @@
     android:background="@drawable/background4"
     tools:context=".AllQuestionsFragment">
 
-    <TextView
-        android:id="@+id/sample_text"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/menuallQ"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/next_button_drawable"
-        android:fontFamily="@font/alice"
-        android:padding="20dp"
-        android:text="All Questions"
-        android:textColor="@color/text_color"
-        android:textSize="22dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingEnd="15dp"
+        android:paddingBottom="5dp"
+        android:paddingStart="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/ques_list_gridB"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_account" />
+
+        <TextView
+            android:id="@+id/qa_catName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/madimione"
+            android:gravity="center"
+            android:text="All Questions"
+            android:textColor="@color/text_color"
+            android:textSize="25sp" />
+
+        <ImageView
+            android:id="@+id/qa_bookmarkB"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_bookmark" />
+    </LinearLayout>
 
     <ExpandableListView
         android:id="@+id/expandableListView"
@@ -36,7 +58,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sample_text" />
+        app:layout_constraintTop_toBottomOf="@id/menuallQ" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/popup"

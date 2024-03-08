@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import androidx.annotation.Nullable
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 
 
@@ -129,19 +130,24 @@ class MyView @JvmOverloads constructor(
         val targetRect = Rect(0, -100 , 600, 0)
         val fontMetrics = textPaint!!.fontMetricsInt
         val baseline = (targetRect.bottom + targetRect.top - fontMetrics.bottom - fontMetrics.top) / 2
+        val textColor = ContextCompat.getColor(context, R.color.text_color)
+
+
         textPaint!!.textAlign = Paint.Align.CENTER
-        textPaint!!.color = Color.RED
-        textPaint!!.textSize = 50f // Sets the font size to 50 pixels
+
         textPaint!!.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
         textPaint!!.typeface = ResourcesCompat.getFont(context, R.font.alice)
         textPaint!!.style = Paint.Style.FILL
+        textPaint!!.textSize = 55f
         canvas.drawText((textProgress).toString()+"%", targetRect.centerX().toFloat(), baseline.toFloat(), textPaint!!)
 
         val targetRect2 = Rect(0, -screenHeignt, screenWidth, 0)
         val fontMetrics2 = textPaint!!.fontMetricsInt
         val baseline2 = (targetRect2.bottom + targetRect2.top - fontMetrics2.bottom - fontMetrics2.top) / 2
+        textPaint!!.color = textColor
+        textPaint!!.textSize = 70f // Sets the font size to 50 pixels
         textPaint!!.textAlign = Paint.Align.CENTER
-        textPaint!!.color = Color.RED
+
 
         canvas.drawText(textMiddle, targetRect2.centerX().toFloat(), baseline2.toFloat(), textPaint!!)
     }
@@ -152,7 +158,7 @@ class MyView @JvmOverloads constructor(
         canvas.translate(0f, screenHeignt.toFloat())
         path = Path()
         wavePaint!!.style = Paint.Style.FILL
-        wavePaint!!.color = Color.parseColor("#FF0303")
+        wavePaint!!.color = Color.parseColor("#f57c00")
         val wave = screenWidth / 4
         path!!.moveTo(startPoint.x.toFloat(), startPoint.y.toFloat())
         for (i in 0..3) {
