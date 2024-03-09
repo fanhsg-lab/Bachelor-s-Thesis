@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:fontFamily="@font/alice"
+            android:textColor="@color/text_color"
             android:text="Question No. 1"
             android:textSize="18sp" />
 
@@ -31,6 +32,8 @@
             android:layout_weight="3"
             android:fontFamily="@font/alice"
             android:text="Style: Multiple Choice"
+            android:textColor="@color/text_color"
+
             android:textSize="18sp" />
     </LinearLayout>
 
@@ -48,22 +51,24 @@
         android:textSize="16sp"
         android:text="Question"
         android:fontFamily="@font/kodemono"
+        android:textColor="@color/text_color"
         android:layout_marginBottom="8dp"/>
 
     <TextView
+        android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/kodemono"
+        android:textColor="@color/text_color"
         android:text="A : 123"
-        android:textSize="15sp"
-        android:id="@+id/text"
-        />
+        android:textSize="15sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="A : 123"
         android:fontFamily="@font/kodemono"
+        android:textColor="@color/text_color"
         android:id="@+id/optionA"
         android:textSize="15sp"
         android:paddingTop="5dp"
@@ -75,6 +80,7 @@
         android:text="B : 123"
         android:textSize="15sp"
         android:fontFamily="@font/kodemono"
+        android:textColor="@color/text_color"
         android:id="@+id/optionB"
         />
 
@@ -84,6 +90,7 @@
         android:text="C : 123"
         android:textSize="15sp"
         android:fontFamily="@font/kodemono"
+        android:textColor="@color/text_color"
         android:id="@+id/optionC"
         />
 
@@ -93,6 +100,7 @@
         android:text="D : 123"
         android:textSize="15sp"
         android:fontFamily="@font/kodemono"
+        android:textColor="@color/text_color"
         android:id="@+id/optionD"
         />
 

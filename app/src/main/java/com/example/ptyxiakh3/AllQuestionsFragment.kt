@@ -2,15 +2,21 @@ package com.example.ptyxiakh3
 
 import QuestionsViewModel
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ExpandableListView
 import android.util.Log
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 
@@ -105,29 +111,203 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
         Log.d("ChildItemClick", "Clicked on child at groupPosition: $groupPosition, childPosition: $childPosition, childId: $questionId")
 
         // Find the ConstraintLayout
-        val constraintLayout = view?.findViewById<ConstraintLayout>(R.id.popup)
+        val constraintLayout = view?.findViewById<LinearLayout>(R.id.popup)
         constraintLayout?.let {
 
             if (it.visibility == View.VISIBLE) {
                 it.visibility = View.GONE
             }else {
-                var question = questionsViewModel.getQuestionById(questionId)
-                // Ensure it's always visible (if you have previously set it to gone somewhere)
-                it.visibility = View.VISIBLE
+                questionsViewModel.getQuestionById(questionId).observe(viewLifecycleOwner) { question ->
 
-                // Update the content or appearance based on the clicked item
-                // For example, changing the text of a TextView within the ConstraintLayout
-                val detailTextView =
-                    it.findViewById<TextView>(R.id.popuptextview) // Assuming you have a TextView with this id inside the ConstraintLayout
-                detailTextView.text = "Question Id ${questionId}"
 
-                // Update any other views within the ConstraintLayout as needed
-                // This could include setting image resources, background colors, etc., based on the clicked item
+                    val quesNo = view?.findViewById<TextView>(R.id.quesNo)
+                    val quesstyle = view?.findViewById<TextView>(R.id.quesstyle)
+                    val questionText = view?.findViewById<TextView>(R.id.question)
+                    val text = view?.findViewById<TextView>(R.id.text)
+                    val optionA = view?.findViewById<TextView>(R.id.optionA)
+                    val optionB = view?.findViewById<TextView>(R.id.optionB)
+                    val optionC = view?.findViewById<TextView>(R.id.optionC)
+                    val optionD = view?.findViewById<TextView>(R.id.optionD)
+                    val result = view?.findViewById<TextView>(R.id.result)
 
-                Log.d(
-                    "AdapterOnClick",
-                    "Updated content for groupPosition: $groupPosition, childPosition: $childPosition"
-                )
+
+                    quesNo?.text ="Question's ID: "+ question.question_id.toString()
+                    quesstyle?.text ="Style: "+ question.style.toString()
+
+                    if(question.style=="SouLou") {
+                        text?.visibility = View.VISIBLE
+
+                        questionText?.text = question.possibleAnswers[0]
+                        text?.text = question.question_text
+                        result?.visibility = View.VISIBLE
+
+                        if(question.correctAnswers[0].toInt() ==1){
+                            result?.text = "True"
+                        }else{
+                            result?.text = "False"
+                        }
+                        optionA?.visibility = View.GONE
+                        optionB?.visibility = View.GONE
+                        optionC?.visibility = View.GONE
+                        optionD?.visibility = View.GONE
+                    }
+
+                    if (question.style == "Kena") {
+                        text?.visibility = View.VISIBLE
+                        optionA?.visibility = View.GONE
+                        optionB?.visibility = View.GONE
+                        optionC?.visibility = View.GONE
+                        optionD?.visibility = View.GONE
+                        result?.visibility = View.GONE
+                        val sequence = question.correctAnswers.first().toString()
+                        var updatedQuestionText = question.question_text
+                        questionText?.text = question.question_text2
+                        // Placeholder to keep track of where we've inserted answers
+                        val placeholders = mutableListOf<Pair<String, IntRange>>()
+
+                        sequence.forEachIndexed { index, digit ->
+                            val answerIndex = if (digit == '0') 9 else digit.toString().toInt() - 1
+                            val answer = question.possibleAnswers[answerIndex]
+
+                            // Find the start position of the first "[____]"
+                            val blankStart = updatedQuestionText.indexOf("[____]")
+
+                            if (blankStart != -1) {
+                                // Calculate the end position for the answer
+                                val answerEnd = blankStart + answer.length
+
+                                // Replace the first "[____]" with the answer and update the text
+                                updatedQuestionText = updatedQuestionText.replaceFirst("[____]", answer)
+
+                                // Keep track of the answer and its position
+                                placeholders.add(answer to IntRange(blankStart, answerEnd))
+                            }
+                        }
+
+                        // Create a SpannableString from the updated text
+                        val spannableString = SpannableString(updatedQuestionText)
+
+
+                        // Apply color spans to each answer
+                        placeholders.forEach { (answer, range) ->
+                            // Assuming you have a Context available as 'context'
+                            val textColor = ContextCompat.getColor(requireContext(), R.color.muted_orange)
+
+                            val colorSpan = ForegroundColorSpan(textColor)
+
+                            val sizeSpan = RelativeSizeSpan(1.3f) // Adjust the 1.5f to your desired size multiplier
+
+                            spannableString.setSpan(colorSpan, range.first, range.last, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+                            spannableString.setSpan(sizeSpan, range.first, range.last, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+
+                        }
+
+
+                        // Set the spannable string to your TextView
+                        text?.text = spannableString
+                    }
+
+                    if (question.style == "Mistakes") {
+                        text?.visibility = View.VISIBLE
+                        optionA?.visibility = View.GONE
+                        optionB?.visibility = View.GONE
+                        optionC?.visibility = View.GONE
+                        optionD?.visibility = View.GONE
+                        result?.visibility = View.GONE
+                        questionText?.text = question.question_text2
+                        // Create a SpannableString from the question text
+                        val spannableString = SpannableString(question.question_text)
+
+                        question.possibleAnswers.forEach { answer ->
+                            var startIndex = spannableString.indexOf(answer, ignoreCase = true)
+
+                            while (startIndex >= 0) {
+                                // Calculate the end index of the answer
+                                val endIndex = startIndex + answer.length
+
+                                // Create a span to change the color of the answer
+                                val textColor = ContextCompat.getColor(requireContext(), R.color.muted_orange)
+                                val colorSpan = ForegroundColorSpan(textColor)
+
+                                // Apply the color span on the spannable string
+                                spannableString.setSpan(colorSpan, startIndex, endIndex, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+
+                                val sizeSpan = RelativeSizeSpan(1.3f) // Adjust the 1.5f to your desired size multiplier
+
+                                spannableString.setSpan(sizeSpan, startIndex, endIndex, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+
+
+                                // Find the next occurrence of the answer
+                                startIndex = spannableString.indexOf(answer, startIndex + 1, ignoreCase = true)
+                            }
+                        }
+
+                        // Set the spannable string to your TextView
+                        text?.text = spannableString
+                    }
+
+                    if (question.style == "multiple choice") {
+                        questionText?.text = question.question_text
+                        text?.visibility = View.GONE
+                        result?.visibility = View.GONE
+
+                        // Iterate over all possible answers
+                        question.possibleAnswers.forEachIndexed { index, option ->
+                            // Determine the TextView for the current option (e.g., optionA, optionB, etc.)
+                            val optionTextView = when (index) {
+                                0 -> optionA
+                                1 -> optionB
+                                2 -> optionC
+                                3 -> optionD
+                                else -> null // Add more cases if you have more options
+                            }
+
+                            // Set the text for the option
+                            optionTextView?.text = option
+                            optionTextView?.visibility = View.VISIBLE
+                            optionTextView?.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_color))
+                            optionTextView?.textSize= 15f
+                            // Check if the current option is a correct answer
+                            if (question.correctAnswers.contains(index.toLong())) { // Assuming correctAnswers are 1-indexed
+                                // Assuming 'this' or 'getActivity()' can be used to obtain a Context. Adjust accordingly.
+                                optionTextView?.setTextColor(ContextCompat.getColor(requireContext(), R.color.muted_orange));
+                                Log.d(
+                                    "alll",
+                                    "Updated content for question: $question, questionId: $questionId"
+                                )
+                                optionTextView?.textSize= 22f
+
+                            }
+                        }
+                    }
+
+                    if(question.style=="Queue") {
+                        text?.visibility = View.VISIBLE
+                        questionText?.text = question.question_text2
+                        text?.text = question.question_text
+
+                        result?.visibility = View.GONE
+
+                        optionA?.visibility = View.GONE
+                        optionB?.visibility = View.GONE
+                        optionC?.visibility = View.GONE
+                        optionD?.visibility = View.GONE
+                    }
+                    // Ensure it's always visible (if you have previously set it to gone somewhere)
+                    it.visibility = View.VISIBLE
+
+                    // Update the content or appearance based on the clicked item
+                    // For example, changing the text of a TextView within the ConstraintLayout
+
+
+                    // Update any other views within the ConstraintLayout as needed
+                    // This could include setting image resources, background colors, etc., based on the clicked item
+
+                    Log.d(
+                        "AdapterOnClick",
+                        "Updated content for question: $question, questionId: $questionId"
+                    )
+                }
             }
         }
 

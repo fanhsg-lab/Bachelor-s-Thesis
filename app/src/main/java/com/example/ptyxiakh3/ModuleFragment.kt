@@ -48,7 +48,7 @@ class ModuleFragment : Fragment() {
     }
 
     private fun setupModuleModels() {
-        val myList = listOf("if", "for", "Chapter1", "Chapter3")
+        val myList = listOf("if", "for", "Chapter1", "Chapter3", "Chapter2")
         moduleModels.clear() // Clear existing data to handle reset correctly
         // Initialize moduleModels with placeholders for each module in myList
         myList.forEach { moduleItem ->

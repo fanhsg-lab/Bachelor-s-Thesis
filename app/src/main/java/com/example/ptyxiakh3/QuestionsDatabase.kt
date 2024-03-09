@@ -148,7 +148,7 @@ abstract class QuestionsDatabase : RoomDatabase() {
                 question_number =2.2,
                 question_text =
                 "διάβασε α , β \n" +
-                        "αν α * 0 τότε \n" +
+                        "αν α = 0 τότε \n" +
                         "\t\t\t\t χ <---- β * α \n" +
                         "\t\t\t\t γράψε χ \n" +
                         "αλλιώς ! η εξίσωση έχει τη μορφή 0χ+β=0 \n" +
