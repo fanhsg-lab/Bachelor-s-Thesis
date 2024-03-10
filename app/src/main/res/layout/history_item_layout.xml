@@ -5,72 +5,78 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:id="@+id/recycler_view"
-    >
+
+    android:id="@+id/container">
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/first"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue"
-        android:elevation="20dp"
-        >
+        android:background="@color/light_grey"
+        android:paddingBottom="10dp">
 
-        <TextView
-            android:id="@+id/chapterID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:text="Κεφάλαιο 1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/button_circle"
-            android:minWidth="0dp"
-            android:padding="10dp"
-            android:elevation="4dp"
-            android:text="Btn"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.49" />
-
-        <TextView
-            android:id="@+id/text_view"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/first"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="120dp"
-            android:layout_marginBottom="10dp"
-            android:text="Λες απλές προτάσεις, μιλάς στον πληθυντικό sdfg sdsdfg ssdf "
-
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shadowshistory"
+            android:elevation="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chapterID" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/chapterID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Κεφάλαιο 1"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/button_circle"
+                android:elevation="4dp"
+                android:minWidth="0dp"
+                android:padding="10dp"
+                android:text="Btn"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.49" />
+
+            <TextView
+                android:id="@+id/text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="120dp"
+                android:layout_marginBottom="10dp"
+                android:text="Λες απλές προτάσεις, μιλάς στον πληθυντικό sdfg sdsdfg ssdf "
+
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chapterID" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/light_grey"
-        android:orientation="vertical"
-        android:paddingBottom="10dp">
 
         <ImageView
             android:id="@+id/image_view"
@@ -80,7 +86,7 @@
             android:elevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/first"
             app:srcCompat="@drawable/logo" />
 
         <ImageView
@@ -91,8 +97,10 @@
             android:elevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/first"
             app:srcCompat="@drawable/logo" />
+
+
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/Btn1"
@@ -100,21 +108,21 @@
             android:layout_height="65dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="18dp"
-
             android:background="@drawable/historybutton"
+        android:paddingBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/first" />
 
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/Btn2"
             android:layout_width="70dp"
             android:layout_height="65dp"
             android:layout_gravity="center_horizontal"
-
             android:layout_marginTop="26dp"
             android:background="@drawable/historybutton"
+            android:paddingBottom="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Btn1" />
@@ -124,9 +132,9 @@
             android:id="@+id/Btn3"
             android:layout_width="70dp"
             android:layout_height="65dp"
-
             android:layout_marginTop="26dp"
             android:background="@drawable/historybutton"
+            android:paddingBottom="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Btn2" />
@@ -137,6 +145,7 @@
             android:layout_height="65dp"
             android:layout_marginTop="26dp"
             android:background="@drawable/historybutton"
+            android:paddingBottom="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Btn3" />
@@ -145,8 +154,9 @@
             android:id="@+id/Btn5"
             android:layout_width="70dp"
             android:layout_height="65dp"
-
+            android:layout_margin="20dp"
             android:layout_marginTop="26dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/historybutton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -167,8 +177,8 @@
             android:layout_width="70dp"
             android:layout_height="65dp"
             android:layout_marginTop="26dp"
-
             android:background="@drawable/historybutton"
+            android:paddingBottom="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Btn6" />
@@ -179,8 +189,8 @@
             android:layout_height="65dp"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="26dp"
-
             android:background="@drawable/historybutton"
+            android:paddingBottom="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Btn7" />
@@ -192,8 +202,8 @@
             android:layout_height="65dp"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="26dp"
-
             android:background="@drawable/historybutton"
+            android:paddingBottom="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Btn8" />
@@ -204,8 +214,8 @@
             android:layout_height="65dp"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="26dp"
-
             android:background="@drawable/historybutton"
+            android:paddingBottom="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Btn9" />
@@ -216,8 +226,8 @@
             android:layout_height="65dp"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="26dp"
-
             android:background="@drawable/historybutton"
+            android:paddingBottom="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Btn10" />
@@ -228,8 +238,8 @@
             android:layout_height="65dp"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="26dp"
-
             android:background="@drawable/historybutton"
+            android:paddingBottom="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Btn11" />
