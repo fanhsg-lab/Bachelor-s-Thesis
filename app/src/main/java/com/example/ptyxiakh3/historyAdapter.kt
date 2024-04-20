@@ -37,6 +37,8 @@ class AdapterHistory(
             holder.Button11, holder.Button12
         )
 
+        val buttonPosition = position + 1
+
         val ImageView = listOf(
             holder.Image1, holder.Image2
         )
@@ -62,6 +64,29 @@ class AdapterHistory(
         val button7LayoutParams = holder.Button7.layoutParams as ViewGroup.MarginLayoutParams
         val button8LayoutParams = holder.Button8.layoutParams as ViewGroup.MarginLayoutParams
         val button9LayoutParams = holder.Button9.layoutParams as ViewGroup.MarginLayoutParams
+
+        val buttons = arrayOf(holder.Button1,holder.Button2,holder.Button3,holder.Button4,holder.Button5,holder.Button6,holder.Button7,holder.Button8,holder.Button9,holder.Button10,holder.Button11,holder.Button12 )
+
+        buttons.forEachIndexed { index, button ->
+
+                val str = "${position+1}.${index+1}"
+                println("Button $str clicked")
+
+                if (DbQuery.myProfile.quizs.contains(str)) {
+                    println("The string $str exists in the list.")
+                    button.setBackgroundResource(R.drawable.historybutton2)
+                }
+
+        }
+
+
+
+        for (i in 0 until 12) {
+            val str = "$position.$i" // Using string interpolation to create the string
+            println(str)
+        }
+
+
 
         val image1LayoutParams = holder.Image1.layoutParams as ViewGroup.MarginLayoutParams
         val image2LayoutParams = holder.Image2.layoutParams as ViewGroup.MarginLayoutParams
@@ -191,7 +216,6 @@ class AdapterHistory(
 
         var Image1: ImageView = itemView.findViewById(R.id.image_view)
         var Image2: ImageView = itemView.findViewById(R.id.imageView2)
-
 
 
 

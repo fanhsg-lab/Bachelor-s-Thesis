@@ -48,16 +48,7 @@ class HistoryFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        DbQuery.getUserData(object : MyCompleteListener {
-            override fun onSuccess() {
-                // Handle success, if needed
-            }
 
-            override fun onFailure() {
-                // Log the error message when onFailure is called
-                Log.e("UserData", "Failed to retrieve user data")
-            }
-        })
 
         return view;
     }

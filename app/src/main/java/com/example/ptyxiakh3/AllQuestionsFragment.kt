@@ -3,6 +3,7 @@ package com.example.ptyxiakh3
 import QuestionsViewModel
 import android.os.Bundle
 import android.text.SpannableString
+import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
@@ -119,7 +120,7 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
             }else {
                 questionsViewModel.getQuestionById(questionId).observe(viewLifecycleOwner) { question ->
 
-
+                    Log.d("apapapa","edo")
                     val quesNo = view?.findViewById<TextView>(R.id.quesNo)
                     val quesstyle = view?.findViewById<TextView>(R.id.quesstyle)
                     val questionText = view?.findViewById<TextView>(R.id.question)
@@ -129,6 +130,7 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
                     val optionC = view?.findViewById<TextView>(R.id.optionC)
                     val optionD = view?.findViewById<TextView>(R.id.optionD)
                     val result = view?.findViewById<TextView>(R.id.result)
+                    val lasttext = view?.findViewById<TextView>(R.id.lasttext)
 
 
                     quesNo?.text ="Question's ID: "+ question.question_id.toString()
@@ -136,7 +138,7 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
 
                     if(question.style=="SouLou") {
                         text?.visibility = View.VISIBLE
-
+                        lasttext?.visibility=View.GONE
                         questionText?.text = question.possibleAnswers[0]
                         text?.text = question.question_text
                         result?.visibility = View.VISIBLE
@@ -153,6 +155,7 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
                     }
 
                     if (question.style == "Kena") {
+                        lasttext?.visibility=View.GONE
                         text?.visibility = View.VISIBLE
                         optionA?.visibility = View.GONE
                         optionB?.visibility = View.GONE
@@ -208,12 +211,14 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
                     }
 
                     if (question.style == "Mistakes") {
+                        Log.d("apapapa","edo2")
                         text?.visibility = View.VISIBLE
                         optionA?.visibility = View.GONE
                         optionB?.visibility = View.GONE
                         optionC?.visibility = View.GONE
                         optionD?.visibility = View.GONE
                         result?.visibility = View.GONE
+                        lasttext?.visibility=View.VISIBLE
                         questionText?.text = question.question_text2
                         // Create a SpannableString from the question text
                         val spannableString = SpannableString(question.question_text)
@@ -244,9 +249,40 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
 
                         // Set the spannable string to your TextView
                         text?.text = spannableString
+
+                        // Define the prefix text
+                        val prefixText = "Τα σωστά είναι: "
+
+// Initialize the SpannableStringBuilder with the prefix text
+                        val spannableBuilder = SpannableStringBuilder(prefixText)
+
+// Assuming question.question_module is a List<String>
+                        val questionModule = question.question_module
+
+// Append each word from the list and apply styles
+                        questionModule.forEach { word ->
+                            val start = spannableBuilder.length
+                            spannableBuilder.append(word + ", ")
+                            val end = spannableBuilder.length
+
+                            // Apply color span
+                            val textColor = ContextCompat.getColor(requireContext(), R.color.muted_orange)
+                            val colorSpan = ForegroundColorSpan(textColor)
+                            spannableBuilder.setSpan(colorSpan, start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+
+                            // Apply size span
+                            val sizeSpan = RelativeSizeSpan(1.3f)  // Adjust this value as needed
+                            spannableBuilder.setSpan(sizeSpan, start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+                        }
+
+// Set the SpannableStringBuilder to a TextView
+                        lasttext?.text = spannableBuilder
+
+
                     }
 
                     if (question.style == "multiple choice") {
+                        lasttext?.visibility=View.GONE
                         questionText?.text = question.question_text
                         text?.visibility = View.GONE
                         result?.visibility = View.GONE
@@ -279,9 +315,12 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
 
                             }
                         }
+                        Log.d("Mistakesall", "point2")
+
                     }
 
                     if(question.style=="Queue") {
+                        lasttext?.visibility=View.GONE
                         text?.visibility = View.VISIBLE
                         questionText?.text = question.question_text2
                         text?.text = question.question_text

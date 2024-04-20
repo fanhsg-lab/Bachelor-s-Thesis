@@ -11,7 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 object DbQuery {
     var g_firestore: FirebaseFirestore? = null
-    var myProfile: ProfileModel = ProfileModel("NA", "@",  0 ,"f")
+    var myProfile: ProfileModel = ProfileModel("NA", "@",  0 ,"f", mutableListOf("1.1", "1.2") )
     val g_bmIdList: MutableList<Long> = mutableListOf()
     val g_bookmarksList: MutableList<Question> = mutableListOf()
 
@@ -24,6 +24,7 @@ object DbQuery {
             "NAME" to name,
             "TOTAL_SCORE" to 0,
             "BOOKMARKS" to 0,
+            "QUIZS" to "1.1,",
             "Q_HISTORY" to "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
         )
 
@@ -67,6 +68,28 @@ object DbQuery {
 
 
     }
+
+    fun updateQuizs(newQuizsList: List<String>, completeListener: MyCompleteListener) {
+        val uid = FirebaseAuth.getInstance().uid
+        if (uid == null) {
+            completeListener.onFailure()
+            return
+        }
+        Log.d("quizs","edo5 ,${newQuizsList}")
+
+        // Join the list into a single string with commas separating the elements
+        val newQuizsString = newQuizsList.joinToString(separator = ",")
+
+        g_firestore!!.collection("USERS").document(uid)
+            .update("QUIZS", newQuizsString)
+            .addOnSuccessListener {
+                completeListener.onSuccess()
+            }
+            .addOnFailureListener {
+                completeListener.onFailure()
+            }
+    }
+
 
     fun updateQScore(newScore: Int, completeListener: MyCompleteListener) {
         val uid = FirebaseAuth.getInstance().uid
@@ -149,6 +172,14 @@ object DbQuery {
                     email = documentSnapshot.getString("EMAIL_ID") ?: ""
                     bookmarksCount = documentSnapshot.getLong("BOOKMARKS")?.toInt() ?: 0
                     qHistory = documentSnapshot.getString("Q_HISTORY") ?: "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+                    val quizsString = documentSnapshot.getString("QUIZS") ?: "1.1,1.2"
+                    var quizsList = quizsString.split(",")
+                    Log.d("quizs","edo3 ,${quizs}")
+                    quizs.clear()
+                    quizs.addAll(quizsList)
+                    Log.d("quizs","edo4 ,${quizs}")
+                    Log.d("quizs","edo41 ,${quizsList}")
+
                 }
 
                 // After successfully fetching user data, load bookmarks IDs

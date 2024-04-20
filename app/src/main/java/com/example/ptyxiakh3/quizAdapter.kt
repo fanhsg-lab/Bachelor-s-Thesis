@@ -543,7 +543,7 @@ class quizAdapter(
 
                     var flag = true
                     var text = ""
-                    var index = 1;
+                    var index = 0;
                     var aaa=currentQuestion.question_text
                     Log.d("QuizAdapter", "IsCheck : $aaa")
 
@@ -593,7 +593,15 @@ class quizAdapter(
                         flag = false
                     }
                     Log.d("flagg", "Id ${flag} ")
-                    return Pair(flag,"SouLou")
+                    if(flag) {
+                        return Pair(flag, "Apanthses Sosta")
+                    }else{
+                        if(!isTrueButtonClicked ){
+                            return Pair(flag, "Apanthses Lathos all einai Sosto")
+                        }else{
+                            return Pair(flag, "Apanthses Sosto all einai Lathos")
+                        }
+                    }
                 }
 
                 is ViewHolderTypeThree -> {
@@ -687,8 +695,8 @@ class quizAdapter(
                         }
                     }
 
-
-
+                    Log.d("finalOrder", "finalOrder" + finalOrder)
+                    Log.d("finalOrder", "correct" + correctNumbers)
                     Log.d("QuizFragment2", "${finalOrder} + ${correctNumbers} + ${finalOrder == correctAnswers}")
                     // Initialize an empty string to store the mistake message
                     var mistakeMessage = ""

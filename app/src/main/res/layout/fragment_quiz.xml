@@ -75,30 +75,104 @@
 
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/popup"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/quizRecycler"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_menu"
-        android:visibility="gone">
-        <TextView
-            android:id="@+id/popuptextview"
-            android:layout_width="0dp"
-            android:layout_height="210dp"
-            android:background="@drawable/shadows2"
-            android:text="gia na doume"
-            android:elevation="20dp"
-            android:padding="5dp"
-            android:textColor="#131010"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+
+
+
+        <LinearLayout
+            android:id="@+id/popup"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shadows4"
+            android:visibility="gone"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/kodemono"
+                android:text="A : 123"
+                android:textSize="15sp"
+                android:id="@+id/text"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="A : 123"
+                android:fontFamily="@font/kodemono"
+                android:id="@+id/optionA"
+                android:textSize="15sp"
+                android:paddingTop="5dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="B : 123"
+                android:textSize="15sp"
+                android:fontFamily="@font/kodemono"
+                android:id="@+id/optionB"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="C : 123"
+                android:textSize="15sp"
+                android:fontFamily="@font/kodemono"
+                android:id="@+id/optionC"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="D : 123"
+                android:textSize="15sp"
+                android:fontFamily="@font/kodemono"
+                android:id="@+id/optionD"
+                />
+
+            <TextView
+                android:id="@+id/lasttext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="D : 123"
+                android:textSize="15sp"
+                android:fontFamily="@font/kodemono"
+
+                tools:ignore="InvalidId" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/result"
+                android:text="WRONG"
+                android:layout_marginRight="10dp"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:gravity="start"
+                android:layout_marginTop="0dp"
+                android:textColor="@color/muted_orange"
+                />
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
     <Button
         android:id="@+id/btnNext"
         android:layout_width="wrap_content"

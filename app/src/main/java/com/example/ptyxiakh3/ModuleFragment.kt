@@ -64,7 +64,9 @@ class ModuleFragment : Fragment() {
 
                 sortedQuestions.forEach { question ->
                     val startIndex = ((question.question_id - 1) * 5).toInt()
+                    Log.d("problhma","`1 " + DbQuery.myProfile.qHistory)
                     val historySegment = DbQuery.myProfile.qHistory.substring(startIndex, startIndex + 5)
+                    Log.d("problhma","`2")
                     if (historySegment.all { it == 'N' }) {
                         Nquestions++
                     } else {

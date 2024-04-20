@@ -30,7 +30,7 @@ class BookmarkAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val question = questions[position]
-
+        Log.d("Mistakes432", "point1")
         // Log to check the binding process
         Log.d("BookmarkViewHolder", "Binding bookmark: ${question.question_id}")
         holder.quesNo.text ="Question's ID: "+ question.question_id.toString()
@@ -116,7 +116,7 @@ class BookmarkAdapter(
             holder.questionText.text = question.question_text2
             // Create a SpannableString from the question text
             val spannableString = SpannableString(question.question_text)
-
+            Log.d("Mistakes432", "point1")
             question.possibleAnswers.forEach { answer ->
                 var startIndex = spannableString.indexOf(answer, ignoreCase = true)
 
@@ -141,8 +141,10 @@ class BookmarkAdapter(
                 }
             }
 
+            Log.d("Mistakes", "point2")
             // Set the spannable string to your TextView
             holder.text.text = spannableString
+            holder.lasttext.text = question.question_module[0]
         }
 
         if (question.style == "multiple choice") {
@@ -209,5 +211,6 @@ class BookmarkAdapter(
         val optionC: TextView = itemView.findViewById(R.id.optionC)
         val optionD: TextView = itemView.findViewById(R.id.optionD)
         val result: TextView = itemView.findViewById(R.id.result)
+        val lasttext: TextView = itemView.findViewById(R.id.lasttext)
     }
 }

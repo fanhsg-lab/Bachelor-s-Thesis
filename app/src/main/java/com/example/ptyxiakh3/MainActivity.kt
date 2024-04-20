@@ -31,7 +31,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
+        DbQuery.getUserData(object : MyCompleteListener {
+            override fun onSuccess() {
+                // Handle success, if needed
+            }
 
+            override fun onFailure() {
+                // Log the error message when onFailure is called
+                Log.e("UserData", "Failed to retrieve user data")
+            }
+        })
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentmain1) as NavHostFragment
         val navController = navHostFragment.navController

@@ -38,7 +38,7 @@
             android:textSize="25sp" />
 
         <ImageView
-            android:id="@+id/qa_bookmarkB"
+            android:id="@+id/qa_bofokmarkB"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:backgroundTint="@color/white"

@@ -1,0 +1,16 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <!-- "light_grayish_blue" to keep it light but slightly muted -->
+            <solid android:color="#d3d6e2" />
+        </shape>
+    </item>
+    <item android:bottom="8dp">
+        <shape android:shape="oval">
+            <!-- "soft_gray" to indicate disabled status clearly -->
+            <solid android:color="#ffffff" />
+            <!-- Using "medium_gray" for the stroke to blend but also define edges -->
+            <stroke android:width="5dp" android:color="#9c9da3" />
+        </shape>
+    </item>
+</layer-list>

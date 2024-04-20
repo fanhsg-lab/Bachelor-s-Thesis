@@ -10,6 +10,7 @@ data class Question(
     val question_number:Double=0.0,
     val question_text: String = "",
     val question_text2: String ="",
+    val question_module: List<String> = emptyList(),
     val quiz: Double = 0.0,
     val difficulty: Int = 0,
     val style: String = "",

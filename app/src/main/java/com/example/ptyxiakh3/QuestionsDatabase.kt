@@ -109,6 +109,7 @@ abstract class QuestionsDatabase : RoomDatabase() {
                         "\t\t\t\t τέλοςαν \n" +
                         "τέλοςαν" ,
                 question_text2="Βρες τα λάθη για την πρωτομαθμια εκπαίδευση",
+                question_module=listOf("answer1", "answer2", "answer3"),
                 quiz = 1.1,
                 difficulty = 3,
                 style = "Mistakes",
@@ -126,7 +127,7 @@ abstract class QuestionsDatabase : RoomDatabase() {
                 style = "multiple choice",
                 modules = listOf("Science", "Chemistry","Chapter1"),
                 possibleAnswers = listOf("Oxygen", "Hydrogen", "Carbon Dioxide", "Nitrogen"),
-                correctAnswers = listOf(2,3) // Nitrogen
+                correctAnswers = listOf(2,3) // "Carbon Dioxide", "Nitrogen"
             )
 
 

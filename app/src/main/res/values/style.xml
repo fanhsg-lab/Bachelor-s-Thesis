@@ -32,5 +32,17 @@
         <item name="android:layout_margin">10dp</item>
     </style>
 
+    <style name="CustomAlertDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="colorAccent">@color/yourColorWhenChecked</item>
+        <item name="android:textColorPrimary">@color/yourColorWhenPressed</item>
+        <item name="android:background">@color/yourDefaultColor</item>
+        <!-- Customize other attributes like button styles -->
+        <item name="buttonBarPositiveButtonStyle">@style/AlertDialogButtonStyle</item>
+    </style>
+
+    <style name="AlertDialogButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 
 </resources>
