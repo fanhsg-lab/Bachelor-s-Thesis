@@ -85,19 +85,19 @@ class QuizFragment : Fragment()  {
 
 
 
-        //edo gia to horizontal
+
         val layoutManager = NonScrollableLinearLayoutManager(requireContext())
         myRecyclerView?.layoutManager = layoutManager
 
 
 
-        // gia na einai 1-1 ta object sot recycler
+
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(myRecyclerView)
 
         var totalQuestions = 0
         var progressbarprogress = 0
-        // Observe LiveData from ViewModel
+
         var questionsLiveData= MutableLiveData<List<Question>>()
         val myPosition2 = args.chapter
         val myQuizNumber2 = args.quiz

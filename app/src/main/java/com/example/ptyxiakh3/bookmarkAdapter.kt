@@ -144,7 +144,6 @@ class BookmarkAdapter(
             Log.d("Mistakes", "point2")
             // Set the spannable string to your TextView
             holder.text.text = spannableString
-            holder.lasttext.text = question.question_module[0]
         }
 
         if (question.style == "multiple choice") {
@@ -211,6 +210,5 @@ class BookmarkAdapter(
         val optionC: TextView = itemView.findViewById(R.id.optionC)
         val optionD: TextView = itemView.findViewById(R.id.optionD)
         val result: TextView = itemView.findViewById(R.id.result)
-        val lasttext: TextView = itemView.findViewById(R.id.lasttext)
     }
 }

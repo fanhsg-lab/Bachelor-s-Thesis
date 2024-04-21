@@ -57,6 +57,8 @@ class LeaderboardFragment : Fragment() {
             // Toggle visibility
             popupLayout.visibility = if (popupLayout.visibility == View.GONE) View.VISIBLE else View.GONE
         }
+
+
     }
 
 
