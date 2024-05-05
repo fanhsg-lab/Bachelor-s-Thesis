@@ -10,13 +10,13 @@ import kotlinx.coroutines.launch
 
 class QuestionsViewModel(application: Application) : AndroidViewModel(application) {
 
-    val realAllData: LiveData<List<Question>>
+    val readAllData: LiveData<List<Question>>
     private val repository: QuestionsRepository
 
     init {
         val questionsDao = QuestionsDatabase.getDatabase(application, viewModelScope).questionsDao()
         repository = QuestionsRepository(questionsDao)
-        realAllData = repository.readAllData
+        readAllData = repository.readAllData
     }
 
     fun getQuestionsByQuizNumber(quizNumber: Double): LiveData<List<Question>> {

@@ -425,7 +425,7 @@ class QuizFragment : Fragment()  {
             Log.d("popup","nextBtn1")
             val viewHolder = myRecyclerView?.findViewHolderForAdapterPosition(currentPosition)
             viewHolder?.let {
-                var (flag, textFromAnswer) = quizAdapter.interactWithCurrentItem(it)
+                var (flag, textFromAnswer) = quizAdapter.interactWithCurrentItem(it, 0)
 
 
 
@@ -789,7 +789,7 @@ class QuizFragment : Fragment()  {
                         val viewHolder = myRecyclerView?.findViewHolderForAdapterPosition(currentPosition)
 
                         viewHolder?.let {
-                            var (flag, text) = quizAdapter.interactWithCurrentItem(it)
+                            var (flag, text) = quizAdapter.interactWithCurrentItem(it, 1)
                             if (it is quizAdapter.ViewHolderTypeOne) {
                                 // it is an instance of ViewHolderTypeOne
                                 Log.d("flagg", "flag = ${flag} + text = ${text}, it ${it}")

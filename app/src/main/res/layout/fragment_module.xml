@@ -7,6 +7,8 @@
     android:paddingBottom="80dp">
 
     <!-- TODO: Update blank fragment layout -->
+
+
     <LinearLayout
         android:id="@+id/ll4"
         android:layout_width="match_parent"
@@ -38,11 +40,12 @@
             android:textSize="25sp" />
 
         <ImageView
-            android:id="@+id/qa_bookmarfkB"
+            android:id="@+id/f"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:backgroundTint="@color/white"
-            android:src="@drawable/ic_bookmark" />
+            android:src="@drawable/ic_info"
+            app:tint="@color/text_color" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -55,6 +58,8 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ll4"
+        android:paddingRight="25dp"
+        android:paddingLeft="25dp"
         app:layout_constraintVertical_bias="1.0">
 
     </androidx.recyclerview.widget.RecyclerView>

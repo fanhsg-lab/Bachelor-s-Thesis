@@ -44,5 +44,10 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="CustomCheckBox" parent="Theme.AppCompat.Light">
+        <item name="android:buttonTint">@color/text_color</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
 
 </resources>

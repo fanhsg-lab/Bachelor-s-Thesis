@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ptyxiakh3.data.Question
@@ -48,7 +49,26 @@ class ModuleFragment : Fragment() {
     }
 
     private fun setupModuleModels() {
-        val myList = listOf("if", "for", "Chapter1", "Chapter3", "Chapter2")
+        val myList = listOf(
+            "Python",
+            "Chapter1",
+            "Programming",
+            "Data Structures",
+            "Syntax",
+            "Functions",
+            "Data Types",
+            "Control Structures",
+            "Operators",
+            "Variables",
+            "Lists",
+            "Conditional",
+            "Loops",
+            "Conditions",
+            "Operations",
+            "Testing",
+            "List Comprehension"
+        )
+
         moduleModels.clear() // Clear existing data to handle reset correctly
         // Initialize moduleModels with placeholders for each module in myList
         myList.forEach { moduleItem ->
@@ -58,7 +78,7 @@ class ModuleFragment : Fragment() {
         myList.forEachIndexed { index, moduleItem ->
             questionsViewModel.getQuestionsByModule(moduleItem).observe(viewLifecycleOwner, Observer { questions ->
                 val sortedQuestions = questions.sortedBy { it.question_id }
-
+                //Log.d("QuestionLog", "SIZadfafasdfr $sortedQuestions gie autooooooo $moduleItem")
                 var Nquestions = 0
                 var NotNquestions = 0
 
@@ -75,13 +95,17 @@ class ModuleFragment : Fragment() {
                 }
 
                 val allQ = NotNquestions + Nquestions
+
+                Log.d("QuestionLog", "allQ allQ  $allQ   ")
                 // Update the placeholder at the correct position with actual data
                 moduleModels[index] = ModuleModel(moduleItem, allQ, NotNquestions)
-
+                Log.d("QuestionLog", "Eimai edoppp  $moduleModels   ")
                 // Check if this is the last module to load, then setupRecyclerView
-                if (moduleModels.none { it.tests == 0 && it.answered == 0 }) { // Assuming 0, 0 signifies unloaded data
+
+
+                    Log.d("QuestionLog", "Eimai edo")
                     setupRecyclerView()
-                }
+
             })
         }
     }
@@ -91,10 +115,14 @@ class ModuleFragment : Fragment() {
             // Ensure the adapter is notified of data changes
             val adapter = (recyclerView.adapter as? AdapterModule) ?: AdapterModule(requireContext(), moduleModels, findNavController())
             recyclerView.adapter = adapter
-            recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+            // Set up the RecyclerView with a GridLayoutManager to display 2 columns
+            recyclerView.layoutManager = GridLayoutManager(requireContext(), 2) // Number of columns is set to 2
+
             adapter.notifyDataSetChanged() // Notify the adapter that the data set has changed
         }
     }
+
 
 
     // Other methods like deleteAllUsers and insertDataToDatabase...

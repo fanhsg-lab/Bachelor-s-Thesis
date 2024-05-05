@@ -39,7 +39,7 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
 
         // Initialize an empty LinkedHashMap
         // Initialize an empty LinkedHashMap with chapters as keys
-        val chapters = listOf("Chapter1", "Chapter2", "Chapter3")
+        val chapters = listOf("Syntax", "Python", "Conditional")
         val data: LinkedHashMap<String, List<Quartet<String, Int, Long, String>>> = linkedMapOf<String, List<Quartet<String, Int, Long, String>>>().apply {
             chapters.forEach { chapter ->
                 this[chapter] = listOf()

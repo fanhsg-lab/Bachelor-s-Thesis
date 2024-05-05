@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- White background for the paper -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/lighter_grayish_blue"/> <!-- White color for paper -->
+        </shape>
+    </item>
+
+    <!-- Horizontal lines for the paper with padding on the sides and transparency -->
+    <item android:top="-259dp" android:left="20dp" android:right="20dp">
+        <shape android:shape="line">
+            <stroke android:width="1dp" android:color="#80000000"/> <!-- Semi-transparent black line color -->
+        </shape>
+    </item>
+
+    <item android:top="-159dp" android:left="20dp" android:right="20dp">
+        <shape android:shape="line">
+            <stroke android:width="1dp" android:color="#80000000"/> <!-- Semi-transparent black line color -->
+        </shape>
+    </item>
+
+    <item android:top="-59dp" android:left="20dp" android:right="20dp">
+        <shape android:shape="line">
+            <stroke android:width="1dp" android:color="#80000000"/> <!-- Semi-transparent black line color -->
+        </shape>
+    </item>
+
+    <item android:top="41dp" android:left="20dp" android:right="20dp">
+        <shape android:shape="line">
+            <stroke android:width="1dp" android:color="#80000000"/> <!-- Semi-transparent black line color -->
+        </shape>
+    </item>
+
+    <item android:top="140dp" android:left="20dp" android:right="20dp">
+        <shape android:shape="line">
+            <stroke android:width="1dp" android:color="#80000000"/> <!-- Semi-transparent black line color -->
+        </shape>
+    </item>
+</layer-list>

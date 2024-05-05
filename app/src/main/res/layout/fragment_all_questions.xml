@@ -44,7 +44,8 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:backgroundTint="@color/white"
-            android:src="@drawable/ic_bookmark" />
+            android:src="@drawable/ic_info"
+            app:tint="@color/text_color" />
     </LinearLayout>
 
     <ExpandableListView

@@ -136,7 +136,7 @@ class quizAdapter(
 
         private val nextButtonDrawableId = R.drawable.next_button_drawable
         private val tfButtonsClickedDrawableId = R.drawable.tf_buttons_clicked
-
+        private val startingBackground = R.drawable.next_button_drawable
 
         var isTrueButtonClicked = false
 
@@ -145,10 +145,10 @@ class quizAdapter(
 
             falsebut.setOnClickListener {
                 // Check if the true button is already clicked
-                if (isTrueButtonClicked) {
+
                     truebut.setTextColor(Color.parseColor("white"))
                     truebut.setBackgroundResource(nextButtonDrawableId)
-                }
+
 
                 falsebut.setTextColor(Color.parseColor("#353a4f"))
                 falsebut.setBackgroundResource(tfButtonsClickedDrawableId)
@@ -159,10 +159,10 @@ class quizAdapter(
 
             truebut.setOnClickListener {
                 // Check if the false button is already clicked
-                if (!isTrueButtonClicked) {
+
                     falsebut.setTextColor(Color.parseColor("white"))
                     falsebut.setBackgroundResource(nextButtonDrawableId)
-                }
+
 
                 truebut.setTextColor(Color.parseColor("#353a4f"))
                 truebut.setBackgroundResource(tfButtonsClickedDrawableId)
@@ -181,6 +181,10 @@ class quizAdapter(
             // Bind data for type one
             questionTextView.text = question.question_text
             Titlos.text=question.possibleAnswers[0]
+            truebut.setTextColor(Color.parseColor("#353a4f"))
+            truebut.setBackgroundResource(startingBackground)
+            falsebut.setTextColor(Color.parseColor("#353a4f"))
+            falsebut.setBackgroundResource(startingBackground)
         }
     }
 
@@ -422,58 +426,48 @@ class quizAdapter(
 
 
         init {
+
+
+
             textView.movementMethod = LinkMovementMethod.getInstance()
             textView.setOnTouchListener { v, event ->
-                // Check if the action is a touch release (ACTION_UP)
                 if (event.action == MotionEvent.ACTION_UP) {
-                    // Get the layout of the TextView to access text positions
                     val layout = (v as TextView).layout
-                    // Calculate the x and y coordinates of the touch inside the TextView
                     val x = event.x.toInt() - textView.totalPaddingLeft + textView.scrollX
                     val y = event.y.toInt() - textView.totalPaddingTop + textView.scrollY
-                    // Determine which line of text was touched
                     val line = layout.getLineForVertical(y)
 
-                    // Check if the x-coordinate of the touch is within the width of the line in the TextView
                     if (x <= layout.getLineWidth(line)) {
-                        // Determine the character offset at the position where the touch occurred
                         val offset = layout.getOffsetForHorizontal(line, x.toFloat())
-
-                        // Check if the offset is within the length of the original text to avoid out-of-bounds errors
                         if (offset < originalText.length) {
-                            // Find the start and end of the word that was touched
-                            var wordStart = originalText.lastIndexOf(' ', offset).coerceAtLeast(0)
-                            var wordEnd = originalText.indexOf(' ', offset)
+                            // Updated regex to treat digits, punctuation, and words separately
+                            val segments = Regex("(\\d+|\\w+|\\S)").findAll(originalText).toList()
+                                .find { matchResult -> offset in matchResult.range }
 
-                            // Adjust wordEnd for edge cases (e.g., touching the end of the text or a space)
-                            if (wordEnd == -1 || wordEnd <= wordStart) {
-                                wordEnd = originalText.length
-                            }
-                            // Adjust wordStart to point to the first character of the word
-                            if (wordStart != 0) {
-                                wordStart += 1
-                            }
+                            segments?.let {
+                                val segmentStart = it.range.first
+                                val segmentEnd = it.range.last + 1
+                                val segmentStartX = layout.getPrimaryHorizontal(segmentStart)
+                                val segmentEndX = layout.getPrimaryHorizontal(segmentEnd)
 
-                            // Get the horizontal positions of the start and end of the word
-                            val wordStartX = layout.getPrimaryHorizontal(wordStart)
-                            val wordEndX = if (wordEnd < originalText.length) layout.getPrimaryHorizontal(wordEnd) else layout.getLineWidth(line)
-
-                            // Check if the touch was within the horizontal bounds of the word
-                            if (x >= wordStartX && x <= wordEndX) {
-                                // Get any existing color spans on the touched word
-                                val spans = spannableString.getSpans(wordStart, wordEnd, ForegroundColorSpan::class.java)
-                                // If a color span exists, remove it, indicating toggling off the color
-                                if (spans.isNotEmpty()) {
-                                    spannableString.removeSpan(spans[0])
-                                    coloredWords.remove(IntRange(wordStart, wordEnd))
-                                } else {
-                                    val customColor = Color.parseColor("#7D729F")
-                                    // If no color span exists, apply a new color span to the word
-                                    spannableString.setSpan(ForegroundColorSpan(customColor), wordStart, wordEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                                    coloredWords.add(IntRange(wordStart, wordEnd))
+                                if (x >= segmentStartX && x <= segmentEndX) {
+                                    val spannableString = SpannableString(textView.text)
+                                    val spans = spannableString.getSpans(segmentStart, segmentEnd, ForegroundColorSpan::class.java)
+                                    if (spans.isNotEmpty()) {
+                                        spannableString.removeSpan(spans[0])
+                                    } else {
+                                        // Assign colors based on the type of segment
+                                        val customColor = if (it.value.matches(Regex("\\d+"))) {
+                                            Color.parseColor("#FFA07A") // Light salmon for numbers
+                                        } else if (it.value.matches(Regex("\\w+"))) {
+                                            Color.parseColor("#7D729F") // Purple for words
+                                        } else {
+                                            Color.parseColor("#FF6347") // Tomato for punctuation and other characters
+                                        }
+                                        spannableString.setSpan(ForegroundColorSpan(customColor), segmentStart, segmentEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                    }
+                                    textView.text = spannableString
                                 }
-                                // Update the TextView with the modified text (with new color spans)
-                                textView.text = spannableString
                             }
                         }
                     }
@@ -509,7 +503,7 @@ class quizAdapter(
 
 
 
-    fun interactWithCurrentItem(viewHolder: RecyclerView.ViewHolder): Pair<Boolean, String> {
+    fun interactWithCurrentItem(viewHolder: RecyclerView.ViewHolder, flagforH: Int): Pair<Boolean, String> {
 
 
         val position = viewHolder.adapterPosition // Get the position of the item in the adapter
@@ -561,10 +555,10 @@ class quizAdapter(
                         index++
                     }
                     if(flag){
-                        updateQHistory(currentQuestion.question_id.toInt(), true)
+                        updateQHistory(currentQuestion.question_id.toInt(), true,flagforH)
 
                     }else{
-                        updateQHistory(currentQuestion.question_id.toInt(), false)
+                        updateQHistory(currentQuestion.question_id.toInt(), false,flagforH)
 
                     }
 
@@ -585,11 +579,11 @@ class quizAdapter(
                     if (isTrueButtonClicked==(currentQuestion.correctAnswers[0].toInt() ==1)) {
                         Log.d("QuizFragment2", "Is True Button Clicked: sosto")
                         Log.d("QuizFragment2", "${currentQuestion.question_id}")
-                        updateQHistory(currentQuestion.question_id.toInt(), true)
+                        updateQHistory(currentQuestion.question_id.toInt(), true,flagforH)
                         flag = true
                     }else{
                         Log.d("QuizFragment2", "Is True Button Clicked: lathos")
-                        updateQHistory(currentQuestion.question_id.toInt(), false)
+                        updateQHistory(currentQuestion.question_id.toInt(), false,flagforH)
                         flag = false
                     }
                     Log.d("flagg", "Id ${flag} ")
@@ -643,13 +637,13 @@ class quizAdapter(
                     if (minMistakes<1) {
 
                         Log.d("Three3", "Result: Correct")
-                        updateQHistory(currentQuestion.question_id.toInt(), true)
+                        updateQHistory(currentQuestion.question_id.toInt(), true,flagforH)
                         return Pair(flag,"Sosta")
 
 
                     } else {
                         Log.d("Three3", "Result: False")
-                        updateQHistory(currentQuestion.question_id.toInt(), false)
+                        updateQHistory(currentQuestion.question_id.toInt(), false,flagforH)
                         return Pair(false,text)
 
                     }
@@ -691,7 +685,12 @@ class quizAdapter(
                          //   Log.d("QuizFragment2", "καθενα: ${combinedString[i]}")
                           //  Log.d("QuizFragment2", "else: ${combinedString[i].digitToInt()}")
                             correctNumbers.add(combinedString[i].digitToInt())
+                            Log.d("QuizFragment2", "mphka + ${combinedString[i].digitToInt()}")
                             i++ // Move to the next character
+                        }
+
+                        if (i==combinedString.length-1){
+                            correctNumbers.add(combinedString[i].digitToInt())
                         }
                     }
 
@@ -707,7 +706,7 @@ class quizAdapter(
                         Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show()
                         Log.d("QuizFragment2", "Is True Button Clicked: sosto")
                         Log.d("QuizFragment2", "${currentQuestion.question_id}")
-                        updateQHistory(currentQuestion.question_id.toInt(), true) // Pass 'true' if the answer is correct, 'false' otherwise
+                        updateQHistory(currentQuestion.question_id.toInt(), true,flagforH) // Pass 'true' if the answer is correct, 'false' otherwise
                         flag = true
 
                     } else {
@@ -721,7 +720,7 @@ class quizAdapter(
                         mistakeMessage = differences.joinToString(separator = ", ") { "(Expected: ${it.second}, Found: ${it.first})" }
                         val toastText = "Final Order is incorrect. Mistakes: $mistakeMessage"
                         Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show()
-                        updateQHistory(currentQuestion.question_id.toInt(), false)
+                        updateQHistory(currentQuestion.question_id.toInt(), false,flagforH)
                         flag = false
                     }
 
@@ -766,11 +765,11 @@ class quizAdapter(
                         text +=  unnecessaryWords.joinToString(", ")
                     }
                     if(missedAnswers.isEmpty() && unnecessaryWords.isEmpty()){
-                        updateQHistory(currentQuestion.question_id.toInt(), true)
+                        updateQHistory(currentQuestion.question_id.toInt(), true,flagforH)
                         flag = true
 
                     }else{
-                        updateQHistory(currentQuestion.question_id.toInt(), false)
+                        updateQHistory(currentQuestion.question_id.toInt(), false,flagforH)
                         flag = false
 
                     }
@@ -789,22 +788,24 @@ class quizAdapter(
         return Pair(true,"LATHOS")
     }
 
-    fun updateQHistory(questionId: Int, isCorrect: Boolean) {
-        val segmentLength = 5
-        val startIndex = (questionId - 1) * segmentLength
-        val endIndex = startIndex + segmentLength
+    fun updateQHistory(questionId: Int, isCorrect: Boolean,flagforH: Int) {
+        if (flagforH==1) {
+            val segmentLength = 5
+            val startIndex = (questionId - 1) * segmentLength
+            val endIndex = startIndex + segmentLength
 
-        // Ensure the indices are within the bounds of the string
-        if (startIndex < myProfile.qHistory.length && endIndex <= myProfile.qHistory.length) {
-            val newAnswer = if (isCorrect) 'T' else 'F'
-            val currentSegment = myProfile.qHistory.substring(startIndex, endIndex)
-            val updatedSegment = newAnswer + currentSegment.substring(0, segmentLength - 1)
+            // Ensure the indices are within the bounds of the string
+            if (startIndex < myProfile.qHistory.length && endIndex <= myProfile.qHistory.length) {
+                val newAnswer = if (isCorrect) 'T' else 'F'
+                val currentSegment = myProfile.qHistory.substring(startIndex, endIndex)
+                val updatedSegment = newAnswer + currentSegment.substring(0, segmentLength - 1)
 
-            myProfile.qHistory = myProfile.qHistory.substring(0, startIndex) +
-                    updatedSegment +
-                    myProfile.qHistory.substring(endIndex)
+                myProfile.qHistory = myProfile.qHistory.substring(0, startIndex) +
+                        updatedSegment +
+                        myProfile.qHistory.substring(endIndex)
+            }
+            Log.d("Three3", "${myProfile.qHistory}")
         }
-        Log.d("Three3", "${myProfile.qHistory}")
     }
 
 
