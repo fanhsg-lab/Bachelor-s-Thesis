@@ -48,6 +48,7 @@
 
             <com.example.ptyxiakh3.MyView
                 android:id="@+id/my_view"
+                android:background="@color/white"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginTop="0dp" />

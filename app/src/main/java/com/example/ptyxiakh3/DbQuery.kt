@@ -8,13 +8,23 @@ import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 
 object DbQuery {
     var g_firestore: FirebaseFirestore? = null
-    var myProfile: ProfileModel = ProfileModel("NA", "@",  0 ,"f", mutableListOf("1.1", "1.2") )
+    var myProfile: ProfileModel = ProfileModel("NA", "@",  0 ,"f", mutableListOf("1.1", "2.1" , ""),0 )
     val g_bmIdList: MutableList<Long> = mutableListOf()
     val g_bookmarksList: MutableList<Question> = mutableListOf()
+    var g_usersCount: Int = 0
 
+
+        val g_usersList: MutableList<RankModel> = mutableListOf()
+
+
+        val myPerformance: RankModel = RankModel("NULL", 0, -1)
+
+
+        var isMeOnTopList: Boolean = false
 
 
 
@@ -24,8 +34,8 @@ object DbQuery {
             "NAME" to name,
             "TOTAL_SCORE" to 0,
             "BOOKMARKS" to 0,
-            "QUIZS" to "1.1,",
-            "Q_HISTORY" to "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+            "QUIZS" to "1.1,2.1",
+            "Q_HISTORY" to "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
         )
 
         val userDoc = g_firestore!!.collection("USERS")
@@ -155,6 +165,38 @@ object DbQuery {
 
 
 
+    fun getTopUsers(completeListener: MyCompleteListener) {
+        g_usersList.clear()
+
+        val myUID = FirebaseAuth.getInstance().uid
+
+        g_firestore?.collection("USERS")
+            ?.whereGreaterThan("TOTAL_SCORE", 0)
+            ?.orderBy("TOTAL_SCORE", Query.Direction.DESCENDING)
+            ?.limit(20)
+            ?.get()
+            ?.addOnSuccessListener { queryDocumentSnapshots ->
+                var rank = 1
+                for (doc in queryDocumentSnapshots) {
+                    g_usersList.add(RankModel(
+                        doc.getString("NAME") ?: "",
+                        doc.getLong("TOTAL_SCORE")?.toInt() ?: 0,
+                        rank
+                    ))
+
+                    if (myUID == doc.id) {
+                        isMeOnTopList = true
+                        myPerformance.rank = rank
+                    }
+                    rank++
+                }
+
+                completeListener.onSuccess()
+            }
+            ?.addOnFailureListener { e ->
+                completeListener.onFailure()
+            }
+    }
 
 
     fun getUserData(completeListener: MyCompleteListener) {
@@ -172,8 +214,12 @@ object DbQuery {
                     email = documentSnapshot.getString("EMAIL_ID") ?: ""
                     bookmarksCount = documentSnapshot.getLong("BOOKMARKS")?.toInt() ?: 0
                     qHistory = documentSnapshot.getString("Q_HISTORY") ?: "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+
+                    myPerformance.score = documentSnapshot.getLong("TOTAL_SCORE")?.toInt() ?: 0
+                    Log.d("Scoremessage","Score $score")
                     val quizsString = documentSnapshot.getString("QUIZS") ?: "1.1,1.2"
                     var quizsList = quizsString.split(",")
+                    Log.d("quizs","edo3 ,${quizsString}  ,axa ,  $quizsList")
                     Log.d("quizs","edo3 ,${quizs}")
                     quizs.clear()
                     quizs.addAll(quizsList)
@@ -233,47 +279,60 @@ object DbQuery {
         }
     }
 
-/*
-    fun loadBookmarks(completeListener: MyCompleteListener) {
-        g_bookmarksList.clear()
-
-        var tmp = 0
-
-        if (g_bmIdList.isEmpty()) {
-            completeListener.onSuccess()
-        }
-
-        for (docID in g_bmIdList) {
-            g_firestore!!.collection("Questions").document(docID)
-                .get()
-                .addOnSuccessListener { documentSnapshot ->
-                    if (documentSnapshot.exists()) {
-                        g_bookmarksList.add(QuestionModel(
-                            documentSnapshot.id,
-                            documentSnapshot.getString("QUESTION"),
-                            documentSnapshot.getString("A"),
-                            documentSnapshot.getString("B"),
-                            documentSnapshot.getString("C"),
-                            documentSnapshot.getString("D"),
-                            documentSnapshot.getLong("ANSWER")?.toInt() ?: 0,
-                            0,
-                            -1,
-                            false
-                        ))
-                    }
-
-                    tmp++
-                    if (tmp == g_bmIdList.size) {
-                        completeListener.onSuccess()
-                    }
-                }
-                .addOnFailureListener {
-                    completeListener.onFailure()
-                }
-        }
+    fun getUsersCount(completeListener: MyCompleteListener) {
+        g_firestore?.collection("USERS")?.document("TOTAL_USERS")
+            ?.get()
+            ?.addOnSuccessListener { documentSnapshot ->
+                g_usersCount = documentSnapshot.getLong("COUNT")?.toInt() ?: 0
+                completeListener.onSuccess()
+            }
+            ?.addOnFailureListener { e ->
+                completeListener.onFailure()
+            }
     }
 
-*/
+
+    /*
+        fun loadBookmarks(completeListener: MyCompleteListener) {
+            g_bookmarksList.clear()
+
+            var tmp = 0
+
+            if (g_bmIdList.isEmpty()) {
+                completeListener.onSuccess()
+            }
+
+            for (docID in g_bmIdList) {
+                g_firestore!!.collection("Questions").document(docID)
+                    .get()
+                    .addOnSuccessListener { documentSnapshot ->
+                        if (documentSnapshot.exists()) {
+                            g_bookmarksList.add(QuestionModel(
+                                documentSnapshot.id,
+                                documentSnapshot.getString("QUESTION"),
+                                documentSnapshot.getString("A"),
+                                documentSnapshot.getString("B"),
+                                documentSnapshot.getString("C"),
+                                documentSnapshot.getString("D"),
+                                documentSnapshot.getLong("ANSWER")?.toInt() ?: 0,
+                                0,
+                                -1,
+                                false
+                            ))
+                        }
+
+                        tmp++
+                        if (tmp == g_bmIdList.size) {
+                            completeListener.onSuccess()
+                        }
+                    }
+                    .addOnFailureListener {
+                        completeListener.onFailure()
+                    }
+            }
+        }
+
+    */
 
 
 }

@@ -25,6 +25,9 @@
         app:layout_constraintBottom_toBottomOf="@+id/fragmentmain1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="?attr/colorPrimary"
+        app:itemIconTint="@color/text_color"
+        app:itemTextColor="@color/text_color"
         app:menu="@menu/bottom_menu"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

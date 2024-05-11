@@ -9,6 +9,62 @@
     android:background="@drawable/background4"
     tools:context=".AllQuestionsFragment">
 
+
+    <LinearLayout
+        android:id="@+id/ModulepopupLayout"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/informationackground"
+        android:elevation="4dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="information"
+            android:textSize="28sp"
+            android:fontFamily="@font/madimione"
+            android:textColor="@color/text_color"
+            android:gravity="center"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/text_color" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:text="Έλενξε τα ποσοστά σου για κάθε άσκηση ξεχωριστά. Το χρώμα είναι ανάλογα του ποσοστού επιτυχίας των τελευταίων 5 απαντήσεων σου."/>
+
+
+
+        <ImageView
+            android:id="@+id/closeBtn"
+            android:layout_gravity="end"
+            android:paddingTop="0dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_close"
+            app:tint="@color/text_color" />
+    </LinearLayout>
+
+
     <LinearLayout
         android:id="@+id/menuallQ"
         android:layout_width="match_parent"
@@ -40,7 +96,7 @@
             android:textSize="25sp" />
 
         <ImageView
-            android:id="@+id/f"
+            android:id="@+id/info"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:backgroundTint="@color/white"

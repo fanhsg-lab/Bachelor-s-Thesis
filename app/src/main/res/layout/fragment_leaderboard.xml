@@ -6,6 +6,175 @@
     android:background="@color/light_grey"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:id="@+id/ModulepopupLayout"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/informationackground"
+        android:elevation="4dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="information"
+            android:textSize="28sp"
+            android:fontFamily="@font/madimione"
+            android:textColor="@color/text_color"
+            android:gravity="center"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/text_color" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:text="Δες τα στατιστικά για τις ασκήσεις που έχεις απαντήσει. Άλλαξε τον τρόπο που βλέπεις τις ερωτήσεις ώστε να ανακαλύψεις πιθανές δυσκολίες σου."/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingBottom="5dp"
+            android:orientation="horizontal">
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button2"
+                android:layout_width="37dp"
+                android:layout_height="37dp"
+                android:background="@drawable/ic_account"
+                android:text=""
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/my_card_view"
+                app:layout_constraintStart_toStartOf="@+id/my_card_view"
+                app:layout_constraintTop_toTopOf="@+id/my_card_view" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingBottom="4dp"
+                android:textSize="18sp"
+                android:text="Επέλεξε όσα στοιχεία είναι σημαντικά για εσένα"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingBottom="5dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/butrton2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/modulebutton2"
+                android:text=""
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/my_card_view"
+                app:layout_constraintStart_toStartOf="@+id/my_card_view"
+                app:layout_constraintTop_toTopOf="@+id/my_card_view" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:textSize="18sp"
+                android:text="Άλλαξε το τρόπο ελέγχου. Πρώτος υπολογίζει το ποσοστό ανάλογα με τις σωστές ερωτήσεις."/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/butfton2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/modulebutton4"
+                android:text=""
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/my_card_view"
+                app:layout_constraintStart_toStartOf="@+id/my_card_view"
+                app:layout_constraintTop_toTopOf="@+id/my_card_view" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:textSize="18sp"
+                android:text=" Ο δεύτερος ανάλογα τις σωστές ασκήσεις."/>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/anaTiTexttt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:rotation="-33"
+            android:text="Ana Askhsh"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:textSize="18sp"
+            android:text="Άλλαξε την κατηγορία με την οποία εμφανίζονται τα ποσοστά."/>
+    </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/closeBtnn"
+            android:layout_gravity="end"
+            android:paddingTop="0dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_close"
+            app:tint="@color/text_color" />
+    </LinearLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -164,7 +333,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
-                android:background="@drawable/statsbackground"
+            android:background="@drawable/statsbackground"
                 android:orientation="vertical"
             android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -789,7 +958,7 @@
             android:textSize="25sp" />
 
         <ImageView
-            android:id="@+id/f"
+            android:id="@+id/info"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:backgroundTint="@color/white"
@@ -938,7 +1107,7 @@
         android:id="@+id/popupLayout2"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/statsbackground"
+        android:background="@drawable/informationackground"
         android:elevation="4dp"
         android:layout_gravity="center"
         android:orientation="vertical"

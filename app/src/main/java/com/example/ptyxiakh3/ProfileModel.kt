@@ -5,5 +5,6 @@ class ProfileModel(
     var email: String,
     var bookmarksCount: Int,
     var qHistory: String,
-    val quizs: MutableList<String> = mutableListOf()
+    val quizs: MutableList<String> = mutableListOf(),
+    var score: Int
 )

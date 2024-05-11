@@ -33,7 +33,7 @@
     </style>
 
     <style name="CustomAlertDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
-        <item name="colorAccent">@color/yourColorWhenChecked</item>
+        <item name="colorAccent">@color/yourColorWhenPressed</item>
         <item name="android:textColorPrimary">@color/yourColorWhenPressed</item>
         <item name="android:background">@color/yourDefaultColor</item>
         <!-- Customize other attributes like button styles -->
@@ -49,5 +49,11 @@
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
+    <style name="Theme.App.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
 </resources>

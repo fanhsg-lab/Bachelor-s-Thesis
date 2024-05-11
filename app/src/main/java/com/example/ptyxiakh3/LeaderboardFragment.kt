@@ -156,6 +156,19 @@ class LeaderboardFragment : Fragment() {
         })
 
 
+        val Popup = view.findViewById<LinearLayout>(R.id.ModulepopupLayout)
+        val infoBtn = view.findViewById<ImageView>(R.id.info)
+        val closeBtn = view.findViewById<ImageView>(R.id.closeBtnn)
+
+        closeBtn.setOnClickListener{
+            Popup?.visibility=View.GONE
+        }
+
+        infoBtn.setOnClickListener{
+            Popup?.visibility=View.VISIBLE
+        }
+
+
 
             return view
     }
@@ -262,6 +275,7 @@ class LeaderboardFragment : Fragment() {
 
                 if (index < bars.size) {
                     bars[index]?.progress = categoryCorrectness
+                    Log.d("LeaderBoard", "index: $index, categoryCorrectness: $categoryCorrectness, category: $category")
                 }
 
                 Log.d("LeaderBoard", "Category: $category, Correct: $correct, Count: $count")
@@ -328,6 +342,8 @@ class LeaderboardFragment : Fragment() {
 
         val barLeft : ProgressBar? = view.findViewById(R.id.progressBarLeft)
 
+        Log.d("LeaderboardFragment", "onViewCreated called")
+
         val checkBox1 : CheckBox? = view.findViewById(R.id.checkBox1)
         val checkBox2 : CheckBox? = view.findViewById(R.id.checkBox2)
         val checkBox3 : CheckBox? = view.findViewById(R.id.checkBox3)
@@ -339,6 +355,15 @@ class LeaderboardFragment : Fragment() {
         val checkBox23 : CheckBox? = view.findViewById(R.id.checkBox23)
         val checkBox24 : CheckBox? = view.findViewById(R.id.checkBox24)
         val checkBox25 : CheckBox? = view.findViewById(R.id.checkBox25)
+
+
+        view.postDelayed({
+            listOf(checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox21, checkBox22, checkBox23, checkBox24, checkBox25).forEach {
+                it?.isChecked = true
+            }
+        }, 100)  // Delay by 100 milliseconds
+
+
 
 
         val progressBar = view.findViewById<ProgressBar>(R.id.progressBar)

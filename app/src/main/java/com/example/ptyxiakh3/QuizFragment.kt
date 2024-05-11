@@ -102,6 +102,7 @@ class QuizFragment : Fragment()  {
         val myPosition2 = args.chapter
         val myQuizNumber2 = args.quiz
         val quiz2 = (myQuizNumber2+myPosition2*0.1).toString()
+        val quizNext = ((myQuizNumber2+(myPosition2+1)*0.1)).toString()
 
 
         if (sourceFragment == "History") {
@@ -119,18 +120,41 @@ class QuizFragment : Fragment()  {
         } else if (sourceFragment == "Module") {
             val Module = args.chapter
             val Dif = args.quiz
-            if(Dif==0){
-
+            Log.d("ModulesCh","gia na doume $Module , $Dif")
+            if (Dif == 0) {
+                Log.d("ModulesCh","Only nnnnnnnn")
                 var questionsdata: LiveData<List<Question>>? = null
 
+                val myList = listOf(
+                    "Python",           // Index 0 -> Module 1
+                    "Chapter1",         // Index 1 -> Module 2
+                    "Programming",      // Index 2 -> Module 3
+                    "Data Structures",  // Index 3 -> Module 4
+                    "Syntax",           // Index 4 -> Module 5
+                    "Functions",        // Index 5 -> Module 6
+                    "Data Types",       // Index 6 -> Module 7
+                    "Control Structures", // Index 7 -> Module 8
+                    "Operators",        // Index 8 -> Module 9
+                    "Variables",        // Index 9 -> Module 10
+                    "Lists",            // Index 10 -> Module 11
+                    "Conditional",      // Index 11 -> Module 12
+                    "Loops",            // Index 12 -> Module 13
+                    "Conditions",       // Index 13 -> Module 14
+                    "Operations",       // Index 14 -> Module 15
+                    "Testing",          // Index 15 -> Module 16
+                    "List Comprehension" // Index 16 -> Module 17
+                )
 
-
-                if (Module == 1) {
-                    questionsdata = questionsViewModel.getQuestionsByModule("if")
-                } else if (Module == 2){
-                    questionsdata = questionsViewModel.getQuestionsByModule("for")
+                // Get the corresponding module string using Module number adjusted for zero-index
+                Log.d("ModulesCh","gia na doume $Module")
+                if (Module in 1..myList.size) {
+                    val moduleString = myList[Module - 1]
+                    Log.d("ModulesCh","gia na doume $moduleString")
+                    questionsdata = questionsViewModel.getQuestionsByModule(moduleString)
                 }
-                val questionsWithOnlyN = mutableListOf<Question>()
+
+
+            val questionsWithOnlyN = mutableListOf<Question>()
                 val questionsWithOtherCharacters = mutableListOf<Question>()
 
                 var processedQuestions = 0
@@ -182,18 +206,38 @@ class QuizFragment : Fragment()  {
 
 
                 Log.d("DataQuiz", "Question ID: ${myProfile.qHistory}")
-            }else{
+            }else if( Dif == 3){
                 var questionsdata: LiveData<List<Question>>? = null
 
-                if (Module == 1) {
-                    questionsdata = questionsViewModel.getQuestionsByModuleAndDifficulty("if",Dif)
-                } else if (Module == 2){
-                    questionsdata = questionsViewModel.getQuestionsByModuleAndDifficulty("for",Dif)
-                }
-                val questionsWithOnlyN = mutableListOf<Question>()
-                val questionsWithOtherCharacters = mutableListOf<Question>()
 
-                var processedQuestions = 0
+                val myList = listOf(
+                    "Python",           // Index 0 -> Module 1
+                    "Chapter1",         // Index 1 -> Module 2
+                    "Programming",      // Index 2 -> Module 3
+                    "Data Structures",  // Index 3 -> Module 4
+                    "Syntax",           // Index 4 -> Module 5
+                    "Functions",        // Index 5 -> Module 6
+                    "Data Types",       // Index 6 -> Module 7
+                    "Control Structures", // Index 7 -> Module 8
+                    "Operators",        // Index 8 -> Module 9
+                    "Variables",        // Index 9 -> Module 10
+                    "Lists",            // Index 10 -> Module 11
+                    "Conditional",      // Index 11 -> Module 12
+                    "Loops",            // Index 12 -> Module 13
+                    "Conditions",       // Index 13 -> Module 14
+                    "Operations",       // Index 14 -> Module 15
+                    "Testing",          // Index 15 -> Module 16
+                    "List Comprehension" // Index 16 -> Module 17
+                )
+
+                // Get the corresponding module string using Module number adjusted for zero-index
+                Log.d("ModulesCh","gia na doume $Module")
+                if (Module in 1..myList.size) {
+                    val moduleString = myList[Module - 1]
+                    Log.d("ModulesCh","gia na doume $moduleString")
+                    questionsdata = questionsViewModel.getQuestionsByModuleAndDifficulty(moduleString,3)
+                }
+
 
                 questionsdata?.observe(viewLifecycleOwner, Observer { questions ->
                     // Your processing logic here
@@ -263,6 +307,99 @@ class QuizFragment : Fragment()  {
 
 
                 Log.d("DataQuiz", "Question ID: ${myProfile.qHistory}")
+            }else{
+
+                Log.d("ModulesCh","Only nnnnnnnn")
+                var questionsdata: LiveData<List<Question>>? = null
+
+                val myList = listOf(
+                    "Python",           // Index 0 -> Module 1
+                    "Chapter1",         // Index 1 -> Module 2
+                    "Programming",      // Index 2 -> Module 3
+                    "Data Structures",  // Index 3 -> Module 4
+                    "Syntax",           // Index 4 -> Module 5
+                    "Functions",        // Index 5 -> Module 6
+                    "Data Types",       // Index 6 -> Module 7
+                    "Control Structures", // Index 7 -> Module 8
+                    "Operators",        // Index 8 -> Module 9
+                    "Variables",        // Index 9 -> Module 10
+                    "Lists",            // Index 10 -> Module 11
+                    "Conditional",      // Index 11 -> Module 12
+                    "Loops",            // Index 12 -> Module 13
+                    "Conditions",       // Index 13 -> Module 14
+                    "Operations",       // Index 14 -> Module 15
+                    "Testing",          // Index 15 -> Module 16
+                    "List Comprehension" // Index 16 -> Module 17
+                )
+
+                // Get the corresponding module string using Module number adjusted for zero-index
+                Log.d("ModulesCh","gia na doume $Module")
+                if (Module in 1..myList.size) {
+                    val moduleString = myList[Module - 1]
+                    Log.d("ModulesCh","gia na doume $moduleString")
+                    questionsdata = questionsViewModel.getQuestionsByModule(moduleString)
+                }
+
+
+                val questionsWithOnlyN = mutableListOf<Question>()
+                val questionsWithOtherCharacters = mutableListOf<Question>()
+
+                var processedQuestions = 0
+
+                questionsdata?.observe(viewLifecycleOwner, Observer { questions ->
+                    // Your processing logic here
+                })
+
+
+                if (questionsdata != null) {
+                    questionsdata.observe(viewLifecycleOwner, Observer { questions ->
+                        val totalQuestions = questions.size
+                        val questionCorrectness = mutableListOf<Pair<Long, Double>>() // Pair of Question ID (Long) and Correctness Percentage (Double)
+
+                        questions.forEach { question ->
+                            // Calculate the start index for the current question ID
+                            val startIndex = ((question.question_id - 1) * 5).toInt()
+                            // Extract the corresponding 5-character string from the profile history
+                            val historySegment = myProfile.qHistory.substring(startIndex, startIndex + 5)
+
+                            // Count the number of 'T' (True) and 'F' (False)
+                            val correctCount = historySegment.count { it == 'T' }
+                            val incorrectCount = historySegment.count { it == 'F' }
+                            val totalResponses = correctCount + incorrectCount // Only summing 'T' and 'F'
+
+                            if (totalResponses > 0) { // To avoid division by zero
+                                val correctnessPercentage = (correctCount.toDouble() / totalResponses) * 100
+                                questionCorrectness.add(question.question_id to correctnessPercentage)
+                            }
+                        }
+
+                        // Sort the list by correctness percentage and take the first five entries
+                        val questionsLeastCorrectIds = questionCorrectness
+                            .sortedBy { it.second } // Sort by percentage, ascending
+                            .take(5) // Take the first five entries
+                            .map { it.first } // Map to question IDs
+
+                        // Retrieve the Question objects for the least correct IDs
+                        val questionsLeastCorrect = questions.filter { it.question_id in questionsLeastCorrectIds }
+
+                        // Log or handle the least correct questions
+                        if (questionsLeastCorrect.isNotEmpty()) {
+                            Log.d("Dif2", "Questions with least correctness: ${questionsLeastCorrect}")
+                            questionsLiveData.value = questionsLeastCorrect // Update LiveData with the relevant questions
+                        }
+
+                        // Check if all questions are processed
+                        if (processedQuestions == totalQuestions) {
+                            // Perform your logic for updating or handling LiveData here as previously done
+                        }
+                    })
+                }
+
+
+
+
+                Log.d("DataQuiz", "Question ID: ${myProfile.qHistory}")
+
             }
 
 
@@ -405,6 +542,17 @@ class QuizFragment : Fragment()  {
         binding?.btnNext?.setOnClickListener {
 
             //Log.d("popup","mphkapop")
+            var flag2= false;
+
+
+
+            val popup = activity?.findViewById<LinearLayout>(R.id.popup)
+            Log.d("Scoremessage","edo ${popup?.visibility}")
+            if (popup != null) {
+                if(popup.visibility == View.GONE){
+                    flag2= true;
+                }
+            }
             val currentPosition = layoutManager.findFirstCompletelyVisibleItemPosition()
             val layoutManager = myRecyclerView?.layoutManager as LinearLayoutManager
             val currentPos = layoutManager.findFirstVisibleItemPosition()
@@ -422,11 +570,29 @@ class QuizFragment : Fragment()  {
             val result = activity?.findViewById<TextView>(R.id.result)
             val lasttext = activity?.findViewById<TextView>(R.id.lasttext)
 
-            Log.d("popup","nextBtn1")
+            Log.d("Scoremessage","nextBtn1")
             val viewHolder = myRecyclerView?.findViewHolderForAdapterPosition(currentPosition)
             viewHolder?.let {
                 var (flag, textFromAnswer) = quizAdapter.interactWithCurrentItem(it, 0)
 
+                if (flag && flag2) {
+                    if (question != null) {
+                        if (question.difficulty == 1) {
+
+                            DbQuery.myPerformance.score= DbQuery.myPerformance.score + 5
+                        } else if (question.difficulty == 2) {
+
+                            DbQuery.myPerformance.score= DbQuery.myPerformance.score + 10
+                        } else if (question.difficulty == 3) {
+
+                            DbQuery.myPerformance.score= DbQuery.myPerformance.score + 25
+                        } else {
+                            // Handle unexpected difficulty level
+                            println("Unknown difficulty")
+                        }
+                        Log.d("Scoremessage","myProfile.score ${DbQuery.myPerformance.score}")
+                    }
+                }
 
 
 
@@ -510,8 +676,14 @@ class QuizFragment : Fragment()  {
                     }
 
 
-                    // Set the spannable string to your TextView
+                    // Set the spannable stringv to your TextView
                     text?.text = spannableString
+                    result?.visibility = View.VISIBLE
+                    if(flag) {
+                        result?.text = "Correct"
+                    }else{
+                        result?.text = "False  "
+                    }
                 }
 
                 if (question?.style == "Mistakes") {
@@ -605,6 +777,13 @@ class QuizFragment : Fragment()  {
 // Set the SpannableStringBuilder to a TextView
                     lasttext?.text = spannableBuilder
 
+                    result?.visibility = View.VISIBLE
+                    if(flag) {
+                        result?.text = "Correct"
+                    }else{
+                        result?.text = "False  "
+                    }
+
 
                 }
 
@@ -649,6 +828,12 @@ class QuizFragment : Fragment()  {
                         }
                     }
                     Log.d("Mistakesall", "point2")
+                    result?.visibility = View.VISIBLE
+                    if(flag) {
+                        result?.text = "Correct"
+                    }else{
+                        result?.text = "False  "
+                    }
 
                 }
 
@@ -663,6 +848,14 @@ class QuizFragment : Fragment()  {
                     optionB?.visibility = View.GONE
                     optionC?.visibility = View.GONE
                     optionD?.visibility = View.GONE
+
+
+                    result?.visibility = View.VISIBLE
+                    if(flag) {
+                        result?.text = "Correct"
+                    }else{
+                        result?.text = "False  "
+                    }
                 }
             }
             // Ensure it's always visible (if you have previously set it to gone somewhere)
@@ -728,9 +921,11 @@ class QuizFragment : Fragment()  {
 
                             progressBar.progress = 0
                             val result = myProfile.qHistory
+                            val score = DbQuery.myPerformance.score
                             Log.d("quizs","edo ,${myProfile.quizs}")
-                            if (!myProfile.quizs.contains(quiz2)) {
-                                myProfile.quizs.add(quiz2)
+                            Log.d("quizs","quizNext ,${quizNext} , quiz2 $quiz2")
+                            if (!myProfile.quizs.contains(quizNext) && myProfile.quizs.contains(quiz2)) {
+                                myProfile.quizs.add(quizNext)
                             }
                             Log.d("quizs","edo2 ,${myProfile.quizs}")
 
@@ -745,7 +940,7 @@ class QuizFragment : Fragment()  {
 
                                 }
                             })
-                            DbQuery.updateQScore(   10, object :
+                            DbQuery.updateQScore(   score, object :
                                 MyCompleteListener {
                                 override fun onSuccess() {
 

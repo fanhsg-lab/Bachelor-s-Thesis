@@ -9,6 +9,10 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.duolingo.adapters.RankAdapter
+import com.example.ptyxiakh3.DbQuery.myPerformance
 import com.example.ptyxiakh3.DbQuery.myProfile
 import com.example.ptyxiakh3.MainActivity.Companion.auth
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -17,6 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+private lateinit var usersView: RecyclerView
 
 /**
  * A simple [Fragment] subclass.
@@ -40,12 +45,27 @@ class AccountFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view = inflater.inflate(R.layout.fragment_account, container, false)
+
+        // Initialize the RecyclerView
+        val usersView = view.findViewById<RecyclerView>(R.id.users_view)
+
+
+        usersView.layoutManager = LinearLayoutManager(context).apply {
+            orientation = RecyclerView.VERTICAL
+        }
+        val limitedUsersList = DbQuery.g_usersList.take(3)
+        // Initialize the adapter with the user list from DbQuery
+        val adapter = RankAdapter(limitedUsersList)
+        usersView.adapter = adapter
+
+
         // Inflate the layout for this fragment
         val bottomNavigationView = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView1)
         bottomNavigationView?.visibility = View.VISIBLE
 
-        val view = inflater.inflate(R.layout.fragment_account, container, false)
         val logoutButton = view.findViewById<LinearLayout>(R.id.logoutB)
+
 
 
         val bookmarkButton = view.findViewById<LinearLayout>(R.id.bookmarkB)
@@ -72,7 +92,10 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val Textname = view.findViewById<TextView>(R.id.name)
-        Textname.text = myProfile.name
+        val scoreText = view.findViewById<TextView>(R.id.score)
+
+        Textname.text = myProfile.name + ":"
+        scoreText.text = myPerformance.score.toString()
         Log.e("UserData", myProfile.name)
     }
 

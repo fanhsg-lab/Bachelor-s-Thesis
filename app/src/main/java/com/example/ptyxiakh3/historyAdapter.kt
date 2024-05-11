@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +29,7 @@ class AdapterHistory(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.Text.text = historyModels[position].text
         holder.Chaptertext.text = historyModels[position].chapter
+        holder.ChapterInfo.text = historyModels[position].inforext
         holder.imageView.setImageResource(historyModels[position].image)
         var tests = historyModels[position].tests
 
@@ -75,6 +77,9 @@ class AdapterHistory(
                 if (DbQuery.myProfile.quizs.contains(str)) {
                     println("The string $str exists in the list.")
                     button.setBackgroundResource(R.drawable.historybutton2)
+                    button.isEnabled = true
+                }else{
+                    button.isEnabled = false
                 }
 
         }
@@ -216,12 +221,26 @@ class AdapterHistory(
 
         var Image1: ImageView = itemView.findViewById(R.id.image_view)
         var Image2: ImageView = itemView.findViewById(R.id.imageView2)
+        var infoImage: ImageView = itemView.findViewById(R.id.h_info)
+        var closeBtn: ImageView = itemView.findViewById(R.id.closeBtn)
 
+        var infoLayout: LinearLayout = itemView.findViewById(R.id.ChapterpopupLayout)
 
-
+        var ChapterInfo: TextView = itemView.findViewById(R.id.chapterInfo)
 
 
         init {
+
+
+            infoImage.setOnClickListener{
+                infoLayout?.visibility=View.VISIBLE
+            }
+
+            closeBtn.setOnClickListener{
+                infoLayout?.visibility=View.GONE
+            }
+
+
             // Set a click listener for Button1
             Button1.setOnClickListener {
                 val buttonPosition = adapterPosition + 1 // Adding 1 to match the position starting from 1

@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,7 +50,17 @@ class HistoryFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        val Popup = view.findViewById<LinearLayout>(R.id.HistorypopupLayout)
+        val infoBtn = view.findViewById<ImageView>(R.id.info)
+        val closeBtn = view.findViewById<ImageView>(R.id.closeBtn)
 
+        closeBtn.setOnClickListener{
+            Popup?.visibility=View.GONE
+        }
+
+        infoBtn.setOnClickListener{
+            Popup?.visibility=View.VISIBLE
+        }
 
         return view;
     }
@@ -74,12 +86,10 @@ class HistoryFragment : Fragment() {
     }
     private fun setupHistoryModels(){
 
-        historyModels.add( HistoryModel("Chapter 1", "Λες απλές προτάσεις, μιλάς στον πληθυντικό sdfg sdsdfg ssdf ", R.drawable.logo,5))
-        historyModels.add( HistoryModel("Chapter 2", "Λες δύσκολες λέξεςι και δύσκολες προτάσεις προσπάθησε πολύ σκληρά", R.drawable.logo,6))
-        historyModels.add( HistoryModel("Chapter 3", "Lorem ipsum", R.drawable.logo,7))
-        historyModels.add( HistoryModel("Chapter 1", "Λες απλές προτάσεις, μιλάς στον πληθυντικό sdfg sdsdfg ssdf ", R.drawable.logo,8))
-        historyModels.add( HistoryModel("Chapter 2", "Λες δύσκολες λέξεςι και δύσκολες προτάσεις προσπάθησε πολύ σκληρά", R.drawable.logo,9))
-        historyModels.add( HistoryModel("Chapter 3", "Lorem ipsum", R.drawable.logo,10))
+        historyModels.add( HistoryModel("Chapter 1", "Λες απλές προτάσεις, μιλάς στον πληθυντικό sdfg sdsdfg ssdf ","fasdfasdf", R.drawable.logo,5))
+        historyModels.add( HistoryModel("Chapter 2", "Λες δύσκολες λέξεςι και δύσκολες προτάσεις προσπάθησε πολύ σκληρά","fasdfasdf", R.drawable.logo,6))
+        historyModels.add( HistoryModel("Chapter 3", "Lorem ipsum","fasdfasdf", R.drawable.logo,7))
+        historyModels.add( HistoryModel("Chapter 1", "Λες απλές προτάσεις, μιλάς στον πληθυντικό sdfg sdsdfg ssdf ","fasdfasdf", R.drawable.logo,8))
 
 
     }

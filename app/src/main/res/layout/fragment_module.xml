@@ -4,10 +4,147 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="80dp">
+    android:paddingBottom="50dp">
 
     <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:id="@+id/ModulepopupLayout"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/informationackground"
+        android:elevation="4dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="information"
+            android:textSize="28sp"
+            android:fontFamily="@font/madimione"
+            android:textColor="@color/text_color"
+            android:gravity="center"/>
 
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/text_color" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:text="Δες το ποσοστό για κάθε κεφάλαιο και επέλεξε πως να γίνεις καλύτερος σε αυτό"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:orientation="horizontal">
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/modulebutton2"
+                android:text=""
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/my_card_view"
+                app:layout_constraintStart_toStartOf="@+id/my_card_view"
+                app:layout_constraintTop_toTopOf="@+id/my_card_view" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:textSize="18sp"
+                android:text="Hard questions"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/butrton2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/modulebutton4"
+                android:text=""
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/my_card_view"
+                app:layout_constraintStart_toStartOf="@+id/my_card_view"
+                app:layout_constraintTop_toTopOf="@+id/my_card_view" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:textSize="18sp"
+                android:text="lowest Percentege"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/butfton2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/modulebutton3"
+                android:text=""
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/my_card_view"
+                app:layout_constraintStart_toStartOf="@+id/my_card_view"
+                app:layout_constraintTop_toTopOf="@+id/my_card_view" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:textSize="18sp"
+                android:text="Only NNNN"/>
+
+        </LinearLayout>
+
+
+
+        <ImageView
+            android:id="@+id/closeBtn"
+            android:layout_gravity="end"
+            android:paddingTop="0dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_close"
+            app:tint="@color/text_color" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll4"
@@ -40,7 +177,7 @@
             android:textSize="25sp" />
 
         <ImageView
-            android:id="@+id/f"
+            android:id="@+id/info"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:backgroundTint="@color/white"

@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ExpandableListView
 import android.util.Log
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -85,7 +86,17 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
         }
 
 
+        val Popup = view.findViewById<LinearLayout>(R.id.ModulepopupLayout)
+        val infoBtn = view.findViewById<ImageView>(R.id.info)
+        val closeBtn = view.findViewById<ImageView>(R.id.closeBtn)
 
+        closeBtn.setOnClickListener{
+            Popup?.visibility=View.GONE
+        }
+
+        infoBtn.setOnClickListener{
+            Popup?.visibility=View.VISIBLE
+        }
 
 
         return view

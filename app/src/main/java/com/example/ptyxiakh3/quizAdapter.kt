@@ -571,13 +571,14 @@ class quizAdapter(
                     return Pair(flag,text)
                 }
                 is ViewHolderTypeTwo -> {
-                    var flag = true
+                    var flag = false
                     val questionTextView5: TextView =
                         viewHolder.itemView.findViewById(R.id.souloutext)
                     val isTrueButtonClicked = viewHolder.getCurrentState()
+                    Log.d("Scoremessage", "Is True Button Clicked: sosto")
                     Log.d("flagg", "I ${isTrueButtonClicked} , ${currentQuestion.correctAnswers[0].toInt()} , ${isTrueButtonClicked==(currentQuestion.correctAnswers[0].toInt() ==1)}")
                     if (isTrueButtonClicked==(currentQuestion.correctAnswers[0].toInt() ==1)) {
-                        Log.d("QuizFragment2", "Is True Button Clicked: sosto")
+                        Log.d("Scoremessage", "Is True Button Clicked: sosto")
                         Log.d("QuizFragment2", "${currentQuestion.question_id}")
                         updateQHistory(currentQuestion.question_id.toInt(), true,flagforH)
                         flag = true
@@ -588,12 +589,12 @@ class quizAdapter(
                     }
                     Log.d("flagg", "Id ${flag} ")
                     if(flag) {
-                        return Pair(flag, "Apanthses Sosta")
+                        return Pair(flag, "Correct")
                     }else{
                         if(!isTrueButtonClicked ){
-                            return Pair(flag, "Apanthses Lathos all einai Sosto")
+                            return Pair(flag, "False")
                         }else{
-                            return Pair(flag, "Apanthses Sosto all einai Lathos")
+                            return Pair(flag, "False")
                         }
                     }
                 }
@@ -632,17 +633,22 @@ class quizAdapter(
                             text +=  " expected " + currentQuestion.possibleAnswers[index] + " " + "found " + buttonOrderString.getOrNull(index)?.toString()
                         }
                     }
+                    Log.d("Scoremessage","KAI OMOS")
 
                     Log.d("Three3", "Result: ${minMistakes}")
                     if (minMistakes<1) {
+                        Log.d("Scoremessage","Flag true")
 
                         Log.d("Three3", "Result: Correct")
+                        buttonClickOrder.clear()
                         updateQHistory(currentQuestion.question_id.toInt(), true,flagforH)
                         return Pair(flag,"Sosta")
 
 
                     } else {
                         Log.d("Three3", "Result: False")
+                        Log.d("Scoremessage","Flag false")
+                        buttonClickOrder.clear()
                         updateQHistory(currentQuestion.question_id.toInt(), false,flagforH)
                         return Pair(false,text)
 
@@ -723,6 +729,7 @@ class quizAdapter(
                         updateQHistory(currentQuestion.question_id.toInt(), false,flagforH)
                         flag = false
                     }
+
 
 // Return the flag and the mistake message instead of "fasdf"
                     return Pair(flag, mistakeMessage)

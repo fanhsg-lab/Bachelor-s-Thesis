@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -45,6 +47,21 @@ class ModuleFragment : Fragment() {
         moduleModels.clear()
         Log.d("QuestionLog", "SIZE clear ${moduleModels.size}")
         setupModuleModels()
+
+
+        val Popup = view.findViewById<LinearLayout>(R.id.ModulepopupLayout)
+        val infoBtn = view.findViewById<ImageView>(R.id.info)
+        val closeBtn = view.findViewById<ImageView>(R.id.closeBtn)
+
+        closeBtn.setOnClickListener{
+            Popup?.visibility=View.GONE
+        }
+
+        infoBtn.setOnClickListener{
+            Popup?.visibility=View.VISIBLE
+        }
+
+
         return view
     }
 

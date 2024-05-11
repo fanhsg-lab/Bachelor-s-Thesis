@@ -448,11 +448,12 @@ abstract class QuestionsDatabase : RoomDatabase() {
             val question35 = Question(
                 question_number = 1.35,
                 question_text =
+                "2. define a class inheriting from unittest.TestCase\n" +
                 "1. import unittest\n" +
-                        "2. define a class inheriting from unittest.TestCase\n" +
+                        "5. if __name__ == '__main__':\n" +
                         "3. define a test method inside the class\n" +
                         "4. use assert methods to test expected outcomes\n" +
-                        "5. if __name__ == '__main__':\n" +
+
                         "6. unittest.main()",
                 question_text2="Arrange the following steps into their correct sequence to set up a basic unit test in Python using the unittest framework.",
                 quiz = 2.2,
@@ -473,11 +474,13 @@ abstract class QuestionsDatabase : RoomDatabase() {
             val question36 = Question(
                 question_number = 1.36,
                 question_text =
+                "2. def factorial(n):\n" +
                 "1. if n == 1:\n" +
-                        "2. def factorial(n):\n" +
+
                         "3. return 1\n" +
-                        "4. return n * factorial(n - 1)\n" +
-                        "5. else:",
+                        "5. else:"+
+                        "4. return n * factorial(n - 1)\n" ,
+
                 question_text2="Arrange the following lines of Python code into the correct sequence to define a recursive factorial function that calculates the factorial of a number.",
                 quiz = 2.2,
                 difficulty = 2,
@@ -496,11 +499,14 @@ abstract class QuestionsDatabase : RoomDatabase() {
             val question37 = Question(
                 question_number = 1.37,
                 question_text =
+                "4. for i in range(20):\n" +
+
                 "1. if i % 2 == 0:\n" +
                         "2. print('Even number:', i)\n" +
-                        "3. print('Odd number:', i)\n" +
-                        "4. for i in range(20):\n" +
-                        "5. else:\n",
+                        "5. else:\n"+
+                        "3. print('Odd number:', i)\n" ,
+
+
                 question_text2="Arrange the following lines of Python code into the correct sequence to print whether each number from 0 to 19 is even or odd.",
                 quiz = 2.2,
                 difficulty = 2,
@@ -513,18 +519,19 @@ abstract class QuestionsDatabase : RoomDatabase() {
             "for i in range(20):",
             "else:"
             ),
-            correctAnswers = listOf(42153) // Correct sequence for a for-loop with conditionals
+            correctAnswers = listOf(41253) // Correct sequence for a for-loop with conditionals
             )
 
             val     question38 = Question(
                 question_number = 1.38,
                 question_text =
+                "3. def count_down(start):\n" +
                 "1. while start > 0:\n" +
                         "2. print('Counting down:', start)\n" +
-                        "3. def count_down(start):\n" +
+                        "6. start -= 1\n" +
                         "4. else:\n" +
-                        "5. print('Lift off!')\n" +
-                        "6. start -= 1\n",
+                        "5. print('Lift off!')\n" ,
+
                 question_text2="Arrange the following lines of Python code into the correct sequence to define a function that counts down from a given start number to zero, then prints 'Lift off!'.",
                 quiz = 2.2,
                 difficulty = 3,
@@ -544,10 +551,12 @@ abstract class QuestionsDatabase : RoomDatabase() {
             val question39 = Question(
                 question_number = 1.39,
                 question_text =
-                "1. return [x**2 for x in nums if x > 3]\n" +
+                "4. def filter_and_square(nums):\n" +
                         "2. nums = [1, 2, 3, 4, 5, 6]\n" +
-                        "3. print(filter_and_square(nums))\n" +
-                        "4. def filter_and_square(nums):\n",
+                "1. return [x**2 for x in nums if x > 3]\n" +
+
+                        "3. print(filter_and_square(nums))\n" ,
+
                 question_text2="Arrange the following lines of Python code into the correct sequence to define a function that filters numbers greater than 3 from a list and returns their squares.",
                 quiz = 2.2,
                 difficulty = 2,
