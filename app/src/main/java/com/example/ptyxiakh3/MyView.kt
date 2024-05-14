@@ -145,7 +145,7 @@ class MyView @JvmOverloads constructor(
         val fontMetrics2 = textPaint!!.fontMetricsInt
         val baseline2 = (targetRect2.bottom + targetRect2.top - fontMetrics2.bottom - fontMetrics2.top) / 2
         textPaint!!.color = textColor
-        textPaint!!.textSize = 70f // Sets the font size to 50 pixels
+        textPaint!!.textSize = 55f // Sets the font size to 50 pixels
         textPaint!!.textAlign = Paint.Align.CENTER
 
 

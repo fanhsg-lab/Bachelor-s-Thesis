@@ -934,6 +934,7 @@
         android:orientation="horizontal"
         android:paddingEnd="15dp"
         android:paddingBottom="5dp"
+        android:elevation="5dp"
         android:paddingStart="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

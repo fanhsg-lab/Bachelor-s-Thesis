@@ -65,8 +65,13 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
                 } else {
                     Log.d("QuestionsLog", "Number of questions for $chapter module: ${questions.size}")
                     data[chapter] = questions.map { question ->
+                        // Log the question ID first
+                        Log.d("QuestionsLog", "question ID: ${question.question_id}")
+                        Log.d("allQ2","Id: ${question.question_id}  $chapter module:")
+                        // Then return the Quartet as the last expression in the lambda
                         Quartet(question.question_number.toString(), question.difficulty, question.question_id, question.style)
                     }
+
 
 
 

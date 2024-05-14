@@ -70,7 +70,8 @@ class ModuleFragment : Fragment() {
             "Python",
             "Chapter1",
             "Programming",
-            "Data Structures",
+            "Data " +
+                    "Structures",
             "Syntax",
             "Functions",
             "Data Types",

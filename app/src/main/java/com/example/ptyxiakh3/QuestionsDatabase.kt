@@ -519,7 +519,7 @@ abstract class QuestionsDatabase : RoomDatabase() {
             "for i in range(20):",
             "else:"
             ),
-            correctAnswers = listOf(41253) // Correct sequence for a for-loop with conditionals
+            correctAnswers = listOf(41253) // Correct sequence for a for-loop with
             )
 
             val     question38 = Question(
@@ -1028,11 +1028,7 @@ abstract class QuestionsDatabase : RoomDatabase() {
              */
 
             // Insert the data into the database
-            questionsDao.addQuestion(question37)
-            questionsDao.addQuestion(question38)
-            questionsDao.addQuestion(question39)
-            questionsDao.addQuestion(question36)
-            questionsDao.addQuestion(question35)
+
             questionsDao.addQuestion(question1)
             questionsDao.addQuestion(question2)
             questionsDao.addQuestion(question3)
@@ -1043,7 +1039,7 @@ abstract class QuestionsDatabase : RoomDatabase() {
             questionsDao.addQuestion(question8)
             questionsDao.addQuestion(question9)
             questionsDao.addQuestion(question10)
-            questionsDao.addQuestion(question21)
+
             questionsDao.addQuestion(question11)
             questionsDao.addQuestion(question12)
             questionsDao.addQuestion(question13)
@@ -1054,7 +1050,6 @@ abstract class QuestionsDatabase : RoomDatabase() {
             questionsDao.addQuestion(question18)
             questionsDao.addQuestion(question19)
             questionsDao.addQuestion(question20)
-
             questionsDao.addQuestion(question21)
             questionsDao.addQuestion(question22)
             questionsDao.addQuestion(question23)
@@ -1065,6 +1060,12 @@ abstract class QuestionsDatabase : RoomDatabase() {
             questionsDao.addQuestion(question28)
             questionsDao.addQuestion(question29)
             questionsDao.addQuestion(question30)
+
+            questionsDao.addQuestion(question35)
+            questionsDao.addQuestion(question36)
+            questionsDao.addQuestion(question37)
+            questionsDao.addQuestion(question38)
+            questionsDao.addQuestion(question39)
             /*
             questionsDao.addQuestion(question31)
             questionsDao.addQuestion(question32)

@@ -1,5 +1,7 @@
 package com.example.ptyxiakh3
 
+import android.app.ActivityManager
+import android.content.Context.ACTIVITY_SERVICE
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -61,7 +63,13 @@ class LoginFragment : Fragment() {
             if(email.isNotEmpty() && password.isNotEmpty())
                 MainActivity.auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                     if(it.isSuccessful){
-                        view.findNavController().navigate(R.id.action_loginFragment_to_historyFragment)
+
+                        val intent = Intent(context, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+
+                        // Finish the current activity
+                        activity?.finish()
                     }
                 }.addOnFailureListener {
                     Toast.makeText(requireContext(), "axxx", Toast.LENGTH_LONG).show()

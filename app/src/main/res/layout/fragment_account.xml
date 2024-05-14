@@ -6,12 +6,117 @@
     android:layout_height="match_parent"
     android:background="@color/light_grey"
     tools:context=".AccountFragment">
+
+    <LinearLayout
+        android:id="@+id/HistorypopupLayout"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/informationackground"
+        android:elevation="4dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="information"
+            android:textSize="28sp"
+            android:fontFamily="@font/madimione"
+            android:textColor="@color/text_color"
+            android:gravity="center"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/text_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Btn3"
+                android:layout_width="70dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="26dp"
+                android:background="@drawable/historybutton"
+                android:paddingBottom="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:textSize="18sp"
+                android:text="This button is closed. You can not access it until you do the previous ones"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Bt"
+                android:layout_width="70dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="36dp"
+                android:background="@drawable/historybutton2"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:textSize="18sp"
+                android:text="This is the button you can access. Focus on them to practise and to continue your progress."/>
+
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:text="Not all the questions are access from the quizs in this path. Use this layout to get a nice start about the world of Python. Try to repeat the quizs to get familiar before you continue. "/>
+
+
+        <ImageView
+            android:id="@+id/closeBtn"
+            android:layout_gravity="end"
+            android:paddingTop="0dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_close"
+            app:tint="@color/text_color" />
+    </LinearLayout>
+
+
     <LinearLayout
         android:id="@+id/ll4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="horizontal"
+        android:elevation="5dp"
         android:paddingEnd="15dp"
         android:paddingBottom="5dp"
         android:paddingStart="15dp"
@@ -23,7 +128,7 @@
             android:id="@+id/ques_list_gridB"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/ic_back" />
+            android:src="@drawable/ic_account" />
 
         <TextView
             android:id="@+id/qa_catName"
@@ -37,7 +142,7 @@
             android:textSize="25sp" />
 
         <ImageView
-            android:id="@+id/f"
+            android:id="@+id/info"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:backgroundTint="@color/white"
@@ -101,7 +206,7 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name"
+        android:text="Fanis score:"
         android:fontFamily="@font/madimione"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -178,7 +283,7 @@
                     android:layout_marginTop="8dp"
                     android:gravity="center"
                     android:fontFamily="@font/madimione"
-                    android:text="Saved Questions"
+                    android:text="Αποθηκευμένες"
                     android:textColor="@color/white" />
 
             </LinearLayout>

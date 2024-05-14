@@ -1,10 +1,12 @@
 package com.example.ptyxiakh3
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -41,6 +43,7 @@ class AccountFragment : Fragment() {
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -73,6 +76,21 @@ class AccountFragment : Fragment() {
             Log.d("LoginFragment", "Sign Up button clicked")
             view.findNavController().navigate(R.id.action_accountFragment_to_bookmarkFragment)
         }
+
+        val LeaderBoardButton = view.findViewById<LinearLayout>(R.id.leaderB)
+        LeaderBoardButton.setOnClickListener {
+            Log.d("LoginFragment", "Sign Up button clicked")
+            view.findNavController().navigate(R.id.action_accountFragment_to_boardFragment)
+        }
+
+        val profileButton = view.findViewById<LinearLayout>(R.id.profileB)
+        profileButton.setOnClickListener {
+            Log.d("LoginFragment", "Sign Up button clicked")
+            view.findNavController().navigate(R.id.action_accountFragment_to_userFragment)
+        }
+
+
+
         logoutButton.setOnClickListener {
             // Handle the click event
             Log.d("YourFragmentOrActivity", "Logout clicked")
@@ -82,6 +100,19 @@ class AccountFragment : Fragment() {
             auth.signOut()
             view.findNavController().navigate(R.id.action_accountFragment_to_loginFragment)
 
+        }
+
+        val Popup = view.findViewById<LinearLayout>(R.id.HistorypopupLayout)
+        val infoBtn = view.findViewById<ImageView>(R.id.info)
+        val closeBtn = view.findViewById<ImageView>(R.id.closeBtn)
+
+
+        closeBtn.setOnClickListener{
+            Popup?.visibility=View.GONE
+        }
+
+        infoBtn.setOnClickListener{
+            Popup?.visibility=View.VISIBLE
         }
 
 
@@ -94,8 +125,8 @@ class AccountFragment : Fragment() {
         val Textname = view.findViewById<TextView>(R.id.name)
         val scoreText = view.findViewById<TextView>(R.id.score)
 
-        Textname.text = myProfile.name + ":"
-        scoreText.text = myPerformance.score.toString()
+        Textname.text = myProfile.name + "'s score:"
+        scoreText.text = myPerformance.score.toString() + " XP"
         Log.e("UserData", myProfile.name)
     }
 

@@ -53,6 +53,7 @@ class RegisterFragment : Fragment() {
         button.setOnClickListener {
             val email = view.findViewById<EditText>(R.id.emailID).text.toString()
             val password = view.findViewById<EditText>(R.id.password).text.toString()
+            val username = view.findViewById<EditText>(R.id.username).text.toString()
 
             if(email.isNotEmpty() && password.isNotEmpty()) {
                 MainActivity.auth.createUserWithEmailAndPassword(email, password)
@@ -61,7 +62,7 @@ class RegisterFragment : Fragment() {
 
 
                             //Create User με το DbQuery
-                            DbQuery.createUserData(    email, "mpampas", object :
+                            DbQuery.createUserData(    email, username, object :
                                 MyCompleteListener {
                                     override fun onSuccess() {
                                         Toast.makeText(requireContext(), "yes", Toast.LENGTH_LONG).show()

@@ -13,11 +13,11 @@ android:padding="8dp">
         android:gravity="center_horizontal"
         android:background="@drawable/next_button_drawable"
         android:padding="15dp"
+        android:layout_gravity="center"
         android:text="true_false"
         android:fontFamily="@font/alice"
         android:textSize="18dp"
         android:textColor="@color/text_color"
-        android:paddingStart="?android:attr/expandableListPreferredItemPaddingLeft"
         android:textStyle="bold"/>
 
 </LinearLayout>

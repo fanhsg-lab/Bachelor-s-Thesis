@@ -76,7 +76,8 @@ class MyCustomAdapter(
         val styletextView = view.findViewById<TextView>(R.id.childItem2)
         val difficultytextView = view.findViewById<TextView>(R.id.childItem3)
         val Circle = view.findViewById<ImageView>(R.id.circleid)
-        textView.text = quizText
+        Log.d("allQ2","Id: $questionId")
+        textView.text = questionId.toString()
         difficultytextView.text =difficulty.toString()
         styletextView.text = style
         val color = getAnswerColor(countT, countT + countF) // Get your dynamic color
@@ -90,7 +91,6 @@ class MyCustomAdapter(
 
 
         // Change text color based on difficulty
-        Log.d("AllQ2", "${countT} , ${countF} , ${countF==0 && countT!=0} , ${quizText}")
 
 
 

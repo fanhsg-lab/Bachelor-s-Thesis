@@ -54,6 +54,7 @@ class HistoryFragment : Fragment() {
         val infoBtn = view.findViewById<ImageView>(R.id.info)
         val closeBtn = view.findViewById<ImageView>(R.id.closeBtn)
 
+
         closeBtn.setOnClickListener{
             Popup?.visibility=View.GONE
         }

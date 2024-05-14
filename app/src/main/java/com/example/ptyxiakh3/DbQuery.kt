@@ -12,7 +12,7 @@ import com.google.firebase.firestore.Query
 
 object DbQuery {
     var g_firestore: FirebaseFirestore? = null
-    var myProfile: ProfileModel = ProfileModel("NA", "@",  0 ,"f", mutableListOf("1.1", "2.1" , ""),0 )
+    var myProfile: ProfileModel = ProfileModel("NA", "@",  "",0 ,"f", mutableListOf("1.1", "2.1" , ""),0 )
     val g_bmIdList: MutableList<Long> = mutableListOf()
     val g_bookmarksList: MutableList<Question> = mutableListOf()
     var g_usersCount: Int = 0
@@ -32,6 +32,7 @@ object DbQuery {
         val userData = hashMapOf(
             "EMAIL_ID" to email,
             "NAME" to name,
+            "PHONE" to "",
             "TOTAL_SCORE" to 0,
             "BOOKMARKS" to 0,
             "QUIZS" to "1.1,2.1",
@@ -58,6 +59,29 @@ object DbQuery {
             .addOnFailureListener(OnFailureListener { e ->
                 completeListener.onFailure()
             })
+    }
+
+    fun saveProfileData(name: String, phone: String?, completeListener: MyCompleteListener) {
+        val profileData = mutableMapOf<String, Any>("NAME" to name)
+
+        phone?.let {
+            profileData["PHONE"] = it
+        }
+
+        val userId = FirebaseAuth.getInstance().uid ?: return  // Handle null user ID if necessary
+
+        FirebaseFirestore.getInstance().collection("USERS").document(userId)
+            .update(profileData)
+            .addOnSuccessListener {
+                myProfile.name = name
+                phone?.let { updatedPhone ->
+                    myProfile.phone = updatedPhone
+                }
+                completeListener.onSuccess()
+            }
+            .addOnFailureListener { e ->
+                completeListener.onFailure()
+            }
     }
 
     fun updateQHistory(newQHistory: String, completeListener: MyCompleteListener) {
@@ -214,7 +238,7 @@ object DbQuery {
                     email = documentSnapshot.getString("EMAIL_ID") ?: ""
                     bookmarksCount = documentSnapshot.getLong("BOOKMARKS")?.toInt() ?: 0
                     qHistory = documentSnapshot.getString("Q_HISTORY") ?: "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
-
+                    phone = documentSnapshot.getString("PHONE") ?: ""
                     myPerformance.score = documentSnapshot.getLong("TOTAL_SCORE")?.toInt() ?: 0
                     Log.d("Scoremessage","Score $score")
                     val quizsString = documentSnapshot.getString("QUIZS") ?: "1.1,1.2"
