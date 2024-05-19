@@ -136,7 +136,7 @@ class MyView @JvmOverloads constructor(
         textPaint!!.textAlign = Paint.Align.CENTER
 
         textPaint!!.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-        textPaint!!.typeface = ResourcesCompat.getFont(context, R.font.alice)
+        textPaint!!.typeface = ResourcesCompat.getFont(context, R.font.peinirli)
         textPaint!!.style = Paint.Style.FILL
         textPaint!!.textSize = 55f
         canvas.drawText((textProgress).toString()+"%", targetRect.centerX().toFloat(), baseline.toFloat(), textPaint!!)

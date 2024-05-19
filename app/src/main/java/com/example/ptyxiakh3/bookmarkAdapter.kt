@@ -10,9 +10,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ptyxiakh3.data.Question
 
@@ -25,6 +27,8 @@ class BookmarkAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.item_bookmark, parent, false)
+
+
         return MyViewHolder(view)
     }
 
@@ -35,6 +39,50 @@ class BookmarkAdapter(
         Log.d("BookmarkViewHolder", "Binding bookmark: ${question.question_id}")
         holder.quesNo.text ="Question's ID: "+ question.question_id.toString()
         holder.quesstyle.text ="Style: "+ question.style.toString()
+        holder.bookmarkImageView.tag = "bookmarked"
+
+
+        holder.bookmarkImageView!!.setOnClickListener {
+
+            Log.d("book13", "Question ID: mphka")
+
+                Log.d("BookmarkFragment", "Question ID: ${DbQuery.g_bmIdList} ")
+
+
+                if ( holder.bookmarkImageView.tag == "not_bookmarked") {
+                    holder.bookmarkImageView.setImageResource(R.drawable.ic_backround_selected)
+                    holder.bookmarkImageView.tag = "bookmarked"
+                    Log.d("QuizFragment5", "bookmarked")
+                    if (!DbQuery.g_bmIdList.contains(question.question_id)) {
+                        DbQuery.g_bmIdList.add(question.question_id)
+                        DbQuery.myProfile.bookmarksCount = DbQuery.g_bmIdList.size
+                        Log.d("QuizFragment5", "Question ID: ${question.question_id} mphke")
+                        Log.d("BookmarkFragment", "Question ID: ${DbQuery.g_bmIdList}")
+                    }
+
+
+                } else {
+                    holder.bookmarkImageView.setImageResource(R.drawable.ic_bookmark)
+                    holder.bookmarkImageView.tag = "not_bookmarked"
+                    Log.d("QuizFragment5", "not_bookmarked")
+
+                    if (DbQuery.g_bmIdList.contains(question.question_id)) {
+                        DbQuery.g_bmIdList.remove(question.question_id)
+                        DbQuery.myProfile.bookmarksCount = DbQuery.g_bmIdList.size
+                        Log.d("BookmarkFragment", "Question ID: ${question.question_id} bghke")
+                        Log.d("BookmarkFragment", "Question ID: ${DbQuery.g_bmIdList}")
+                    }
+
+                }
+                Log.d("QuizFragment", "Question ID: ${question.question_id}")
+                // Existing bookmark toggle logic...
+
+        }
+
+
+
+
+
 
         // Binding the data to the views
         if(question.style=="SouLou") {
@@ -210,5 +258,6 @@ class BookmarkAdapter(
         val optionC: TextView = itemView.findViewById(R.id.optionC)
         val optionD: TextView = itemView.findViewById(R.id.optionD)
         val result: TextView = itemView.findViewById(R.id.result)
+        val bookmarkImageView =  itemView.findViewById<ImageView>(R.id.qa_bookmarkB)
     }
 }

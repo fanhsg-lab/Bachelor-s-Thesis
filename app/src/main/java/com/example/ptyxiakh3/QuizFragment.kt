@@ -453,10 +453,35 @@ class QuizFragment : Fragment()  {
             val layoutManager2 = myRecyclerView?.layoutManager as LinearLayoutManager
             val currentPos = layoutManager2.findFirstVisibleItemPosition()
             val question = quizAdapter.getQuestionAtPosition(currentPos+1)
+            val chapterInfo = activity?.findViewById<TextView>(R.id.chapterInfo)
+
             if (question != null) {
                 Log.d("book13", "Question ID: ${question.question_id} pathsa")
                 Log.d("book13", DbQuery.g_bmIdList.toString() +" edo")
                 questionIdText?.text = question.style
+
+
+
+                if (question.style == "SouLou") {
+                    println("x is 1")
+                    chapterInfo?.text="Διάλεξε Σωστό ή Λάθος ανάλογα τι πιστεύεις ότι η πρόταση είναι."
+                } else if (question.style == "Kena") {
+                    println("x is 2")
+                    chapterInfo?.text="Γέμισε τα κενά με τις πιθανές απαντήσεις που έχεις στην διάθεση σου. Χρησιμοποίησε τα κουμπιά <> και <> σε περίπτωση που τα χρειαστείς"
+                } else if (question.style == "Mistakes") {
+                    println("x is 3")
+                    chapterInfo?.text="Mistakes"
+                } else if (question.style == "multiple choice") {
+                    println("x is not 1, 2, or 3")
+                    chapterInfo?.text="multiple choice"
+                } else if (question.style == "Queue") {
+                    println("x is not 1, 2, or 3")
+                    chapterInfo?.text="Queue"
+                }
+
+
+
+
                 if (DbQuery.g_bmIdList.contains(question.question_id)) {
                     Log.d("book13", DbQuery.g_bmIdList.toString() +" edo")
 
@@ -489,9 +514,19 @@ class QuizFragment : Fragment()  {
 
 
         val bookmarkImageView = activity?.findViewById<ImageView>(R.id.qa_bookmarkB)
+        val QuizpopupLayout = activity?.findViewById<LinearLayout>(R.id.QuizpopupLayout)
+        val infoImageView = activity?.findViewById<ImageView>(R.id.infoQuiz)
+        val closeBtn = view.findViewById<ImageView>(R.id.closeBtn)
 
 
+        closeBtn.setOnClickListener{
+            QuizpopupLayout?.visibility=View.GONE
+        }
+        infoImageView!!.setOnClickListener {
+            Log.d("INFOQUIZ", "Question ID: mphka")
 
+            QuizpopupLayout?.visibility=View.VISIBLE
+        }
 
         bookmarkImageView!!.setOnClickListener {
             val layoutManager = myRecyclerView?.layoutManager as LinearLayoutManager

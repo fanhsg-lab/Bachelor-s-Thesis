@@ -128,4 +128,27 @@ class BookmarkFragment : Fragment() {
                 }
             }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d("BookmarkFragment", "Fragment view is destroyed")
+        // Add your custom code here
+        DbQuery.saveBookmarks(   object :
+            MyCompleteListener {
+            override fun onSuccess() {
+                Log.d("BookmarkFragment", "Petyxe")
+
+            }
+
+            override fun onFailure() {
+
+            }
+        })
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.d("BookmarkFragment", "Fragment is detached")
+        // Add your custom code here
+    }
 }

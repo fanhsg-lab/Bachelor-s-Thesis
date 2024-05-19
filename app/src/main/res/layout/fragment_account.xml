@@ -25,9 +25,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="information"
+            android:text="πληροφορίες"
             android:textSize="28sp"
-            android:fontFamily="@font/madimione"
+            android:fontFamily="@font/acloving"
             android:textColor="@color/text_color"
             android:gravity="center"/>
 
@@ -57,6 +57,8 @@
                 android:paddingLeft="15dp"
                 android:layout_marginTop="5dp"
                 android:textSize="18sp"
+                android:textColor="@color/text_color"
+                android:fontFamily="@font/peinirli"
                 android:text="This button is closed. You can not access it until you do the previous ones"/>
 
         </LinearLayout>
@@ -81,6 +83,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="20dp"
                 android:textSize="18sp"
+                android:textColor="@color/text_color"
+                android:fontFamily="@font/peinirli"
                 android:text="This is the button you can access. Focus on them to practise and to continue your progress."/>
 
 
@@ -95,6 +99,8 @@
             android:layout_marginBottom="5dp"
             android:gravity="center"
             android:textSize="18sp"
+            android:textColor="@color/text_color"
+            android:fontFamily="@font/peinirli"
             android:text="Not all the questions are access from the quizs in this path. Use this layout to get a nice start about the world of Python. Try to repeat the quizs to get familiar before you continue. "/>
 
 
@@ -112,14 +118,14 @@
 
     <LinearLayout
         android:id="@+id/ll4"
+        android:elevation="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:elevation="5dp"
-        android:paddingEnd="15dp"
-        android:paddingBottom="5dp"
         android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -127,6 +133,7 @@
         <ImageView
             android:id="@+id/ques_list_gridB"
             android:layout_width="32dp"
+            android:layout_gravity="center_vertical"
             android:layout_height="32dp"
             android:src="@drawable/ic_account" />
 
@@ -135,16 +142,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/madimione"
+            android:fontFamily="@font/acloving"
             android:gravity="center"
-            android:text="Bookmarks"
+            android:text="Λογαριασμός"
             android:textColor="@color/text_color"
-            android:textSize="25sp" />
+            android:textSize="30sp" />
 
         <ImageView
             android:id="@+id/info"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
             android:backgroundTint="@color/white"
             android:src="@drawable/ic_info"
             app:tint="@color/text_color" />
@@ -206,8 +214,8 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fanis score:"
-        android:fontFamily="@font/madimione"
+        android:text="Fanis Εμπειρία:"
+        android:fontFamily="@font/peinirli"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -219,7 +227,7 @@
         android:text="140 XP"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:fontFamily="@font/madimione"
+        android:fontFamily="@font/peinirli"
         android:textColor="@color/white"
         android:layout_weight="1"
         android:gravity="center"
@@ -265,8 +273,8 @@
             <LinearLayout
                 android:id="@+id/bookmarkB"
                 android:background="@drawable/shadows5"
-                android:layout_width="90dp"
-                android:layout_height="120dp"
+                android:layout_width="100dp"
+                android:layout_height="130dp"
                 android:gravity="center"
                 android:layout_marginRight="20dp"
                 android:orientation="vertical">
@@ -278,12 +286,13 @@
                     android:tint="@color/white" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="95dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:textSize="15dp"
                     android:gravity="center"
-                    android:fontFamily="@font/madimione"
-                    android:text="Αποθηκευμένες"
+                    android:fontFamily="@font/peinirli"
+                    android:text="Αποθηκευμένες Ερωτήσεις"
                     android:textColor="@color/white" />
 
             </LinearLayout>
@@ -291,8 +300,8 @@
             <LinearLayout
                 android:id="@+id/leaderB"
                 android:background="@drawable/shadows5"
-                android:layout_width="90dp"
-                android:layout_height="120dp"
+                android:layout_width="100dp"
+                android:layout_height="130dp"
                 android:gravity="center"
                 android:layout_marginLeft="20dp"
                 android:orientation="vertical">
@@ -305,12 +314,13 @@
                     android:tint="@color/white"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="90dp"
                     android:layout_height="wrap_content"
-                    android:text="LeaderBoard"
+                    android:text="Πίνακας κατάταξης"
+                    android:textSize="15dp"
                     android:gravity="center"
                     android:layout_marginTop="8dp"
-                    android:fontFamily="@font/madimione"
+                    android:fontFamily="@font/peinirli"
                     android:textColor="@color/white"
                     />
 
@@ -338,8 +348,8 @@
             <LinearLayout
                 android:id="@+id/profileB"
                 android:background="@drawable/shadows5"
-                android:layout_width="90dp"
-                android:layout_height="120dp"
+                android:layout_width="100dp"
+                android:layout_height="130dp"
                 android:gravity="center"
                 android:layout_marginRight="20dp"
                 android:orientation="vertical">
@@ -351,12 +361,13 @@
                     android:tint="@color/white" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:gravity="center"
-                    android:fontFamily="@font/madimione"
-                    android:text="Account"
+                    android:fontFamily="@font/peinirli"
+                    android:textSize="15dp"
+                    android:text="Προφίλ"
                     android:textColor="@color/white" />
 
             </LinearLayout>
@@ -365,8 +376,8 @@
             <LinearLayout
                 android:id="@+id/logoutB"
                 android:background="@drawable/shadows5"
-                android:layout_width="90dp"
-                android:layout_height="120dp"
+                android:layout_width="100dp"
+                android:layout_height="130dp"
                 android:gravity="center"
                 android:layout_marginLeft="20dp"
                 android:orientation="vertical">
@@ -379,12 +390,13 @@
                     android:tint="@color/white"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="90dp"
                     android:layout_height="wrap_content"
-                    android:text="Log out"
+                    android:fontFamily="@font/peinirli"
                     android:gravity="center"
+                    android:textSize="15dp"
+                    android:text="Αποσύνδεση"
                     android:layout_marginTop="8dp"
-                    android:fontFamily="@font/madimione"
                     android:textColor="@color/white"
                     />
 

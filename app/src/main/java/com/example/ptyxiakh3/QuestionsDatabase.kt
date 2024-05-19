@@ -51,123 +51,124 @@ abstract class QuestionsDatabase : RoomDatabase() {
             // Dummy data
             val question1 = Question(
                 question_number = 1.1,
-                question_text = "In Python, a list is a type of mutable data structure.",
+                question_text = "Στην Python, μια λίστα είναι ένας τύπος μεταβλητής δομής δεδομένων.",
                 question_text2 = "",
                 quiz = 1.1,
                 difficulty = 1,
                 style = "SouLou",
-                modules = listOf("Programming", "Python", "Data Structures"),
-                possibleAnswers = listOf("Is this statement true?"),
-                correctAnswers = listOf(1) // True
+                modules = listOf("Προγραμματισμός", "Python", "Δομές Δεδομένων"),
+                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
+                correctAnswers = listOf(1) // Αληθής
             )
 
             val question2 = Question(
                 question_number = 1.2,
-                question_text = "Python uses curly braces {} to define blocks of code.",
+                question_text = "Η Python χρησιμοποιεί άγκιστρα {} για να ορίσει μπλοκ κώδικα.",
                 question_text2 = "",
                 quiz = 1.1,
                 difficulty = 1,
                 style = "SouLou",
-                modules = listOf("Programming", "Python", "Syntax"),
-                possibleAnswers = listOf("Is this statement true?"),
-                correctAnswers = listOf(0) // False
+                modules = listOf("Προγραμματισμός", "Python", "Σύνταξη"),
+                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
+                correctAnswers = listOf(0) // Ψευδής
             )
 
             val question3 = Question(
                 question_number = 1.3,
-                question_text = "The function print() in Python is used to display output.",
+                question_text = "Η συνάρτηση print() στην Python χρησιμοποιείται για την εμφάνιση εξόδου.",
                 question_text2 = "",
                 quiz = 1.1,
                 difficulty = 1,
                 style = "SouLou",
-                modules = listOf("Programming", "Python", "Functions"),
-                possibleAnswers = listOf("Is this statement true?"),
-                correctAnswers = listOf(1) // True
+                modules = listOf("Προγραμματισμός", "Python", "Συναρτήσεις"),
+                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
+                correctAnswers = listOf(1) // Αληθής
             )
 
             val question4 = Question(
                 question_number = 1.4,
-                question_text = "In Python, strings are immutable.",
+                question_text = "Στην Python, οι συμβολοσειρές είναι αμετάβλητες.",
                 question_text2 = "",
                 quiz = 1.1,
                 difficulty = 1,
                 style = "SouLou",
-                modules = listOf("Programming", "Python", "Data Types"),
-                possibleAnswers = listOf("Is this statement true?"),
-                correctAnswers = listOf(1) // True
+                modules = listOf("Προγραμματισμός", "Python", "Τύποι Δεδομένων"),
+                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
+                correctAnswers = listOf(1) // Αληθής
             )
 
             val question5 = Question(
                 question_number = 1.5,
-                question_text = "The correct way to start a for loop in Python is `for i from 0 to 10`.",
+                question_text = "Ο σωστός τρόπος για να ξεκινήσει ένας βρόχος for στην Python είναι `for i from 0 to 10`.",
                 question_text2 = "",
                 quiz = 1.1,
                 difficulty = 1,
                 style = "SouLou",
-                modules = listOf("Programming", "Python", "Control Structures"),
-                possibleAnswers = listOf("Is this statement true?"),
-                correctAnswers = listOf(0) // False
+                modules = listOf("Προγραμματισμός", "Python", "Δομές Ελέγχου"),
+                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
+                correctAnswers = listOf(0) // Ψευδής
             )
 
             val question6 = Question(
                 question_number = 1.6,
-                question_text = "You can use the append() method to add an item to the end of a list in Python.",
+                question_text = "Μπορείτε να χρησιμοποιήσετε τη μέθοδο append() για να προσθέσετε ένα στοιχείο στο τέλος μιας λίστας στην Python.",
                 question_text2 = "",
                 quiz = 1.2,
                 difficulty = 1,
                 style = "SouLou",
-                modules = listOf("Programming", "Python", "Data Structures"),
-                possibleAnswers = listOf("Is this statement true?"),
-                correctAnswers = listOf(1) // True
+                modules = listOf("Προγραμματισμός", "Python", "Δομές Δεδομένων"),
+                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
+                correctAnswers = listOf(1) // Αληθής
             )
 
             val question7 = Question(
                 question_number = 1.7,
-                question_text = "Python's == operator is used to assign values to variables.",
+                question_text = "Ο τελεστής == στην Python χρησιμοποιείται για την ανάθεση τιμών σε μεταβλητές.",
                 question_text2 = "",
                 quiz = 1.2,
                 difficulty = 1,
                 style = "SouLou",
-                modules = listOf("Programming", "Python", "Operators"),
-                possibleAnswers = listOf("Is this statement true?"),
-                correctAnswers = listOf(0) // False
+                modules = listOf("Προγραμματισμός", "Python", "Τελεστές"),
+                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
+                correctAnswers = listOf(0) // Ψευδής
             )
 
             val question8 = Question(
                 question_number = 1.8,
-                question_text = "A tuple is a mutable data structure in Python.",
+                question_text = "Ένα tuple είναι μια μεταβλητή δομή δεδομένων στην Python.",
                 question_text2 = "",
                 quiz = 1.2,
                 difficulty = 1,
                 style = "SouLou",
-                modules = listOf("Programming", "Python", "Data Types"),
-                possibleAnswers = listOf("Is this statement true?"),
-                correctAnswers = listOf(0) // False
+                modules = listOf("Προγραμματισμός", "Python", "Τύποι Δεδομένων"),
+                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
+                correctAnswers = listOf(0) // Ψευδής
             )
 
             val question9 = Question(
                 question_number = 1.9,
-                question_text = "The keyword def is used in Python to define a new function.",
+                question_text = "Η λέξη-κλειδί def χρησιμοποιείται στην Python για τον ορισμό μιας νέας συνάρτησης.",
                 question_text2 = "",
                 quiz = 1.2,
                 difficulty = 1,
                 style = "SouLou",
-                modules = listOf("Programming", "Python", "Functions"),
-                possibleAnswers = listOf("Is this statement true?"),
-                correctAnswers = listOf(1) // True
+                modules = listOf("Προγραμματισμός", "Python", "Συναρτήσεις"),
+                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
+                correctAnswers = listOf(1) // Αληθής
             )
 
             val question10 = Question(
                 question_number = 1.10,
-                question_text = "Python allows you to use the # symbol for single-line comments.",
+                question_text = "Η Python σας επιτρέπει να χρησιμοποιείτε το σύμβολο # για σχόλια μιας γραμμής.",
                 question_text2 = "",
                 quiz = 1.2,
                 difficulty = 1,
                 style = "SouLou",
-                modules = listOf("Programming", "Python", "Syntax"),
-                possibleAnswers = listOf("Is this statement true?"),
-                correctAnswers = listOf(1) // True
+                modules = listOf("Προγραμματισμός", "Python", "Σύνταξη"),
+                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
+                correctAnswers = listOf(1) // Αληθής
             )
+
 
 
 
@@ -376,7 +377,7 @@ abstract class QuestionsDatabase : RoomDatabase() {
                 "import math\n" +
                         "print(math.power(2, 3))",
                 question_text2="Examine the function name used from the math module.",
-                question_module=listOf("answer1", "answer2"),
+                question_module=listOf("pow"),
                 quiz = 1.5,
                 difficulty = 3,
                 style = "Mistakes",
@@ -470,15 +471,15 @@ abstract class QuestionsDatabase : RoomDatabase() {
                 ),
                 correctAnswers = listOf(215346) // Correct sequence for setting up unit tests
             )
-
+            //Correct Question About Queue
             val question36 = Question(
                 question_number = 1.36,
                 question_text =
-                "2. def factorial(n):\n" +
-                "1. if n == 1:\n" +
+                "1. def factorial(n):\n" +
+                "2. if n == 1:\n" +
 
                         "3. return 1\n" +
-                        "5. else:"+
+                        "5. else:\n"+
                         "4. return n * factorial(n - 1)\n" ,
 
                 question_text2="Arrange the following lines of Python code into the correct sequence to define a recursive factorial function that calculates the factorial of a number.",

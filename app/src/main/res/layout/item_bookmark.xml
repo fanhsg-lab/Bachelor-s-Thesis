@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/shadows3"
-    android:padding="15dp"
+    android:paddingBottom="15dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="10dp"
     android:layout_marginLeft="20dp"
     android:layout_marginBottom="20dp"
     android:layout_marginRight="20dp"
@@ -19,22 +21,31 @@
             android:id="@+id/quesNo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:fontFamily="@font/alice"
+            android:layout_weight="3"
+            android:paddingTop="15dp"
             android:textColor="@color/text_color"
+            android:fontFamily="@font/peinirli"
             android:text="Question No. 1"
-            android:textSize="18sp" />
+            android:textSize="19sp" />
 
         <TextView
             android:id="@+id/quesstyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:fontFamily="@font/alice"
+            android:paddingTop="15dp"
+            android:fontFamily="@font/peinirli"
             android:text="Style: Multiple Choice"
             android:textColor="@color/text_color"
+            android:textSize="19sp" />
 
-            android:textSize="18sp" />
+        <ImageView
+            android:id="@+id/qa_bookmarkB"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="7dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_backround_selected" />
     </LinearLayout>
 
     <View
@@ -42,35 +53,36 @@
         android:layout_height="1dp"
         android:id="@+id/divider3"
         android:layout_marginBottom="8dp"
+        android:paddingRight="15dp"
         android:background="?android:attr/listDivider"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/question"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:text="Question"
-        android:fontFamily="@font/kodemono"
         android:textColor="@color/text_color"
+        android:fontFamily="@font/peinirli"
         android:layout_marginBottom="8dp"/>
 
     <TextView
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/kodemono"
         android:textColor="@color/text_color"
+        android:fontFamily="@font/peinirli"
         android:text="A : 123"
-        android:textSize="15sp" />
+        android:textSize="17sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="A : 123"
-        android:fontFamily="@font/kodemono"
         android:textColor="@color/text_color"
+        android:fontFamily="@font/peinirli"
         android:id="@+id/optionA"
-        android:textSize="15sp"
+        android:textSize="17sp"
         android:paddingTop="5dp"
         />
 
@@ -78,9 +90,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="B : 123"
-        android:textSize="15sp"
-        android:fontFamily="@font/kodemono"
+        android:textSize="17sp"
         android:textColor="@color/text_color"
+        android:fontFamily="@font/peinirli"
         android:id="@+id/optionB"
         />
 
@@ -88,9 +100,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="C : 123"
-        android:textSize="15sp"
-        android:fontFamily="@font/kodemono"
+        android:textSize="17sp"
         android:textColor="@color/text_color"
+        android:fontFamily="@font/peinirli"
         android:id="@+id/optionC"
         />
 
@@ -98,9 +110,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="D : 123"
-        android:textSize="15sp"
-        android:fontFamily="@font/kodemono"
+        android:textSize="17sp"
         android:textColor="@color/text_color"
+        android:fontFamily="@font/peinirli"
         android:id="@+id/optionD"
         />
 
@@ -114,6 +126,7 @@
         android:textStyle="bold"
         android:gravity="end"
         android:layout_marginTop="0dp"
+        android:fontFamily="@font/peinirli"
         android:textColor="@color/muted_orange"
         />
 

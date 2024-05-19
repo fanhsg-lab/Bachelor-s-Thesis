@@ -7,6 +7,20 @@
     android:layout_height="match_parent"
     android:background="@drawable/background4">
 
+    <TextView
+        android:id="@+id/titlossoulou"
+        style="@style/titlosStyle"
+        android:layout_width="300sp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/next_button_drawable"
+        android:padding="15dp"
+        android:text="Είναι αυτή η δήλωση αληθής ?"
+        android:fontFamily="@font/peinirli"
+        android:textSize="20dp"
+        android:textColor="@color/text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/souloutext"
@@ -14,7 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:padding="5dp"
-        android:fontFamily="@font/kodemono"
+        android:text="Στην Python, μια λίστα είναι ένας τύπος μεταβλητής δομής δεδομένων."
+        android:fontFamily="@font/peinirli"
         android:textColor="@color/lighter_grayish_blue"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,9 +45,9 @@
         android:layout_marginStart="200dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/next_button_drawable"
-        android:text="false"
+        android:text="Λαθος"
         android:textSize="18dp"
-        android:fontFamily="@font/madimione"
+        android:fontFamily="@font/mpompa"
         android:textColor="@color/text_color"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,8 +62,8 @@
         android:layout_marginEnd="200dp"
         android:padding="0dp"
         android:background="@drawable/next_button_drawable"
-        android:text="true"
-        android:fontFamily="@font/madimione"
+        android:text="Σωστο"
+        android:fontFamily="@font/mpompa"
         android:textSize="18dp"
         android:textColor="@color/text_color"
         android:textStyle="bold"
@@ -56,20 +71,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/souloutext" />
 
-    <TextView
-        android:id="@+id/titlossoulou"
-        style="@style/titlosStyle"
-        android:layout_width="300sp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/next_button_drawable"
-        android:padding="15dp"
-        android:text="true_false"
-        android:fontFamily="@font/alice"
-        android:textSize="18dp"
-        android:textColor="@color/text_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
 
 

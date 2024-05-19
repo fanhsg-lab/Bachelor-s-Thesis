@@ -15,8 +15,8 @@ android:padding="8dp">
         android:padding="15dp"
         android:layout_gravity="center"
         android:text="true_false"
-        android:fontFamily="@font/alice"
-        android:textSize="18dp"
+        android:fontFamily="@font/peinirli"
+        android:textSize="21dp"
         android:textColor="@color/text_color"
         android:textStyle="bold"/>
 

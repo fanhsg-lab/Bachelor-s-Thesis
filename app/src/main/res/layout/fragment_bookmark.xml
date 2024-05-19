@@ -24,9 +24,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="information"
+            android:text="πληροφορίες"
             android:textSize="28sp"
-            android:fontFamily="@font/madimione"
+            android:fontFamily="@font/acloving"
             android:textColor="@color/text_color"
             android:gravity="center"/>
 
@@ -36,55 +36,7 @@
             android:layout_height="2dp"
             android:background="@color/text_color" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/Btn3"
-                android:layout_width="70dp"
-                android:layout_height="65dp"
-                android:layout_marginTop="26dp"
-                android:background="@drawable/historybutton"
-                android:paddingBottom="5dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="15dp"
-                android:layout_marginTop="5dp"
-                android:textSize="18sp"
-                android:text="This button is closed. You can not access it until you do the previous ones"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:orientation="horizontal">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/Bt"
-                android:layout_width="70dp"
-                android:layout_height="65dp"
-                android:layout_marginTop="36dp"
-                android:background="@drawable/historybutton2"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="15dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="20dp"
-                android:textSize="18sp"
-                android:text="This is the button you can access. Focus on them to practise and to continue your progress."/>
-
-
-
-        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -93,6 +45,8 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="5dp"
             android:gravity="center"
+            android:textColor="@color/text_color"
+            android:fontFamily="@font/peinirli"
             android:textSize="18sp"
             android:text="Not all the questions are access from the quizs in this path. Use this layout to get a nice start about the world of Python. Try to repeat the quizs to get familiar before you continue. "/>
 
@@ -132,11 +86,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/madimione"
             android:gravity="center"
-            android:text="Bookmarks"
+            android:text="Σελιδοδείκτες"
             android:textColor="@color/text_color"
-            android:textSize="25sp" />
+            android:fontFamily="@font/peinirli"
+            android:textSize="30sp" />
 
         <ImageView
             android:id="@+id/info"

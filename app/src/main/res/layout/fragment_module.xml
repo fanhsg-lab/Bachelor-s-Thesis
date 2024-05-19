@@ -25,9 +25,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="information"
+            android:text="πληροφορίες"
             android:textSize="28sp"
-            android:fontFamily="@font/madimione"
+            android:fontFamily="@font/acloving"
             android:textColor="@color/text_color"
             android:gravity="center"/>
 
@@ -44,7 +44,9 @@
             android:paddingLeft="15dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="5dp"
+            android:fontFamily="@font/peinirli"
             android:gravity="center"
+            android:textColor="@color/text_color"
             android:textSize="18sp"
             android:text="Δες το ποσοστό για κάθε κεφάλαιο και επέλεξε πως να γίνεις καλύτερος σε αυτό"/>
 
@@ -71,6 +73,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="15dp"
+                android:fontFamily="@font/peinirli"
+                android:textColor="@color/text_color"
                 android:layout_marginTop="5dp"
                 android:textSize="18sp"
                 android:text="Hard questions"/>
@@ -99,6 +103,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="15dp"
+                android:textColor="@color/text_color"
+                android:fontFamily="@font/peinirli"
                 android:layout_marginTop="5dp"
                 android:textSize="18sp"
                 android:text="lowest Percentege"/>
@@ -127,6 +133,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="15dp"
+                android:fontFamily="@font/peinirli"
+                android:textColor="@color/text_color"
                 android:layout_marginTop="5dp"
                 android:textSize="18sp"
                 android:text="Only NNNN"/>
@@ -148,14 +156,14 @@
 
     <LinearLayout
         android:id="@+id/ll4"
+        android:elevation="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:paddingEnd="15dp"
-        android:paddingBottom="5dp"
         android:paddingStart="15dp"
-        android:elevation="5dp"
+        android:paddingEnd="15dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -163,6 +171,7 @@
         <ImageView
             android:id="@+id/ques_list_gridB"
             android:layout_width="32dp"
+            android:layout_gravity="center_vertical"
             android:layout_height="32dp"
             android:src="@drawable/ic_account" />
 
@@ -171,16 +180,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/madimione"
+            android:fontFamily="@font/acloving"
             android:gravity="center"
-            android:text="Modules"
+            android:text="Κεφάλαια"
             android:textColor="@color/text_color"
-            android:textSize="25sp" />
+            android:textSize="30sp" />
 
         <ImageView
             android:id="@+id/info"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
             android:backgroundTint="@color/white"
             android:src="@drawable/ic_info"
             app:tint="@color/text_color" />

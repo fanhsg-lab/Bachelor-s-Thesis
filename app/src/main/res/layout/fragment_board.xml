@@ -25,9 +25,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="information"
+            android:text="πληροφορίες"
             android:textSize="28sp"
-            android:fontFamily="@font/madimione"
+            android:fontFamily="@font/acloving"
             android:textColor="@color/text_color"
             android:gravity="center"/>
 
@@ -136,11 +136,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/madimione"
+            android:fontFamily="@font/acloving"
             android:gravity="center"
-            android:text="LeaderBoard"
+            android:text="Πίνακας Κατάταξης"
             android:textColor="@color/text_color"
-            android:textSize="25sp" />
+            android:textSize="30sp" />
 
         <ImageView
             android:id="@+id/info"

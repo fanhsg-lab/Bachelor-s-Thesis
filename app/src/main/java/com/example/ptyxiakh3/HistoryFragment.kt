@@ -87,7 +87,7 @@ class HistoryFragment : Fragment() {
     }
     private fun setupHistoryModels(){
 
-        historyModels.add( HistoryModel("Chapter 1", "Λες απλές προτάσεις, μιλάς στον πληθυντικό sdfg sdsdfg ssdf ","fasdfasdf", R.drawable.logo,5))
+        historyModels.add( HistoryModel("Chapter 1", "Λες απλές προτάσεις, μιλάς στον πληθυντικό ","fasdfasdf", R.drawable.logo,5))
         historyModels.add( HistoryModel("Chapter 2", "Λες δύσκολες λέξεςι και δύσκολες προτάσεις προσπάθησε πολύ σκληρά","fasdfasdf", R.drawable.logo,6))
         historyModels.add( HistoryModel("Chapter 3", "Lorem ipsum","fasdfasdf", R.drawable.logo,7))
         historyModels.add( HistoryModel("Chapter 1", "Λες απλές προτάσεις, μιλάς στον πληθυντικό sdfg sdsdfg ssdf ","fasdfasdf", R.drawable.logo,8))

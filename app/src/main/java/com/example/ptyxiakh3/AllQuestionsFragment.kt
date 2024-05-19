@@ -53,11 +53,6 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
 
 
 
-
-
-
-        expandableListView.setAdapter(adapter)
-
         chapters.forEach { chapter ->
             questionsViewModel.getQuestionsByModule(chapter).observe(viewLifecycleOwner, Observer { questions ->
                 if (questions.isEmpty()) {
@@ -151,6 +146,7 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
 
                     quesNo?.text ="Question's ID: "+ question.question_id.toString()
                     quesstyle?.text ="Style: "+ question.style.toString()
+                    text?.text =question.question_text
 
                     if(question.style=="SouLou") {
                         text?.visibility = View.VISIBLE
@@ -235,6 +231,7 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
                         optionD?.visibility = View.GONE
                         result?.visibility = View.GONE
                         lasttext?.visibility=View.VISIBLE
+
                         questionText?.text = question.question_text2
                         // Create a SpannableString from the question text
                         val spannableString = SpannableString(question.question_text)
@@ -300,7 +297,7 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
                     if (question.style == "multiple choice") {
                         lasttext?.visibility=View.GONE
                         questionText?.text = question.question_text
-                        text?.visibility = View.GONE
+                        text?.visibility = View.VISIBLE
                         result?.visibility = View.GONE
 
                         // Iterate over all possible answers
@@ -338,12 +335,11 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
                     if(question.style=="Queue") {
                         lasttext?.visibility=View.GONE
                         text?.visibility = View.VISIBLE
-                        questionText?.text = question.question_text2
-                        text?.text = question.question_text
-
+                        text?.text = question.question_text2
+                        optionA?.text = question.question_text
                         result?.visibility = View.GONE
 
-                        optionA?.visibility = View.GONE
+
                         optionB?.visibility = View.GONE
                         optionC?.visibility = View.GONE
                         optionD?.visibility = View.GONE

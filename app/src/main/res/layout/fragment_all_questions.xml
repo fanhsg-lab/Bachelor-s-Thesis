@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="80dp"
+    android:paddingBottom="55dp"
 
     android:background="@drawable/background4"
     tools:context=".AllQuestionsFragment">
@@ -28,9 +28,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="information"
+            android:text="πληροφορίες"
             android:textSize="28sp"
-            android:fontFamily="@font/madimione"
+            android:fontFamily="@font/acloving"
             android:textColor="@color/text_color"
             android:gravity="center"/>
 
@@ -48,6 +48,8 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="5dp"
             android:gravity="center"
+            android:fontFamily="@font/peinirli"
+            android:textColor="@color/text_color"
             android:textSize="18sp"
             android:text="Έλενξε τα ποσοστά σου για κάθε άσκηση ξεχωριστά. Το χρώμα είναι ανάλογα του ποσοστού επιτυχίας των τελευταίων 5 απαντήσεων σου."/>
 
@@ -67,21 +69,23 @@
 
     <LinearLayout
         android:id="@+id/menuallQ"
+        android:elevation="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:paddingEnd="15dp"
-        android:elevation="5dp"
-        android:paddingBottom="5dp"
         android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <ImageView
             android:id="@+id/ques_list_gridB"
             android:layout_width="32dp"
+            android:layout_gravity="center_vertical"
             android:layout_height="32dp"
             android:src="@drawable/ic_account" />
 
@@ -90,16 +94,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/madimione"
+            android:fontFamily="@font/acloving"
             android:gravity="center"
-            android:text="All Questions"
+            android:text="Ερωτηματολόγιο"
             android:textColor="@color/text_color"
-            android:textSize="25sp" />
+            android:textSize="30sp" />
 
         <ImageView
             android:id="@+id/info"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
             android:backgroundTint="@color/white"
             android:src="@drawable/ic_info"
             app:tint="@color/text_color" />
@@ -125,7 +130,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shadows4"
-        android:visibility="gone"
+        android:visibility="visible"
+        android:elevation="2dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -141,18 +147,20 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:fontFamily="@font/alice"
+                android:textColor="@color/text_color"
+                android:fontFamily="@font/peinirli"
                 android:text="Question No. 1"
-                android:textSize="18sp" />
+                android:textSize="19sp" />
 
             <TextView
                 android:id="@+id/quesstyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:fontFamily="@font/alice"
+                android:fontFamily="@font/peinirli"
                 android:text="Style: Multiple Choice"
-                android:textSize="18sp" />
+                android:textColor="@color/text_color"
+                android:textSize="19sp" />
         </LinearLayout>
 
         <View
@@ -165,28 +173,24 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/question"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:text="Question"
-            android:fontFamily="@font/kodemono"
+            android:visibility="visible"
+            android:textColor="@color/text_color"
+            android:id="@+id/text"
+            android:fontFamily="@font/peinirli"
             android:layout_marginBottom="8dp"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/kodemono"
-            android:text="A : 123"
-            android:textSize="15sp"
-            android:id="@+id/text"
-            />
+
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="A : 123"
-            android:fontFamily="@font/kodemono"
+            android:textColor="@color/text_color"
+            android:fontFamily="@font/peinirli"
             android:id="@+id/optionA"
-            android:textSize="15sp"
+            android:textSize="17sp"
             android:paddingTop="5dp"
             />
 
@@ -194,8 +198,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="B : 123"
-            android:textSize="15sp"
-            android:fontFamily="@font/kodemono"
+            android:textSize="17sp"
+            android:textColor="@color/text_color"
+            android:fontFamily="@font/peinirli"
             android:id="@+id/optionB"
             />
 
@@ -203,8 +208,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="C : 123"
-            android:textSize="15sp"
-            android:fontFamily="@font/kodemono"
+            android:textSize="17sp"
+            android:textColor="@color/text_color"
+            android:fontFamily="@font/peinirli"
             android:id="@+id/optionC"
             />
 
@@ -212,8 +218,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="D : 123"
-            android:textSize="15sp"
-            android:fontFamily="@font/kodemono"
+            android:textSize="17sp"
+            android:textColor="@color/text_color"
+            android:fontFamily="@font/peinirli"
             android:id="@+id/optionD"
             />
 
@@ -222,8 +229,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="D : 123"
-            android:textSize="15sp"
-            android:fontFamily="@font/kodemono"
+            android:textSize="17sp"
+            android:textColor="@color/text_color"
+            android:fontFamily="@font/peinirli"
 
             tools:ignore="InvalidId" />
 

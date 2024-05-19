@@ -41,6 +41,12 @@
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgotPassFragment3"
+            app:destination="@id/forgotPassFragment3" />
+        <action
+            android:id="@+id/action_loginFragment_self"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/historyFragment"
@@ -142,6 +148,10 @@
         android:name="com.example.ptyxiakh3.UserFragment"
         android:label="fragment_user"
         tools:layout="@layout/fragment_user" />
+    <fragment
+        android:id="@+id/forgotPassFragment3"
+        android:name="ForgotPassFragment"
+        android:label="ForgotPassFragment" />
 
 
 </navigation>

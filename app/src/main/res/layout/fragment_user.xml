@@ -17,7 +17,7 @@
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:padding="10dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,9 +25,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="information"
+            android:text="Λεπτομέρειες"
             android:textSize="28sp"
-            android:fontFamily="@font/madimione"
+            android:fontFamily="@font/acloving"
             android:textColor="@color/text_color"
             android:gravity="center"/>
 
@@ -43,8 +43,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"
             android:gravity="center"
             android:textSize="18sp"
             android:fontFamily="@font/greek1"
@@ -54,18 +52,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"
             android:gravity="center"
             android:textSize="18sp"
             android:fontFamily="@font/mpompa"
             android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
-        <TextView
+      <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"
             android:gravity="center"
             android:textSize="18sp"
             android:fontFamily="@font/miracode"
@@ -74,51 +68,110 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:fontFamily="@font/atsalia"
-            android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:fontFamily="@font/miracode"
-            android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"
             android:gravity="center"
             android:textSize="18sp"
             android:fontFamily="@font/ifbombergsansbold"
             android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"
             android:gravity="center"
             android:textSize="18sp"
-            android:fontFamily="@font/text"
+            android:fontFamily="@font/acvarela"
             android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"
             android:gravity="center"
             android:textSize="18sp"
-            android:fontFamily="@font/textreal"
+            android:fontFamily="@font/acblur"
+            android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:fontFamily="@font/acchivoblack"
+            android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:fontFamily="@font/acconcert"
+            android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:fontFamily="@font/acloving"
+            android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:fontFamily="@font/mgabcol"
+            android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:fontFamily="@font/acscifly"
+            android:text="Συνδεση χεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:fontFamily="@font/ub05t"
+            android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:fontFamily="@font/acsofticecream"
+            android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/actitan"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:fontFamily="@font/acthickstick"
             android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
 
 
@@ -134,6 +187,7 @@
     </LinearLayout>
     <LinearLayout
         android:id="@+id/ll4"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -160,11 +214,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/madimione"
+            android:fontFamily="@font/acloving"
             android:gravity="center"
-            android:text="User"
+            android:text="Προφίλ"
             android:textColor="@color/text_color"
-            android:textSize="25sp" />
+            android:textSize="30sp" />
 
         <ImageView
             android:id="@+id/info"
@@ -187,6 +241,7 @@
         android:elevation="5dp"
         android:orientation="vertical"
         android:paddingLeft="16dp"
+        android:visibility="visible"
         android:paddingTop="48dp"
         android:paddingRight="16dp"
         android:paddingBottom="32dp"
@@ -206,9 +261,12 @@
                 android:id="@+id/mp_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Name"
+                android:hint="Όνομα"
                 android:background="@drawable/editedtext"
                 android:inputType="text"
+                android:textSize="18sp"
+                android:textColor="@color/text_color"
+                android:fontFamily="@font/peinirli"
                 android:layout_marginTop="8dp"
                  android:paddingBottom="8dp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -224,6 +282,9 @@
                 android:id="@+id/mp_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_color"
+                android:fontFamily="@font/peinirli"
+                android:textSize="18sp"
                 android:background="@drawable/editedtext"
                 android:hint="Email_ID"
                 android:inputType="text" />
@@ -239,8 +300,11 @@
                 android:id="@+id/mp_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_color"
+                android:fontFamily="@font/peinirli"
+                android:textSize="18sp"
                 android:background="@drawable/editedtext"
-                android:hint="Phone Number"
+                android:hint="Αριθμός Τηλεφώνου"
                 android:inputType="number" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -272,6 +336,7 @@
             android:layout_height="wrap_content"
             android:text="Edit"
             android:textColor="@color/text_color"
+            android:fontFamily="@font/peinirli"
             android:textSize="16sp" />
 
     </LinearLayout>
@@ -282,6 +347,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:gravity="center"
+        android:visibility="gone"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -295,10 +361,11 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:padding="0dp"
+
             android:layout_margin="10dp"
             android:background="@drawable/next_button_drawable"
-            android:text="cancel"
-            android:fontFamily="@font/madimione"
+            android:text="Ακυρωση"
+            android:fontFamily="@font/mpompa"
             android:textSize="18dp"
             android:textColor="@color/text_color"
             android:textStyle="bold" />
@@ -315,10 +382,10 @@
             android:layout_margin="10dp"
             android:background="@drawable/next_button_drawable"
             android:elevation="5dp"
-            android:fontFamily="@font/madimione"
-            android:text="SAVE"
+            android:fontFamily="@font/mpompa"
+            android:textSize="18dp"
             android:textColor="@color/text_color"
-            android:textSize="18dp" />
+            android:text="Αποθηκευση" />
 
     </LinearLayout>
 

@@ -147,17 +147,18 @@ object DbQuery {
     fun saveBookmarks(completeListener: MyCompleteListener) {
         val batch = g_firestore!!.batch()
         val uid = FirebaseAuth.getInstance().uid
-
+        Log.d("BookmarkFragment", "Bookmarks: ${g_bmIdList}")
         if (uid != null) {
             // Preparing bookmark data
             val bmData = mutableMapOf<String, Any>()
 
             for (i in g_bmIdList.indices) {
                 bmData["BM${i + 1}_ID"] = g_bmIdList[i]
+                Log.d("BookmarkFragment", "Bookmark: ${"BM${i + 1}_ID"} , ${g_bmIdList[i]}")
 
             }
 
-            bmData["BM${0 + 1}_ID"] =1
+
             // Reference to the bookmarks document
             val bmDoc = g_firestore!!.collection("USERS").document(uid)
                 .collection("USER_DATA").document("BOOKMARKS")

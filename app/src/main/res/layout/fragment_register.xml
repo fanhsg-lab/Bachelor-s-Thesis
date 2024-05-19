@@ -3,29 +3,125 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/background4"
     android:layout_height="match_parent">
 
-
-    <ImageView
-        android:id="@+id/backB"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/HistorypopupLayout"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:elevation="3dp"
-        android:padding="16dp"
+        android:layout_gravity="center"
+        android:background="@drawable/informationackground"
+        android:elevation="10dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_back" />
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="πληροφορίες"
+            android:textSize="28sp"
+            android:fontFamily="@font/acloving"
+            android:textColor="@color/text_color"
+            android:gravity="center"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/text_color" />
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/peinirli"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/text_color"
+            android:text="Καλώς ήρθες. Ήρθε η ώρα να φτιάξεις τον λογαριασμό σου. Χρησιμοποίησε email όπου έχεις πρόσβαση για να μπορέσεις να αποκαταστήσεις τον λογαριασμό σου σε περίπτωση που ξεχάσεις τον κωδικό σου."/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/peinirli"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/text_color"
+android:text="Ο κωδικός σου πρέπει να έχει τουλάχιστον 6 χαρακτήρες"/>
+
+        <ImageView
+            android:id="@+id/closeBtn"
+            android:layout_gravity="end"
+            android:paddingTop="0dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_close"
+            app:tint="@color/text_color" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingEnd="15dp"
+        android:paddingBottom="5dp"
+        android:paddingStart="15dp"
+        android:elevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backB"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/qa_catName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/acloving"
+            android:gravity="center"
+            android:text="Εγγραφείτε"
+            android:textColor="@color/text_color"
+            android:textSize="30sp" />
+
+        <ImageView
+            android:id="@+id/info"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_info"
+            app:tint="@color/text_color" />
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="16dp"
+        android:paddingTop="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -62,9 +158,11 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="64dp"
             android:layout_marginEnd="32dp"
-            android:backgroundTint="@color/colorPrimary"
+            android:textSize="20sp"
+            android:fontFamily="@font/peinirli"
+            android:backgroundTint="@color/muted_orange"
             android:textColor="@color/black"
-            android:hint="Full Name"
+            android:hint="Όνομα"
             android:ems="10"
             android:inputType="text"/>
 
@@ -75,9 +173,11 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:backgroundTint="@color/colorPrimary"
+            android:textSize="20sp"
+            android:fontFamily="@font/peinirli"
+            android:backgroundTint="@color/muted_orange"
             android:textColor="@color/black"
-            android:hint="E-Mail ID"
+            android:hint="E-Mail "
             android:ems="10"
             android:inputType="text"/>
 
@@ -88,9 +188,11 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:backgroundTint="@color/colorPrimary"
+            android:textSize="20sp"
+            android:fontFamily="@font/peinirli"
+            android:backgroundTint="@color/muted_orange"
             android:textColor="@color/black"
-            android:hint="Password"
+            android:hint="Κωδικός"
             android:ems="10"
             android:inputType="textPassword"/>
 
@@ -101,9 +203,11 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:backgroundTint="@color/colorPrimary"
+            android:textSize="20sp"
+            android:fontFamily="@font/peinirli"
+            android:backgroundTint="@color/muted_orange"
             android:textColor="@color/black"
-            android:hint="Confirm Password"
+            android:hint="Επαλήθευση Κωδικού"
             android:ems="10"
             android:inputType="textPassword"/>
 
@@ -120,19 +224,23 @@
         android:id="@+id/signupB"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:text="singup"
+        android:layout_marginEnd="48dp"
+        android:text="Εγγραφη"
         android:background="@drawable/round_corner_button"
-        android:textColor="#ffffff"
-        android:textSize="18sp"
+        android:textColor="@color/text_color"
+        android:textSize="20sp"
+        android:fontFamily="@font/mpompa"
         android:elevation="5dp"
         android:translationZ="3dp"
         android:stateListAnimator="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_layout" />
+
+
+
 
 
 

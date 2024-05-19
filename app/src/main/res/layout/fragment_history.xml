@@ -25,9 +25,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="information"
+            android:text="πληροφορίες"
             android:textSize="28sp"
-            android:fontFamily="@font/madimione"
+            android:fontFamily="@font/acloving"
             android:textColor="@color/text_color"
             android:gravity="center"/>
 
@@ -54,10 +54,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/peinirli"
                 android:paddingLeft="15dp"
-                android:layout_marginTop="5dp"
-                android:textSize="18sp"
-                android:text="This button is closed. You can not access it until you do the previous ones"/>
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/text_color"
+                android:text="Αυτό το κουμπί είναι κλειστό.fasd Δεν μπορείτε να το χρησιμοποιήσετε μέχρι να ολοκληρώσετε τα προηγούμενα."
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -78,10 +80,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="15dp"
+                android:fontFamily="@font/peinirli"
                 android:layout_marginTop="5dp"
+                android:textColor="@color/text_color"
                 android:layout_marginBottom="20dp"
                 android:textSize="18sp"
-                android:text="This is the button you can access. Focus on them to practise and to continue your progress."/>
+                android:text="Αυτό είναι το κουμπί που μπορείτε να χρησιμοποιήσετε. Επικεντρωθείτε σε αυτό για να εξασκηθείτε και να συνεχίσετε την πρόοδό σας."/>
 
 
 
@@ -92,10 +96,12 @@
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
             android:layout_marginTop="15dp"
+            android:fontFamily="@font/peinirli"
             android:layout_marginBottom="5dp"
             android:gravity="center"
             android:textSize="18sp"
-            android:text="Not all the questions are access from the quizs in this path. Use this layout to get a nice start about the world of Python. Try to repeat the quizs to get familiar before you continue. "/>
+            android:textColor="@color/text_color"
+            android:text="Δεν είναι όλες οι ερωτήσεις προσβάσιμες από τα κουίζ σε αυτό το μονοπάτι. Χρησιμοποιήστε αυτή τη διάταξη για να κάνετε μια καλή αρχή στον κόσμο της Python. Προσπαθήστε να επαναλάβετε τα κουίζ για να εξοικειωθείτε πριν συνεχίσετε. "/>
 
 
         <ImageView
@@ -112,45 +118,46 @@
 
 
     <LinearLayout
-        android:id="@+id/ll4"
-        android:elevation="5dp"
-        android:layout_width="match_parent"
+    android:id="@+id/ll4"
+    android:elevation="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp"
+
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <ImageView
+        android:id="@+id/ques_list_gridB"
+        android:layout_width="32dp"
+        android:layout_gravity="center_vertical"
+        android:layout_height="32dp"
+        android:src="@drawable/ic_account" />
+
+    <TextView
+        android:id="@+id/qa_catName"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:paddingBottom="5dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/acloving"
+        android:gravity="center"
+        android:text="Διαδρομή"
+        android:textColor="@color/text_color"
+        android:textSize="30sp" />
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/ques_list_gridB"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_account" />
-
-        <TextView
-            android:id="@+id/qa_catName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/madimione"
-            android:gravity="center"
-            android:text="Path Way"
-            android:textColor="@color/text_color"
-            android:textSize="25sp" />
-
-        <ImageView
-            android:id="@+id/info"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:backgroundTint="@color/white"
-            android:src="@drawable/ic_info"
-            app:tint="@color/text_color" />
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/info"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center_vertical"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/ic_info"
+        app:tint="@color/text_color" />
+</LinearLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView

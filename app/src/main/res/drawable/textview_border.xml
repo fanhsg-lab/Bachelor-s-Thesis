@@ -3,7 +3,7 @@
     <!-- White background for the paper -->
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/lighter_grayish_blue"/> <!-- White color for paper -->
+            <solid android:color="@color/backgroundgrey"/> <!-- White color for paper -->
         </shape>
     </item>
 
