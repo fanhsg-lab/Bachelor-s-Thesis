@@ -162,6 +162,7 @@
             android:layout_height="65dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="18dp"
+            android:elevation="40dp"
             android:background="@drawable/historybutton"
         android:paddingBottom="10dp"
         app:layout_constraintEnd_toEndOf="parent"

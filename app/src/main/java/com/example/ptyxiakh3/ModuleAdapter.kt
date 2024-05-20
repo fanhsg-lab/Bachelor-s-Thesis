@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -44,6 +45,7 @@ class AdapterModule(private val context: Context, private val ModuleModels: Arra
 
         val myView: MyView = itemView.findViewById(R.id.my_view)
         val button: Button = itemView.findViewById(R.id.button2) // Assuming button2 is your button ID
+        val buttonframe: FrameLayout = itemView.findViewById(R.id.framebutton2)
         private var currentButtonState = ButtonState.SHADOW // Track the current state
         val cardView = itemView.findViewById<CardView>(R.id.my_card_view)
 
@@ -63,7 +65,8 @@ class AdapterModule(private val context: Context, private val ModuleModels: Arra
                 navController.navigate(action) // Use the provided NavController
             }
 
-            button.setOnClickListener {
+            buttonframe.setOnClickListener {
+                Log.d("patao", "Patao")
                 // Cycle through the drawables
                 when (currentButtonState) {
                     ButtonState.CIRCLE -> {

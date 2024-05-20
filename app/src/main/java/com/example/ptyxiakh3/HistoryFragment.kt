@@ -1,5 +1,6 @@
 package com.example.ptyxiakh3
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ptyxiakh3.DbQuery.myProfile
 import com.example.navigationtry2.HistoryModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.yourpackage.NetworkUtil
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -40,6 +42,9 @@ class HistoryFragment : Fragment() {
 
         Log.d("database2", "edo ${myProfile.qHistory}")
 
+        if (!NetworkUtil.isInternetAvailable(requireContext())) {
+            showNoInternetDialog()
+        }
 
 
         val recyclerView: RecyclerView = view.findViewById<RecyclerView>(R.id.history_recycler_view)
@@ -64,6 +69,22 @@ class HistoryFragment : Fragment() {
         }
 
         return view;
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!NetworkUtil.isInternetAvailable(requireContext())) {
+            showNoInternetDialog()
+        }
+    }
+
+    private fun showNoInternetDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("No Internet Connection")
+            .setMessage("This app requires an internet connection. Please check your network settings.")
+            .setPositiveButton("OK") { _, _ -> requireActivity().finish() }
+            .setCancelable(false)
+            .show()
     }
 
     companion object {

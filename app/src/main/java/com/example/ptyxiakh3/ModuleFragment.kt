@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ptyxiakh3.data.Question
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.yourpackage.NetworkUtil
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -34,6 +36,26 @@ class ModuleFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        if (!NetworkUtil.isInternetAvailable(requireContext())) {
+            showNoInternetDialog()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!NetworkUtil.isInternetAvailable(requireContext())) {
+            showNoInternetDialog()
+        }
+    }
+
+    private fun showNoInternetDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("No Internet Connection")
+            .setMessage("This app requires an internet connection. Please check your network settings.")
+            .setPositiveButton("OK") { _, _ -> requireActivity().finish() }
+            .setCancelable(false)
+            .show()
     }
 
     override fun onCreateView(

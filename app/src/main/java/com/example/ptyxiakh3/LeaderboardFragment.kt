@@ -21,6 +21,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.room.InvalidationTracker
 import com.example.ptyxiakh3.data.Question
+import com.yourpackage.NetworkUtil
 import java.util.Arrays
 
 // TODO: Rename parameter arguments, choose names that match
@@ -45,6 +46,7 @@ class LeaderboardFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private val questionsViewModel: QuestionsViewModel by viewModels()
+
     val selectedModules = mutableListOf(
         "Python",
         "Chapter1",
@@ -75,8 +77,28 @@ class LeaderboardFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
 
+        if (!NetworkUtil.isInternetAvailable(requireContext())) {
+            showNoInternetDialog()
+        }
 
     }
+
+    override fun onResume() {
+        super.onResume()
+        if (!NetworkUtil.isInternetAvailable(requireContext())) {
+            showNoInternetDialog()
+        }
+    }
+
+    private fun showNoInternetDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("No Internet Connection")
+            .setMessage("This app requires an internet connection. Please check your network settings.")
+            .setPositiveButton("OK") { _, _ -> requireActivity().finish() }
+            .setCancelable(false)
+            .show()
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -109,6 +131,8 @@ class LeaderboardFragment : Fragment() {
         val textLeft : TextView? = view?.findViewById(R.id.textLeft)
         val textRight : TextView? = view?.findViewById(R.id.textRight)
 
+
+
         questionsViewModel.readAllData.observe(viewLifecycleOwner, Observer { questions ->
 
 
@@ -120,7 +144,7 @@ class LeaderboardFragment : Fragment() {
                 selectedCategories = selectedModules, // These are modules
                 groupBy = "style", // Group results by style
                 filterBy = "module",
-                difficultyFilter = listOf(1,2)  // Filter questions by module
+                difficultyFilter = listOf(1,2,3)  // Filter questions by module
             )
 
             barRight?.progress = rightProgress
@@ -134,7 +158,7 @@ class LeaderboardFragment : Fragment() {
                 selectedCategories = selectedModules, // These are modules
                 groupBy = "style", // Group results by style
                 filterBy = "module",
-                difficultyFilter = listOf(1,2)  // Filter questions by module
+                difficultyFilter = listOf(1,2,3)  // Filter questions by module
             )
 
             barLeft?.progress = leftProgress
@@ -184,6 +208,7 @@ class LeaderboardFragment : Fragment() {
         filterBy: String,
         difficultyFilter: List<Int>? = null  // Now accepts a list of difficulties for filtering
     ): Int {
+        val difficultyCounts = mutableMapOf(1 to 0, 2 to 0, 3 to 0)
         val categoryGroups = when (groupBy) {
             "module" -> questions.flatMap { it.modules }.toSet()
             "style" -> questions.map { it.style }.toSet()
@@ -200,13 +225,15 @@ class LeaderboardFragment : Fragment() {
 
         val categoryCorrectCounts = mutableMapOf<String, Int>().withDefault { 0 }
         val categoryCounts = mutableMapOf<String, Int>().withDefault { 0 }
-
+        var totalAnsweredQuestions =0
         var overallCorrect = 0
         var overallCount = 0
-
+        Log.d("LeaderBoard", "groupBy: $groupBy, filterBy: $filterBy")
         questions.forEach { question ->
             // Apply difficulty filter if provided
             if (difficultyFilter == null || difficultyFilter.contains(question.difficulty)) {
+                Log.d("LeaderBoard", " Question, ${question.question_id}")
+
                 val categories = when (groupBy) {
                     "module" -> question.modules
                     "style" -> listOf(question.style)
@@ -219,24 +246,39 @@ class LeaderboardFragment : Fragment() {
                     "difficulty" -> listOf(question.difficulty.toString())
                     else -> listOf()
                 }
+                Log.d("LeaderBoard", " Mphka1")
+                val startIndex = questions.indexOf(question) * 5
+                val answers = if (startIndex + 5 <= userAnswers.length) {
+                    userAnswers.substring(startIndex, startIndex + 5)
+                } else {
+                    userAnswers.substring(startIndex) + "N".repeat(5 - (userAnswers.length - startIndex))
+                }
+                Log.d("LeaderBoard", " userAnswers $answers")
+                val hasAnswers = answers.any { it == 'T' || it == 'F' }
+
+
 
                 if (filters.any { it in selectedCategories }) {
-                    categories.forEach { category ->
-                        val startIndex = questions.indexOf(question) * 5
-                        val answers = if (startIndex + 5 <= userAnswers.length) {
-                            userAnswers.substring(startIndex, startIndex + 5)
-                        } else {
-                            userAnswers.substring(startIndex) + "N".repeat(5 - (userAnswers.length - startIndex))
-                        }
+                    Log.d("LeaderBoard", " Mphka2")
+                    if (hasAnswers) {
 
-                        val hasAnswers = answers.any { it == 'T' || it == 'F' }
+                        totalAnsweredQuestions++
+                        difficultyCounts[question.difficulty] = difficultyCounts.getOrDefault(question.difficulty, 0) + 1
+                    }
+
+                    categories.forEach { category ->
+                        Log.d("LeaderBoard", " Mphka3")
+
+
                         if (hasAnswers) {
+                            Log.d("LeaderBoard", " Mphka4")
                             when (countingMethod) {
                                 CountingMethod.TOTAL_COUNTS -> {
                                     val countT = answers.count { it == 'T' }
                                     val countTF = answers.count { it == 'T' || it == 'F' }
                                     categoryCounts[category] = categoryCounts.getValue(category) + countTF
                                     categoryCorrectCounts[category] = categoryCorrectCounts.getValue(category) + countT
+                                    Log.d("LeaderBoard", " Question, ${question.question_id} category: $category, categoryCounts[category]: ${categoryCounts[category]}")
                                     overallCount += countTF
                                     overallCorrect += countT
                                 }
@@ -245,6 +287,7 @@ class LeaderboardFragment : Fragment() {
                                     overallCount += 1
                                     if (answers.any { it == 'T' }) {
                                         categoryCorrectCounts[category] = categoryCorrectCounts.getValue(category) + 1
+                                        Log.d("LeaderBoard", " Question, ${question.question_id} category: $category, categoryCounts[category]: ${categoryCounts[category]}")
                                         overallCorrect += 1
                                     }
                                 }
@@ -265,10 +308,10 @@ class LeaderboardFragment : Fragment() {
             categoryGroups.forEachIndexed { index, category ->
                 val correct = categoryCorrectCounts.getValue(category)
                 val count = categoryCounts.getValue(category)
-                val categoryCorrectness = if (count > 0) 100 * correct / count else 0
+                val categoryCorrectness = if (count > 0) 100 * correct / count else -1
 
                 // Update the minimum correctness and the corresponding category name
-                if (categoryCorrectness < minCorrectness) {
+                if (categoryCorrectness < minCorrectness && categoryCorrectness != -1) {
                     minCorrectness = categoryCorrectness
                     minCorrectnessCategory = category // Update the category name here
                 }
@@ -296,6 +339,21 @@ class LeaderboardFragment : Fragment() {
             minCorrectnessBar?.progress = minCorrectness
             minText?.text = minCorrectnessCategory
         }
+
+        val difficultyPercentages = difficultyCounts.mapValues { (difficulty, count) ->
+            if (totalAnsweredQuestions > 0) {
+                (count.toDouble() / totalAnsweredQuestions) * 100
+            } else {
+                0.0
+            }
+        }
+        Log.d("diffd","Difficulty 1 count: ${difficultyCounts[1]}, percentage: ${"%.2f".format(difficultyPercentages[1])}%")
+        Log.d("diffd","Difficulty 2 count: ${difficultyCounts[2]}, percentage: ${"%.2f".format(difficultyPercentages[2])}%")
+        Log.d("diffd","Difficulty 3 count: ${difficultyCounts[3]}, percentage: ${"%.2f".format(difficultyPercentages[3])}%")
+
+        val progressBar123 : ProgressBar? = view?.findViewById(R.id.progressBar123)
+        progressBar123?.progress = difficultyPercentages[1]?.toInt()!!
+        progressBar123?.secondaryProgress = difficultyPercentages[1]?.toInt()!! + difficultyPercentages[2]?.toInt()!!
         return overallCorrectness;
     }
 

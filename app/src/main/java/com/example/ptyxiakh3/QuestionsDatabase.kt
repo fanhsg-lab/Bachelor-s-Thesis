@@ -174,9 +174,9 @@ abstract class QuestionsDatabase : RoomDatabase() {
 
             val question11 = Question(
                 question_number = 1.11,
-                question_text = "Define a variable 'a' and assign the value 10 to it. Then, increase its value by 5 using an arithmetic operation.\n" +
+                question_text = "Ορίστε μια μεταβλητή 'a' και εκχωρήστε την τιμή 10 σε αυτή. Στη συνέχεια, αυξήστε την τιμή της κατά 5 χρησιμοποιώντας μια αριθμητική πράξη.\n" +
                         "a = 10 [____] [____]",
-                question_text2 = "What is the final value of 'a'?",
+                question_text2 = "Ποιά είναι η τελική τιμή του a",
                 quiz = 1.3,
                 difficulty = 1,
                 style = "Kena",
@@ -310,11 +310,11 @@ abstract class QuestionsDatabase : RoomDatabase() {
             val question21 = Question(
                 question_number = 1.21,
                 question_text =
-                "num = 10\n" +
-                        "if num = 10: \n" +
-                        "\tprint('Number is 10') \n" +
-                        "else: \n" +
-                        "\tprint('Number is not 10')",
+                "num = 10\n " +
+                        "αν num = 10:\n " +
+                        "εκτύπωσε('Ο αριθμός είναι 10') \n" +
+                        "αλλιώς: \n" +
+                        "εκτύπωσε('Ο αριθμός δεν είναι 10')",
                 question_text2="Click on the incorrect symbols or keywords in the code.",
                 question_module=listOf("answer1", "answer2"),
                 quiz = 1.5,
@@ -438,7 +438,7 @@ abstract class QuestionsDatabase : RoomDatabase() {
                 question_number = 1.30,
                 question_text = "Select two Python libraries commonly used for data analysis.",
                 question_text2=" ",
-
+                quiz = 2.1,
                 difficulty = 2,
                 style = "multiple choice",
                 modules = listOf("Programming", "Python", "Libraries"),

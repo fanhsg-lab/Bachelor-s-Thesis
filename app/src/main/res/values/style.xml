@@ -45,8 +45,8 @@
     </style>
 
     <style name="CustomCheckBox" parent="Theme.AppCompat.Light">
-        <item name="android:buttonTint">@color/text_color</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:buttonTint">@color/muted_orange</item>
+        <item name="android:textColor">@color/text_color</item>
     </style>
 
     <style name="Theme.App.Light" parent="Theme.MaterialComponents.Light.NoActionBar">

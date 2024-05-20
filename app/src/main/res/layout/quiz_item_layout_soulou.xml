@@ -29,7 +29,7 @@
         android:layout_marginTop="20dp"
         android:padding="5dp"
         android:text="Στην Python, μια λίστα είναι ένας τύπος μεταβλητής δομής δεδομένων."
-        android:fontFamily="@font/peinirli"
+        android:fontFamily="@font/ifbombergsansbold"
         android:textColor="@color/lighter_grayish_blue"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"

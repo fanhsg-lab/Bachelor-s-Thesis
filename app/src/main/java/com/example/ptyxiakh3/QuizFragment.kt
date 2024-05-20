@@ -532,7 +532,7 @@ class QuizFragment : Fragment()  {
             val layoutManager = myRecyclerView?.layoutManager as LinearLayoutManager
             val currentPos = layoutManager.findFirstVisibleItemPosition()
             val question = quizAdapter.getQuestionAtPosition(currentPos)
-            Log.d("book13", "Question ID: mphka")
+            Log.d("questionID2", "Question ID: ${question?.question_id}")
             if (question != null) {
                 Log.d("QuizFragment5", "Question ID: ${DbQuery.g_bmIdList} ")
 

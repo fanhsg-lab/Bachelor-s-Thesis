@@ -20,12 +20,13 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:text="Itegsfgsdfgsd"
+        android:fontFamily="@font/ifbombergsansbold"
         android:paddingVertical="5dp"
         android:paddingStart="10dp"
         android:paddingEnd="5dp"
         android:layout_marginLeft="10dp"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:textSize="15sp"/>
+        android:textSize="18sp"/>
 
 </com.google.android.material.card.MaterialCardView>

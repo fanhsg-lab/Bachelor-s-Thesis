@@ -32,21 +32,35 @@
 
 
 
+            <FrameLayout
+                android:id="@+id/framebutton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:paddingLeft="25dp"
+                android:paddingBottom="25dp"
+                android:elevation="100dp"
+                android:layout_gravity="end"
+            app:layout_constraintEnd_toEndOf="@+id/my_card_view"
+            app:layout_constraintStart_toStartOf="@+id/my_card_view"
+            app:layout_constraintTop_toTopOf="@+id/my_card_view">
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button2"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@drawable/modulebutton2"
                 android:text=""
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="110dp"
-                app:layout_constraintEnd_toEndOf="@+id/my_card_view"
-                app:layout_constraintStart_toStartOf="@+id/my_card_view"
-                app:layout_constraintTop_toTopOf="@+id/my_card_view" />
+                android:clickable="false"
+                android:layout_gravity="center"/>
+
+        </FrameLayout>
 
 
 
-            <com.example.ptyxiakh3.MyView
+
+        <com.example.ptyxiakh3.MyView
                 android:id="@+id/my_view"
                 android:background="@color/white"
                 android:layout_width="150dp"
