@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.ptyxiakh3.DbQuery.g_usersCount
 import com.example.ptyxiakh3.DbQuery.g_usersList
 import com.example.ptyxiakh3.DbQuery.myPerformance
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         }
         DbQuery.g_firestore = FirebaseFirestore.getInstance()
 
-
+        MobileAds.initialize(this) {}
         setContentView(R.layout.activity_main)
 
 

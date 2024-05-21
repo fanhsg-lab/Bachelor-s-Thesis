@@ -1,6 +1,7 @@
 package com.example.ptyxiakh3
 
 import QuestionsViewModel
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
 import android.text.SpannableString
@@ -31,13 +32,19 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ptyxiakh3.data.Question
 import com.example.ptyxiakh3.databinding.FragmentQuizBinding
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class QuizFragment : Fragment()  {
     private var binding: FragmentQuizBinding? = null
     private var myRecyclerView: RecyclerView? = null
-
+    private var mInterstitialAd: InterstitialAd? = null
     // ViewModel initialization using the 'by viewModels()' Kotlin property delegate.
     private val questionsViewModel: QuestionsViewModel by viewModels()
 
@@ -58,7 +65,7 @@ class QuizFragment : Fragment()  {
 
 
 
-
+        loadAd()
         return binding?.root
 
 
@@ -576,6 +583,8 @@ class QuizFragment : Fragment()  {
 
         binding?.btnNext?.setOnClickListener {
 
+
+
             //Log.d("popup","mphkapop")
             var flag2= false;
 
@@ -953,7 +962,7 @@ class QuizFragment : Fragment()  {
                             progressBar.progress += progressbarprogress
                             // Notify the adapter about the next position
                         } else {
-
+                            showInterstitialAd()
                             progressBar.progress = 0
                             val result = myProfile.qHistory
                             val score = DbQuery.myPerformance.score
@@ -963,6 +972,8 @@ class QuizFragment : Fragment()  {
                                 myProfile.quizs.add(quizNext)
                             }
                             Log.d("quizs","edo2 ,${myProfile.quizs}")
+
+
 
 
                             DbQuery.updateQHistory(   result, object :
@@ -1006,7 +1017,7 @@ class QuizFragment : Fragment()  {
                                 }
                             })
 
-                            findNavController().navigateUp()
+                            //findNavController().navigateUp()
 
                         }
                     }
@@ -1102,6 +1113,59 @@ class QuizFragment : Fragment()  {
 
 
 
+    }
+
+    private fun showInterstitialAd() {
+        // Hide the fragment's view to avoid displaying it when the ad is closed
+        view?.visibility = View.INVISIBLE
+
+        if (mInterstitialAd != null) {
+            mInterstitialAd?.show(requireActivity())
+        } else {
+            // If the ad is not ready, navigate directly
+            findNavController().navigateUp()
+        }
+    }
+
+
+    private fun loadAd() {
+        val adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(requireContext(), "ca-app-pub-3940256099942544/1033173712", adRequest, object : InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                Log.d("AdLog", adError?.toString() ?: "Ad failed to load")
+                mInterstitialAd = null
+            }
+
+            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                Log.d("AdLog", "Ad was loaded.")
+                mInterstitialAd = interstitialAd
+                setAdListener()
+            }
+        })
+    }
+
+    private fun setAdListener() {
+        mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+            override fun onAdDismissedFullScreenContent() {
+                // Ensure the view is hidden
+                view?.visibility = View.INVISIBLE
+
+                // Navigate to another fragment when the ad is dismissed
+                findNavController().navigateUp()
+            }
+
+            override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                // Handle the error
+                Log.d("AdLog", "Ad failed to show.")
+                view?.visibility = View.VISIBLE // Make the view visible again if the ad fails to show
+                findNavController().navigateUp() // Navigate directly if ad fails to show
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                // Ad is being shown, nullify the reference to ensure it isn't shown again
+                mInterstitialAd = null
+            }
+        }
     }
 
 

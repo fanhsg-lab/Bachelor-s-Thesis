@@ -21,6 +21,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.room.InvalidationTracker
 import com.example.ptyxiakh3.data.Question
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import com.yourpackage.NetworkUtil
 import java.util.Arrays
 
@@ -81,6 +83,7 @@ class LeaderboardFragment : Fragment() {
             showNoInternetDialog()
         }
 
+
     }
 
     override fun onResume() {
@@ -105,8 +108,17 @@ class LeaderboardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+
+
+
         // Only inflate the layout once
         val view = inflater.inflate(R.layout.fragment_leaderboard, container, false)
+
+        var mAdView : AdView?= view.findViewById(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+
+        // Start loading the ad in the background.
+        mAdView?.loadAd(adRequest)
 
         // Initialize progress bars
         val bar1 : ProgressBar? = view.findViewById(R.id.vertical_progressbar0)

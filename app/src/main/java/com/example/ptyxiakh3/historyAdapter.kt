@@ -17,6 +17,7 @@ class AdapterHistory(
     private val context: Context,
     private val historyModels: ArrayList<HistoryModel>,
     private val navController: NavController // Add the NavController parameter
+
 ) : RecyclerView.Adapter<AdapterHistory.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -70,16 +71,25 @@ class AdapterHistory(
         val buttons = arrayOf(holder.Button1,holder.Button2,holder.Button3,holder.Button4,holder.Button5,holder.Button6,holder.Button7,holder.Button8,holder.Button9,holder.Button10,holder.Button11,holder.Button12 )
 
         buttons.forEachIndexed { index, button ->
+                if (index <= tests) {
 
-                val str = "${position+1}.${index+1}"
-                println("Button $str clicked")
 
-                if (DbQuery.myProfile.quizs.contains(str)) {
-                    println("The string $str exists in the list.")
-                    button.setBackgroundResource(R.drawable.historybutton2)
-                    button.isEnabled = true
-                }else{
-                    button.isEnabled = false
+                    val str = "${position + 1}.${index + 1}"
+                    println("Button $str clicked")
+                    Log.d("moveto", "position: $position , index $index, tests $tests")
+                    if (DbQuery.myProfile.quizs.contains(str)) {
+                        println("The string $str exists in the list.")
+                        button.setBackgroundResource(R.drawable.historybutton2)
+                        button.isEnabled = true
+                    } else {
+                        button.isEnabled = false
+                        if (firstInvalidPosition == null) {
+                            firstInvalidPosition = position
+                            firstInvalidIndex = index
+                            Log.d("moveto", "firstInvalidPosition: $firstInvalidPosition")
+                            println("First invalid position saved: $firstInvalidPosition")
+                        }
+                    }
                 }
 
         }
