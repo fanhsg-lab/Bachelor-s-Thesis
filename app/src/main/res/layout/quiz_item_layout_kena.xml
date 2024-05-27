@@ -17,6 +17,7 @@
         android:background="@drawable/next_button_drawable"
         android:fontFamily="@font/peinirli"
         android:padding="15dp"
+        android:layout_marginTop="0dp"
         android:text="true_false"
         android:textColor="@color/text_color"
         android:textSize="20sp"
@@ -24,23 +25,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/paragraphTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:fontFamily="@font/ifbombergsansbold"
-        android:text="our CardView whilivity\ mava: with  that  be [____]."
-        android:textColor="@color/lighter_grayish_blue"
-        android:textSize="20sp"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titloskena" />
+        app:layout_constraintTop_toBottomOf="@+id/titloskena">
 
+        <TextView
+            android:id="@+id/paragraphTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:fontFamily="@font/ifbombergsansbold"
+            android:text="our CardView whilivity\ mava: with  that  be [____]."
+            android:textColor="@color/lighter_grayish_blue"
+            android:textSize="20sp"
+            app:layout_constraintHorizontal_bias="0.492" />
+
+    </ScrollView>
 
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -50,169 +59,171 @@
         app:layout_constraintStart_toStartOf="parent">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/resetButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/madimione"
-            android:textSize="18dp"
-            android:layout_marginEnd="10dp"
-            android:textColor="@color/text_color"
-            android:text="Reset"
-            android:layout_gravity="center"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/undoButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/madimione"
-            android:text="Undo"
-            android:textColor="@color/text_color"
-            android:textSize="18dp" />
+            <Button
+                android:id="@+id/resetButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/madimione"
+                android:text="Reset"
+                android:textColor="@color/text_color"
+                android:textSize="18dp" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/undoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/madimione"
+                android:text="Undo"
+                android:textColor="@color/text_color"
+                android:textSize="18dp" />
+
+        </LinearLayout>
 
         <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/flexboxLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:flexWrap="wrap"
             app:alignItems="flex_start"
+            app:flexWrap="wrap"
             app:justifyContent="center">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1"
-                android:textColor="@color/text_color"
+                android:layout_margin="8dp"
                 android:background="@drawable/kena_button"
                 android:minWidth="0dp"
-                android:paddingRight="17dp"
                 android:paddingLeft="17dp"
-                android:layout_margin="8dp" />
-
+                android:paddingRight="17dp"
+                android:text="1"
+                android:textColor="@color/text_color" />
 
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button 2"
+                android:layout_margin="8dp"
                 android:background="@drawable/kena_button"
-                android:visibility="gone"
-                android:textColor="@color/text_color"
                 android:minWidth="0dp"
-                android:paddingRight="17dp"
                 android:paddingLeft="17dp"
-                android:layout_margin="8dp" />
+                android:paddingRight="17dp"
+                android:text="Button 2"
+                android:textColor="@color/text_color"
+                android:visibility="gone" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/kena_button"
+                android:minWidth="0dp"
+                android:paddingLeft="17dp"
+                android:paddingRight="17dp"
                 android:text="Button 3"
                 android:textColor="@color/text_color"
-                android:background="@drawable/kena_button"
-                android:visibility="gone"
-                android:minWidth="0dp"
-                android:paddingRight="17dp"
-                android:paddingLeft="17dp"
-                android:layout_margin="8dp" />
+                android:visibility="gone" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button4"
-                android:background="@drawable/kena_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/kena_button"
+                android:minWidth="0dp"
+                android:paddingLeft="17dp"
+                android:paddingRight="17dp"
                 android:text="Button 4"
                 android:textColor="@color/text_color"
-                android:visibility="gone"
-                android:minWidth="0dp"
-                android:paddingRight="17dp"
-                android:paddingLeft="17dp"
-                android:layout_margin="8dp" />
+                android:visibility="gone" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/kena_button"
+                android:minWidth="0dp"
+                android:paddingLeft="17dp"
+                android:paddingRight="17dp"
                 android:text="ButtonFSFSDF 5"
                 android:textColor="@color/text_color"
-                android:visibility="gone"
-                android:minWidth="0dp"
-                android:background="@drawable/kena_button"
-                android:paddingRight="17dp"
-                android:paddingLeft="17dp"
-                android:layout_margin="8dp" />
+                android:visibility="gone" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/kena_button"
+                android:minWidth="0dp"
+                android:paddingLeft="17dp"
+                android:paddingRight="17dp"
                 android:text="ButtonFSFSDF 5"
                 android:textColor="@color/text_color"
-                android:background="@drawable/kena_button"
-                android:visibility="gone"
-                android:minWidth="0dp"
-                android:paddingRight="17dp"
-                android:paddingLeft="17dp"
-                android:layout_margin="8dp" />
+                android:visibility="gone" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button7"
-                android:background="@drawable/kena_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/kena_button"
+                android:minWidth="0dp"
+                android:paddingLeft="17dp"
+                android:paddingRight="17dp"
                 android:text="ButtonFSFSDF 5"
                 android:textColor="@color/text_color"
-                android:visibility="gone"
-                android:minWidth="0dp"
-                android:paddingRight="17dp"
-                android:paddingLeft="17dp"
-                android:layout_margin="8dp" />
+                android:visibility="gone" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ButtonFSFSDF 5"
-                android:textColor="@color/text_color"
+                android:layout_margin="8dp"
                 android:background="@drawable/kena_button"
                 android:minWidth="0dp"
-                android:paddingRight="17dp"
                 android:paddingLeft="17dp"
-                android:visibility="gone"
-                android:layout_margin="8dp" />
+                android:paddingRight="17dp"
+                android:text="ButtonFSFSDF 5"
+                android:textColor="@color/text_color"
+                android:visibility="gone" />
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/kena_button"
+                android:minWidth="0dp"
+                android:paddingLeft="17dp"
+                android:paddingRight="17dp"
                 android:text="ButtonFSFSDF 5"
                 android:textColor="@color/text_color"
-                android:background="@drawable/kena_button"
-                android:visibility="gone"
-                android:paddingRight="17dp"
-                android:paddingLeft="17dp"
-                android:minWidth="0dp"
-                android:layout_margin="8dp" />
+                android:visibility="gone" />
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ButtonFSFSDF 5"
-                android:textColor="@color/text_color"
-                android:visibility="gone"
+                android:layout_margin="8dp"
                 android:background="@drawable/kena_button"
                 android:minWidth="0dp"
-                android:paddingRight="17dp"
                 android:paddingLeft="17dp"
-                android:layout_margin="8dp" />
+                android:paddingRight="17dp"
+                android:text="ButtonFSFSDF 5"
+                android:textColor="@color/text_color"
+                android:visibility="gone" />
             <!-- You can add other UI elements here if needed -->
 
         </com.google.android.flexbox.FlexboxLayout>

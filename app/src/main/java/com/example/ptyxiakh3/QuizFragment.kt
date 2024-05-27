@@ -3,7 +3,9 @@ package com.example.ptyxiakh3
 import QuestionsViewModel
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.Spanned
@@ -16,6 +18,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import android.widget.ScrollView
 import android.widget.TextView
 import com.example.ptyxiakh3.DbQuery.myProfile
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -590,7 +593,7 @@ class QuizFragment : Fragment()  {
 
 
 
-            val popup = activity?.findViewById<LinearLayout>(R.id.popup)
+            val popup = activity?.findViewById<ScrollView>(R.id.popup)
             Log.d("Scoremessage","edo ${popup?.visibility}")
             if (popup != null) {
                 if(popup.visibility == View.GONE){
@@ -669,7 +672,16 @@ class QuizFragment : Fragment()  {
                     var updatedQuestionText = question.question_text
                     // Placeholder to keep track of where we've inserted answers
                     val placeholders = mutableListOf<Pair<String, IntRange>>()
+                    Log.d("Kenatext",textFromAnswer)
 
+                    textFromAnswer = textFromAnswer.trimIndent()
+
+                    // Extract mistake positions from the textFromAnswer string
+                    val regex = """expected (\w+)""".toRegex()
+                    val matchResults = regex.findAll(textFromAnswer)
+                    Log.d("Kenatext"," matchResults + $matchResults")
+                    val wordsAfterExpected = matchResults.map { it.groupValues[1] }.toList()
+                    Log.d("Kenatext"," wordsAfterExpected + $wordsAfterExpected")
                     sequence.forEachIndexed { index, digit ->
                         val answerIndex = if (digit == '0') 9 else digit.toString().toInt() - 1
                         val answer = question.possibleAnswers[answerIndex]
@@ -689,20 +701,25 @@ class QuizFragment : Fragment()  {
                         }
                     }
 
-                    // Create a SpannableString from the updated text
+// Create a SpannableString from the updated text
                     val spannableString = SpannableString(updatedQuestionText)
 
+// Apply color spans to each answer
 
-                    // Apply color spans to each answer
                     placeholders.forEach { (answer, range) ->
-                        // Assuming you have a Context available as 'context'
-                        val textColor =
+                        // Check if the answer is in the matchResults
+                        val isAnswerInMatchResults = wordsAfterExpected.contains(answer)
+                        Log.d("Kenatext"," answer + $answer")
+                        Log.d("Kenatext"," wordsAfterExpected + $wordsAfterExpected")
+                        // Select the color based on the check
+                        val textColor = if (isAnswerInMatchResults) {
+                            ContextCompat.getColor(requireContext(), android.R.color.holo_red_light)
+                        } else {
                             ContextCompat.getColor(requireContext(), R.color.muted_orange)
+                        }
 
                         val colorSpan = ForegroundColorSpan(textColor)
-
-                        val sizeSpan =
-                            RelativeSizeSpan(1.3f) // Adjust the 1.5f to your desired size multiplier
+                        val sizeSpan = RelativeSizeSpan(1.3f) // Adjust the 1.3f to your desired size multiplier
 
                         spannableString.setSpan(
                             colorSpan,
@@ -716,7 +733,6 @@ class QuizFragment : Fragment()  {
                             range.last,
                             Spanned.SPAN_INCLUSIVE_INCLUSIVE
                         )
-
                     }
 
 
@@ -882,9 +898,45 @@ class QuizFragment : Fragment()  {
                 }
 
                 if (question?.style == "Queue") {
+
                     lasttext?.visibility = View.GONE
                     text?.visibility = View.VISIBLE
-                    text?.text = question.question_text
+                    textFromAnswer = textFromAnswer.trimIndent()
+
+                    val spannableString = SpannableString(question.question_text)
+
+                    // Extract mistake positions from the textFromAnswer string
+                    val regex = """Position (\d+):""".toRegex()
+                    val matchResults = regex.findAll(textFromAnswer)
+
+
+
+                    matchResults.forEach { matchResult ->
+                        val position = matchResult.groups[1]?.value?.toInt()
+
+                        position?.let {
+                            // Find the line in the question text
+                            val lines = question.question_text.lines()
+                            if (it in 1..lines.size) {
+                                val lineText = lines[it - 1]
+                                val start = question.question_text.indexOf(lineText)
+                                val end = start + lineText.length
+
+                                // Apply red color to the line
+                                spannableString.setSpan(
+                                    ForegroundColorSpan(Color.RED),
+                                    start,
+                                    end,
+                                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                                )
+                            }
+                        }
+                    }
+
+                    text?.text = spannableString
+
+
+
 
                     result?.visibility = View.GONE
 
@@ -923,7 +975,7 @@ class QuizFragment : Fragment()  {
 
 
 
-            val constraintLayout = activity?.findViewById<LinearLayout>(R.id.popup)
+            val constraintLayout = activity?.findViewById<ScrollView>(R.id.popup)
             constraintLayout?.let {
                 if (it.visibility == View.VISIBLE) {
                     // Actions to perform when the ConstraintLayout is visible

@@ -51,65 +51,141 @@ abstract class QuestionsDatabase : RoomDatabase() {
             // Dummy data
             val question1 = Question(
                 question_number = 1.1,
-                question_text = "Στην Python, μια λίστα είναι ένας τύπος μεταβλητής δομής δεδομένων.",
-                question_text2 = "",
-                quiz = 1.1,
-                difficulty = 1,
-                style = "SouLou",
-                modules = listOf("Προγραμματισμός", "Python", "Δομές Δεδομένων"),
-                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
-                correctAnswers = listOf(1) // Αληθής
-            )
-
-            val question2 = Question(
-                question_number = 1.2,
-                question_text = "Η Python χρησιμοποιεί άγκιστρα {} για να ορίσει μπλοκ κώδικα.",
+                question_text = "Στην Python, οι εντολές πρέπει να είναι σωστά εσοχείς για να εκτελεστούν σωστά.",
                 question_text2 = "",
                 quiz = 1.1,
                 difficulty = 1,
                 style = "SouLou",
                 modules = listOf("Προγραμματισμός", "Python", "Σύνταξη"),
                 possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
-                correctAnswers = listOf(0) // Ψευδής
+                correctAnswers = listOf(1) // Αληθής
             )
+
+            val question2 = Question(
+                question_number = 1.2,
+                question_text = "Στην Python, το τέλος κάθε γραμμής πρέπει να σηματοδοτείται με ελληνικό ερωτηματικό.",
+                question_text2 = "",
+                quiz = 1.2,
+                difficulty = 1,
+                style = "SouLou",
+                modules = listOf("Προγραμματισμός", "Python", "Σύνταξη"),
+                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
+                correctAnswers = listOf(0) // Λανθασμένη
+            )
+
 
             val question3 = Question(
                 question_number = 1.3,
-                question_text = "Η συνάρτηση print() στην Python χρησιμοποιείται για την εμφάνιση εξόδου.",
+                question_text = "Στην Python, μπορούμε να χρησιμοποιούμε και τα εισαγωγικά μονά (' ') και τα διπλά ('\"') για να δηλώσουμε μια συμβολοσειρά.",
                 question_text2 = "",
-                quiz = 1.1,
+                quiz = 1.3,
                 difficulty = 1,
                 style = "SouLou",
-                modules = listOf("Προγραμματισμός", "Python", "Συναρτήσεις"),
+                modules = listOf("Προγραμματισμός", "Python", "Σύνταξη"),
                 possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
                 correctAnswers = listOf(1) // Αληθής
             )
 
             val question4 = Question(
-                question_number = 1.4,
-                question_text = "Στην Python, οι συμβολοσειρές είναι αμετάβλητες.",
+                question_number = 2.1,
+                question_text = "Μπορούμε να εκτελέσουμε ένα Python script χρησιμοποιώντας την εντολή `python script.py` στον τερματικό.",
                 question_text2 = "",
-                quiz = 1.1,
+                quiz = 2.1,
                 difficulty = 1,
                 style = "SouLou",
-                modules = listOf("Προγραμματισμός", "Python", "Τύποι Δεδομένων"),
+                modules = listOf("Προγραμματισμός", "Python", "Εκτέλεση"),
                 possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
                 correctAnswers = listOf(1) // Αληθής
             )
 
+
             val question5 = Question(
-                question_number = 1.5,
-                question_text = "Ο σωστός τρόπος για να ξεκινήσει ένας βρόχος for στην Python είναι `for i from 0 to 10`.",
+                question_number = 2.2,
+                question_text = "Τα Python scripts μπορούν να εκτελεστούν μόνο από τον τερματικό και όχι από IDE όπως το PyCharm ή το VSCode.",
                 question_text2 = "",
-                quiz = 1.1,
+                quiz = 2.2,
                 difficulty = 1,
                 style = "SouLou",
-                modules = listOf("Προγραμματισμός", "Python", "Δομές Ελέγχου"),
+                modules = listOf("Προγραμματισμός", "Python", "Εκτέλεση"),
                 possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
-                correctAnswers = listOf(0) // Ψευδής
+                correctAnswers = listOf(0) // Λανθασμένη
             )
 
             val question6 = Question(
+                question_number = 2.3,
+                question_text = "Το αρχείο `script.txt` μπορεί να εκτελεστεί ως Python script.",
+                question_text2 = "",
+                quiz = 2.3,
+                difficulty = 1,
+                style = "SouLou",
+                modules = listOf("Προγραμματισμός", "Python", "Εκτέλεση"),
+                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
+                correctAnswers = listOf(0) // Λανθασμένη
+            )
+
+
+            val question7 = Question(
+                question_number = 1.4,
+                question_text = "[____]('[____], [____]!')",
+                question_text2 = "Γράψτε την εντολή για να εκτυπώσετε το 'Hello, World!' στην Python.",
+                quiz = 1.4,
+                difficulty = 1,
+                style = "Kena",
+                modules = listOf("Programming", "Python", "Syntax"),
+                possibleAnswers = listOf("print", "echo", "Hello", "World"),
+                correctAnswers = listOf(134) // print('Hello, World!')
+            )
+
+            val question8 = Question(
+                question_number = 1.5,
+                question_text = "b [____] 20 [____]  4",
+                question_text2 = "Ορίστε μια μεταβλητή 'b' και εκχωρήστε την τιμή 20 σε αυτή. Στη συνέχεια, μειώστε την τιμή της κατά 4 χρησιμοποιώντας μια αριθμητική πράξη.",
+                quiz = 1.5,
+                difficulty = 1,
+                style = "Kena",
+                modules = listOf("Programming", "Python", "Variables"),
+                possibleAnswers = listOf("=", "+", "-", "*", "/"),
+                correctAnswers = listOf(13) // b = 20 - 4
+            )
+
+            val question9 = Question(
+                question_number = 2.1,
+                question_text = "[____]  script.py",
+                question_text2 = "Μπορούμε να εκτελέσουμε ένα Python script χρησιμοποιώντας την εντολή `python script.py` στον τερματικό.",
+                quiz = 2.1,
+                difficulty = 1,
+                style = "Kena",
+                modules = listOf("Programming", "Python", "Execution"),
+                possibleAnswers = listOf("run", "python", "execute", "start"),
+                correctAnswers = listOf(2) // python script.py
+            )
+
+            val question10 = Question(
+                question_number = 2.2,
+                question_text = "c [____] 15 [____] 3",
+                question_text2 = "Ορίστε μια μεταβλητή 'c' και εκχωρήστε την τιμή 15 σε αυτή. Στη συνέχεια, πολλαπλασιάστε την τιμή της κατά 3 χρησιμοποιώντας μια αριθμητική πράξη.",
+                quiz = 2.2,
+                difficulty = 1,
+                style = "Kena",
+                modules = listOf("Programming", "Python", "Variables"),
+                possibleAnswers = listOf("=", "+", "-", "*", "/"),
+                correctAnswers = listOf(14) // c = 15 * 3
+            )
+
+            val question11 = Question(
+                question_number = 2.3,
+                question_text = "[____]('[____]', '[____]')",
+                question_text2 = "Γράψτε μια εντολή για να διαβάσετε ένα αρχείο με όνομα 'data.txt' στην Python.",
+                quiz = 2.3,
+                difficulty = 1,
+                style = "Kena",
+                modules = listOf("Programming", "Python", "File Handling"),
+                possibleAnswers = listOf("open", "read", "file", "data.txt", "r"),
+                correctAnswers = listOf(145) // open('data.txt', 'r')
+            )
+
+
+            val question61 = Question(
                 question_number = 1.6,
                 question_text = "Μπορείτε να χρησιμοποιήσετε τη μέθοδο append() για να προσθέσετε ένα στοιχείο στο τέλος μιας λίστας στην Python.",
                 question_text2 = "",
@@ -121,7 +197,7 @@ abstract class QuestionsDatabase : RoomDatabase() {
                 correctAnswers = listOf(1) // Αληθής
             )
 
-            val question7 = Question(
+            val question73 = Question(
                 question_number = 1.7,
                 question_text = "Ο τελεστής == στην Python χρησιμοποιείται για την ανάθεση τιμών σε μεταβλητές.",
                 question_text2 = "",
@@ -133,7 +209,7 @@ abstract class QuestionsDatabase : RoomDatabase() {
                 correctAnswers = listOf(0) // Ψευδής
             )
 
-            val question8 = Question(
+            val question83 = Question(
                 question_number = 1.8,
                 question_text = "Ένα tuple είναι μια μεταβλητή δομή δεδομένων στην Python.",
                 question_text2 = "",
@@ -145,7 +221,7 @@ abstract class QuestionsDatabase : RoomDatabase() {
                 correctAnswers = listOf(0) // Ψευδής
             )
 
-            val question9 = Question(
+            val question93 = Question(
                 question_number = 1.9,
                 question_text = "Η λέξη-κλειδί def χρησιμοποιείται στην Python για τον ορισμό μιας νέας συνάρτησης.",
                 question_text2 = "",
@@ -157,7 +233,7 @@ abstract class QuestionsDatabase : RoomDatabase() {
                 correctAnswers = listOf(1) // Αληθής
             )
 
-            val question10 = Question(
+            val question103 = Question(
                 question_number = 1.10,
                 question_text = "Η Python σας επιτρέπει να χρησιμοποιείτε το σύμβολο # για σχόλια μιας γραμμής.",
                 question_text2 = "",
@@ -172,20 +248,37 @@ abstract class QuestionsDatabase : RoomDatabase() {
 
 
 
-            val question11 = Question(
+            val question12 = Question(
                 question_number = 1.11,
-                question_text = "Ορίστε μια μεταβλητή 'a' και εκχωρήστε την τιμή 10 σε αυτή. Στη συνέχεια, αυξήστε την τιμή της κατά 5 χρησιμοποιώντας μια αριθμητική πράξη.\n" +
-                        "a = 10 [____] [____]",
-                question_text2 = "Ποιά είναι η τελική τιμή του a",
+                question_text = "Διάβασε είδος\n" +
+                        "Επίλεξε [____]\n" +
+                        "  Περίπτωση 1\n" +
+                        "    κόστος = 0.085\n" +
+                        "  Περίπτωση 2\n" +
+                        "    κόστος = 0.67\n" +
+                        "  Περίπτωση 3\n" +
+                        "    κόστος = 0.93\n" +
+                        "  Περίπτωση [____]\n" +
+                        "    κόστος = 1.25\n" +
+                        "Τέλος_επιλογών\n" +
+                        "Αν [____] < κόστος τότε\n" +
+                        "  Εκτύπωσε \"Οι μονάδες δεν επαρκούν, το διαθέσιμο υπόλοιπο είναι \", διαθέσιμο_υπόλοιπο\n" +
+                        "Αλλιώς\n" +
+                        "  διαθέσιμο_υπόλοιπο = διαθέσιμο_υπόλοιπο - [____]\n" +
+                        "  Εκτύπωσε \"Το μήνυμα εστάλη...\"\n" +
+                        "Τέλος_αν\n" +
+                        "Αποτελέσματα // διαθέσιμο_υπόλοιπο //\n"
+                ,
+                question_text2 = "Συμπληρώστε τα κενά για τον υπολογισμό κόστους αποστολής μηνύματος",
                 quiz = 1.3,
                 difficulty = 1,
                 style = "Kena",
                 modules = listOf("Programming", "Python", "Variables"),
-                possibleAnswers = listOf("+", "5"),
-                correctAnswers = listOf(12) // a = 10 + 5
+                possibleAnswers = listOf("είδος", "Αλλιώς" ,"κόστος" ,"διαθέσιμο_υπόλοιπο", "κόστος"),
+                correctAnswers = listOf(1234,1254) // a = 10 + 5
             )
 
-            val question12 = Question(
+            val question122 = Question(
                 question_number = 1.12,
                 question_text = "Create a list named 'fruits' containing 'apple', 'banana', and 'cherry'. Then, access the second item in the list.\n" +
                         "fruits = [____]('apple', 'banana', 'cherry')\n" +
@@ -446,7 +539,7 @@ abstract class QuestionsDatabase : RoomDatabase() {
                 correctAnswers = listOf(0, 1) // "NumPy", "Pandas"
             )
 
-            val question35 = Question(
+            val question355 = Question(
                 question_number = 1.35,
                 question_text =
                 "2. define a class inheriting from unittest.TestCase\n" +
@@ -470,6 +563,55 @@ abstract class QuestionsDatabase : RoomDatabase() {
                     "unittest.main()"                                    // 6
                 ),
                 correctAnswers = listOf(215346) // Correct sequence for setting up unit tests
+            )
+
+
+            val question35 = Question(
+                question_number = 1.11,
+                question_text = "Διάβασε είδος\n" +
+                        "Επίλεξε [____]\n" +
+                        "  Περίπτωση 1\n" +
+                        "    κόστος = 0.085\n" +
+                        "  Περίπτωση 2\n" +
+                        "    κόστος = 0.67\n" +
+                        "  Περίπτωση 3\n" +
+                        "    κόστος = 0.93\n" +
+                        "  Περίπτωση [____]\n" +
+                        "    κόστος = 1.25\n" +
+                        "Τέλος_επιλογών\n" +
+                        "Αν [____] < κόστος τότε\n" +
+                        "  Εκτύπωσε \"Οι μονάδες δεν επαρκούν, το διαθέσιμο υπόλοιπο είναι \", διαθέσιμο_υπόλοιπο\n" +
+                        "Αλλιώς\n" +
+                        "  διαθέσιμο_υπόλοιπο = διαθέσιμο_υπόλοιπο - [____]\n" +
+                        "  Εκτύπωσε \"Το μήνυμα εστάλη...\"\n" +
+                        "Τέλος_αν\n" +
+                        "Αποτελέσματα // διαθέσιμο_υπόλοιπο //\n"
+                ,
+                question_text2 = "Συμπληρώστε τα κενά για τον υπολογισμό κόστους αποστολής μηνύματος",
+                quiz = 1.3,
+                difficulty = 1,
+                style = "Queue",
+                modules = listOf("Programming", "Python", "Variables"),
+                possibleAnswers = listOf(
+                    "Διάβασε είδος",
+                    "Επίλεξε [____]",
+                    "  Περίπτωση 1",
+                    "    κόστος = 0.085",
+                    "  Περίπτωση 2",
+                    "    κόστος = 0.67",
+                    "  Περίπτωση 3",
+                    "    κόστος = 0.93",
+                    "  Περίπτωση [____]",
+                    "    κόστος = 1.25",
+                    "Τέλος_επιλογών",
+                    "Αν [____] < κόστος τότε",
+                    "  Εκτύπωσε \"Οι μονάδες δεν επαρκούν, το διαθέσιμο υπόλοιπο είναι \", διαθέσιμο_υπόλοιπο",
+                    "Αλλιώς",
+                    "  διαθέσιμο_υπόλοιπο = διαθέσιμο_υπόλοιπο - [____]",
+                    "  Εκτύπωσε \"Το μήνυμα εστάλη...\"",
+                    "Τέλος_αν",
+                    "Αποτελέσματα // διαθέσιμο_υπόλοιπο //"
+                ),correctAnswers = listOf(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18) // a = 10 + 5
             )
             //Correct Question About Queue
             val question36 = Question(

@@ -658,84 +658,37 @@ class quizAdapter(
 
                 is ViewHolderTypeFour -> {
                     // Get the final order
-                    val finalOrder = viewHolder.getCurrentOrder()
-                    val correctAnswers = currentQuestion.correctAnswers
-                    Log.d("QuizFragment2", "Final Order is correct: ${finalOrder}")
+                    val finalOrder = viewHolder.getCurrentOrder() // Υποθέτουμε ότι αυτή είναι μια λίστα αριθμών
+                    val correctAnswers = currentQuestion.correctAnswers // Υποθέτουμε ότι αυτή είναι μια λίστα αριθμών
 
+                    Log.d("finalOrder", "finalOrder $finalOrder")
+                    Log.d("finalOrder", "correct $correctAnswers")
 
-                    val combinedString = correctAnswers[0].toString() // Convert the single element to a string
-                    Log.d("QuizFragment2", "combinedString : ${combinedString}")
-                   // val correctedCorrectAnswers = combinedString.map { it.toString().toInt() }
                     var flag = true
+                    val mistakes = mutableListOf<String>()
 
-                    var characterCount = combinedString.length
-                    if(characterCount>9){
-                        characterCount = (characterCount-9)/2 +9
-                    }
-                    val correctNumbers: MutableList<Int> = mutableListOf()
-
-                    Log.d("QuizFragment2", "characterCount: ${characterCount}")
-                    var i = 0
-                    while (i < combinedString.length-1) {
-                        Log.d("QuizFragment2", "auroisma: ${combinedString[i+1].digitToInt()+10} gia ${combinedString[i+1]}")
-                        if (combinedString[i] == '1' && characterCount >= combinedString[i+1].digitToInt()+10) {
-                            // If the current character is '1' and the next character is '2', combine them
-                            Log.d("QuizFragment2", "mphka")
-                            correctNumbers.add(combinedString[i+1].digitToInt()+10)
-                            Log.d("QuizFragment2", "mphka  ${combinedString[i+1].digitToInt()+10}")
-                            i++
-                            i++
-                        // Skip the next character as it has already been processed
-                        } else {
-                            // Otherwise, add the current character as it is
-                         //   Log.d("QuizFragment2", "καθενα: ${combinedString[i]}")
-                          //  Log.d("QuizFragment2", "else: ${combinedString[i].digitToInt()}")
-                            correctNumbers.add(combinedString[i].digitToInt())
-                            Log.d("QuizFragment2", "mphka + ${combinedString[i].digitToInt()}")
-                            i++ // Move to the next character
-                        }
-
-                        if (i==combinedString.length-1){
-                            correctNumbers.add(combinedString[i].digitToInt())
+                    // Συγκρίνουμε κάθε στοιχείο της λίστας
+                    for (i in finalOrder.indices) {
+                        if (i >= correctAnswers.size || finalOrder[i].toLong() != correctAnswers[i]) {
+                            flag = false
+                            mistakes.add("Position ${i + 1}: Expected ${correctAnswers.getOrNull(i)}, but got ${finalOrder.getOrNull(i)}")
                         }
                     }
 
-                    Log.d("finalOrder", "finalOrder" + finalOrder)
-                    Log.d("finalOrder", "correct" + correctNumbers)
-                    Log.d("QuizFragment2", "${finalOrder} + ${correctNumbers} + ${finalOrder == correctAnswers}")
-                    // Initialize an empty string to store the mistake message
-                    var mistakeMessage = ""
-
-                    if (finalOrder == correctNumbers) {
-                        // Lists are equal, show a Toast
-                        val toastText = "Final Order is correct: $finalOrder"
-                        Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show()
-                        Log.d("QuizFragment2", "Is True Button Clicked: sosto")
-                        Log.d("QuizFragment2", "${currentQuestion.question_id}")
-                        updateQHistory(currentQuestion.question_id.toInt(), true,flagforH) // Pass 'true' if the answer is correct, 'false' otherwise
-                        flag = true
-
+                    if (flag) {
+                        Log.d("OrderCheck", "The final order is correct!")
                     } else {
-                        // Lists are not equal, handle the case accordingly
-                        val differences = finalOrder.zip(correctNumbers).mapNotNull {
-                            if (it.first != it.second) it else null
-                        }
-                        Log.d("QuizFragment2", "${differences}")
-
-                        // Construct a mistake message based on the differences
-                        mistakeMessage = differences.joinToString(separator = ", ") { "(Expected: ${it.second}, Found: ${it.first})" }
-                        val toastText = "Final Order is incorrect. Mistakes: $mistakeMessage"
-                        Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show()
-                        updateQHistory(currentQuestion.question_id.toInt(), false,flagforH)
-                        flag = false
+                        Log.d("OrderCheck", "The final order is incorrect.")
+                        mistakes.forEach { Log.d("OrderCheck", it) }
                     }
 
+                    Log.d("QuizFragment2", "Final Order is correct: $flag")
 
-// Return the flag and the mistake message instead of "fasdf"
+                    val mistakeMessage = if (mistakes.isNotEmpty()) mistakes.joinToString("\n") else "No mistakes"
+                    Log.d("OrderCheck", "mistakeMessage $mistakeMessage")
                     return Pair(flag, mistakeMessage)
-
-
                 }
+
 
                 is ViewHolderTypeFive -> {
                     var ListWords = viewHolder.showColoredText().map { it.replace("‘", "").replace("’", "").trim() }
