@@ -138,14 +138,7 @@
             android:text="Συνδεση χεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:fontFamily="@font/ub05t"
-            android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
+
 
         <TextView
             android:layout_width="wrap_content"

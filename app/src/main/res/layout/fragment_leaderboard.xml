@@ -209,11 +209,12 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 app:adSize="BANNER"
-
+                android:layout_marginBottom="60dp"
                 app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/progressBar123"></com.google.android.gms.ads.AdView>
+               ></com.google.android.gms.ads.AdView>
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
@@ -238,7 +239,7 @@
                         android:layout_centerInParent="true"
                         android:gravity="center"
                         android:indeterminate="false"
-                        android:progress="60"
+                        android:progress="0"
                         android:progressDrawable="@drawable/circular_progress_bar" />
 
                     <TextView
@@ -266,7 +267,7 @@
                         android:layout_centerInParent="true"
                         android:gravity="center"
                         android:indeterminate="false"
-                        android:progress="60"
+                        android:progress="0"
                         android:progressDrawable="@drawable/circular_progress_bar" />
 
                     <TextView
@@ -294,7 +295,7 @@
                         android:layout_centerInParent="true"
                         android:gravity="center"
                         android:indeterminate="false"
-                        android:progress="60"
+                        android:progress="0"
                         android:progressDrawable="@drawable/circular_progress_bar" />
 
                     <TextView
@@ -409,7 +410,7 @@
                         android:gravity="center"
                         android:fontFamily="@font/peinirli"
                         android:textColor="@color/text_color"
-                        android:text="Ana Askhsh"
+                        android:text="Ανά Άσκηση"
                         android:textSize="32dp" />
 
 
@@ -524,7 +525,7 @@
                             android:layout_gravity="fill_horizontal"
                             android:indeterminate="false"
                             android:max="100"
-                            android:progress="20" />
+                            android:progress="0" />
 
 
                         <ProgressBar
@@ -534,7 +535,7 @@
                             android:layout_height="200dip"
                             android:layout_columnWeight="1"
                             android:layout_gravity="fill_horizontal"
-                            android:progress="25" />
+                            android:progress="0" />
 
                         <ProgressBar
                             android:id="@+id/vertical_progressbar2"
@@ -545,7 +546,7 @@
                             android:layout_column="2"
                             android:layout_columnWeight="1"
                             android:layout_gravity="fill_horizontal"
-                            android:progress="50" />
+                            android:progress="0" />
 
                         <ProgressBar
                             android:id="@+id/vertical_progressbar3"
@@ -554,7 +555,7 @@
                             android:layout_height="200dip"
                             android:layout_columnWeight="1"
                             android:layout_gravity="fill_horizontal"
-                            android:progress="60" />
+                            android:progress="0" />
 
                         <ProgressBar
                             android:id="@+id/vertical_progressbar4"
@@ -563,7 +564,7 @@
                             android:layout_height="200dip"
                             android:layout_columnWeight="1"
                             android:layout_gravity="fill_horizontal"
-                            android:progress="75" />
+                            android:progress="0" />
 
                         <ProgressBar
                             android:id="@+id/vertical_progressbar5"
@@ -572,7 +573,7 @@
                             android:layout_height="200dip"
                             android:layout_columnWeight="1"
                             android:layout_gravity="fill_horizontal"
-                            android:progress="100" />
+                            android:progress="0" />
 
                         <!-- Second row: TextViews below each ProgressBar -->
                         <TextView
@@ -693,7 +694,7 @@
                         android:gravity="center"
                         android:textColor="@color/text_color"
                         android:fontFamily="@font/peinirli"
-                        android:text="Ανά Άσκηση"
+                        android:text="Ανά Κεφάλαιο"
                         android:textSize="32dp" />
 
 
@@ -813,7 +814,7 @@
                                 android:layout_height="200dip"
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
-                                android:progress="50" />
+                                android:progress="0" />
 
                             <ProgressBar
                                 android:id="@+id/vertical_progressbar7"
@@ -821,7 +822,7 @@
                                 android:layout_height="200dip"
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
-                                android:progress="100" />
+                                android:progress="0" />
 
                             <ProgressBar
                                 android:id="@+id/vertical_progressbar8"
@@ -829,7 +830,7 @@
                                 android:layout_height="200dip"
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
-                                android:progress="60" />
+                                android:progress="0" />
 
                             <ProgressBar
                                 android:id="@+id/vertical_progressbar9"
@@ -837,7 +838,7 @@
                                 android:layout_height="200dip"
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
-                                android:progress="60" />
+                                android:progress="0" />
 
                             <ProgressBar
                                 android:id="@+id/vertical_progressbar10"
@@ -845,7 +846,7 @@
                                 android:layout_height="200dip"
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
-                                android:progress="60" />
+                                android:progress="0" />
 
                             <ProgressBar
                                 android:id="@+id/vertical_progressbar11"
@@ -853,7 +854,7 @@
                                 android:layout_height="200dip"
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
-                                android:progress="60" />
+                                android:progress="0" />
 
                             <ProgressBar
                                 android:id="@+id/vertical_progressbar12"
@@ -861,7 +862,7 @@
                                 android:layout_height="200dip"
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
-                                android:progress="60" />
+                                android:progress="0" />
 
                             <ProgressBar
                                 android:id="@+id/vertical_progressbar13"
@@ -869,7 +870,7 @@
                                 android:layout_height="200dip"
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
-                                android:progress="60" />
+                                android:progress="0" />
 
                             <ProgressBar
                                 android:id="@+id/vertical_progressbar14"
@@ -877,7 +878,7 @@
                                 android:layout_height="200dip"
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
-                                android:progress="60" />
+                                android:progress="0" />
 
                             <!-- Second row: TextViews below each ProgressBar -->
                             <TextView

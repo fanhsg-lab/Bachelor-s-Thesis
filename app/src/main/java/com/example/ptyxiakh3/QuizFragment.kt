@@ -15,6 +15,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
@@ -136,23 +137,7 @@ class QuizFragment : Fragment()  {
                 var questionsdata: LiveData<List<Question>>? = null
 
                 val myList = listOf(
-                    "Python",           // Index 0 -> Module 1
-                    "Chapter1",         // Index 1 -> Module 2
-                    "Programming",      // Index 2 -> Module 3
-                    "Data Structures",  // Index 3 -> Module 4
-                    "Syntax",           // Index 4 -> Module 5
-                    "Functions",        // Index 5 -> Module 6
-                    "Data Types",       // Index 6 -> Module 7
-                    "Control Structures", // Index 7 -> Module 8
-                    "Operators",        // Index 8 -> Module 9
-                    "Variables",        // Index 9 -> Module 10
-                    "Lists",            // Index 10 -> Module 11
-                    "Conditional",      // Index 11 -> Module 12
-                    "Loops",            // Index 12 -> Module 13
-                    "Conditions",       // Index 13 -> Module 14
-                    "Operations",       // Index 14 -> Module 15
-                    "Testing",          // Index 15 -> Module 16
-                    "List Comprehension" // Index 16 -> Module 17
+                    "Πανελλήνιες", "Κεφάλαιο1","Θεωρία"
                 )
 
                 // Get the corresponding module string using Module number adjusted for zero-index
@@ -487,6 +472,8 @@ class QuizFragment : Fragment()  {
                 } else if (question.style == "Queue") {
                     println("x is not 1, 2, or 3")
                     chapterInfo?.text="Queue"
+                }else if (question.style == "Fill") {
+                    chapterInfo?.text="Fill"
                 }
 
 
@@ -754,105 +741,220 @@ class QuizFragment : Fragment()  {
                     optionC?.visibility = View.GONE
                     optionD?.visibility = View.GONE
                     result?.visibility = View.GONE
-                    lasttext?.visibility = View.VISIBLE
+                    lasttext?.visibility = View.GONE
                     // Create a SpannableString from the question text
                     val spannableString = SpannableString(question.question_text)
 
-                    question.possibleAnswers.forEach { answer ->
+                    val regex = """expected (\S+)""".toRegex()
+                    val matchResults = regex.findAll(textFromAnswer)
+                    Log.d("textfrom", "matchResults: $matchResults")
+                    val wordsAfterExpected = matchResults.map { it.groupValues[1] }.toList()
+
+
+
+
+                    wordsAfterExpected.forEach { answer ->
                         var startIndex = spannableString.indexOf(answer, ignoreCase = true)
+                            while (startIndex >= 0) {
+                                // Calculate the end index of the answer
+                                val endIndex = startIndex + answer.length
 
-                        while (startIndex >= 0) {
-                            // Calculate the end index of the answer
-                            val endIndex = startIndex + answer.length
 
-                            // Create a span to change the color of the answer
+
+                                val textColor =
+                                    ContextCompat.getColor(requireContext(), R.color.red)
+
+
+                                val colorSpan = ForegroundColorSpan(textColor)
+
+                                // Apply the color span on the spannable string
+                                spannableString.setSpan(
+                                    colorSpan,
+                                    startIndex,
+                                    endIndex,
+                                    Spanned.SPAN_INCLUSIVE_INCLUSIVE
+                                )
+
+                                val sizeSpan =
+                                    RelativeSizeSpan(1.3f) // Adjust the 1.5f to your desired size multiplier
+
+                                spannableString.setSpan(
+                                    sizeSpan,
+                                    startIndex,
+                                    endIndex,
+                                    Spanned.SPAN_INCLUSIVE_INCLUSIVE
+                                )
+
+
+                                // Find the next occurrence of the answer
+                                startIndex =
+                                    spannableString.indexOf(
+                                        answer,
+                                        startIndex + 1,
+                                        ignoreCase = true
+                                    )
+                            }
+
+
+
+                        // Set the spannable string to your TextView
+                        text?.text = spannableString
+
+                        // Define the prefix text
+                        val prefixText = "Τα σωστά είναι: "
+
+// Initialize the SpannableStringBuilder with the prefix text
+                        val spannableBuilder = SpannableStringBuilder(prefixText)
+
+// Assuming question.question_module is a List<String>
+                        val questionModule = question.question_module
+
+// Append each word from the list and apply styles
+                        questionModule.forEach { word ->
+                            val start = spannableBuilder.length
+                            spannableBuilder.append(word + ", ")
+                            val end = spannableBuilder.length
+
+                            // Apply color span
                             val textColor =
                                 ContextCompat.getColor(requireContext(), R.color.muted_orange)
                             val colorSpan = ForegroundColorSpan(textColor)
-
-                            // Apply the color span on the spannable string
-                            spannableString.setSpan(
+                            spannableBuilder.setSpan(
                                 colorSpan,
-                                startIndex,
-                                endIndex,
-                                Spanned.SPAN_INCLUSIVE_INCLUSIVE
+                                start,
+                                end,
+                                Spanned.SPAN_INCLUSIVE_EXCLUSIVE
                             )
 
-                            val sizeSpan =
-                                RelativeSizeSpan(1.3f) // Adjust the 1.5f to your desired size multiplier
-
-                            spannableString.setSpan(
+                            // Apply size span
+                            val sizeSpan = RelativeSizeSpan(1.3f)  // Adjust this value as needed
+                            spannableBuilder.setSpan(
                                 sizeSpan,
-                                startIndex,
-                                endIndex,
-                                Spanned.SPAN_INCLUSIVE_INCLUSIVE
+                                start,
+                                end,
+                                Spanned.SPAN_INCLUSIVE_EXCLUSIVE
                             )
+                        }
 
 
-                            // Find the next occurrence of the answer
-                            startIndex =
-                                spannableString.indexOf(answer, startIndex + 1, ignoreCase = true)
+// Set the SpannableStringBuilder to a TextView
+                        lasttext?.text = spannableBuilder
+
+                        result?.visibility = View.VISIBLE
+                        if (flag) {
+                            result?.text = "Correct"
+                        } else {
+                            result?.text = "False  "
                         }
                     }
 
-                    // Set the spannable string to your TextView
-                    text?.text = spannableString
+                    question.possibleAnswers.forEach { answer ->
+                        var startIndex = spannableString.indexOf(answer, ignoreCase = true)
+                        val isAnswerInMatchResults = wordsAfterExpected.contains(answer)
+                        if (!isAnswerInMatchResults) {
+                            while (startIndex >= 0) {
+                                // Calculate the end index of the answer
+                                val endIndex = startIndex + answer.length
 
-                    // Define the prefix text
-                    val prefixText = "Τα σωστά είναι: "
+
+
+                                val textColor =
+                                    ContextCompat.getColor(requireContext(), R.color.muted_orange)
+
+
+                                val colorSpan = ForegroundColorSpan(textColor)
+
+                                // Apply the color span on the spannable string
+                                spannableString.setSpan(
+                                    colorSpan,
+                                    startIndex,
+                                    endIndex,
+                                    Spanned.SPAN_INCLUSIVE_INCLUSIVE
+                                )
+
+                                val sizeSpan =
+                                    RelativeSizeSpan(1.3f) // Adjust the 1.5f to your desired size multiplier
+
+                                spannableString.setSpan(
+                                    sizeSpan,
+                                    startIndex,
+                                    endIndex,
+                                    Spanned.SPAN_INCLUSIVE_INCLUSIVE
+                                )
+
+
+                                // Find the next occurrence of the answer
+                                startIndex =
+                                    spannableString.indexOf(
+                                        answer,
+                                        startIndex + 1,
+                                        ignoreCase = true
+                                    )
+                            }
+                        }
+
+
+                        // Set the spannable string to your TextView
+                        text?.text = spannableString
+
+                        // Define the prefix text
+                        val prefixText = "Τα σωστά είναι: "
 
 // Initialize the SpannableStringBuilder with the prefix text
-                    val spannableBuilder = SpannableStringBuilder(prefixText)
+                        val spannableBuilder = SpannableStringBuilder(prefixText)
 
 // Assuming question.question_module is a List<String>
-                    val questionModule = question.question_module
+                        val questionModule = question.question_module
 
 // Append each word from the list and apply styles
-                    questionModule.forEach { word ->
-                        val start = spannableBuilder.length
-                        spannableBuilder.append(word + ", ")
-                        val end = spannableBuilder.length
+                        questionModule.forEach { word ->
+                            val start = spannableBuilder.length
+                            spannableBuilder.append(word + ", ")
+                            val end = spannableBuilder.length
 
-                        // Apply color span
-                        val textColor =
-                            ContextCompat.getColor(requireContext(), R.color.muted_orange)
-                        val colorSpan = ForegroundColorSpan(textColor)
-                        spannableBuilder.setSpan(
-                            colorSpan,
-                            start,
-                            end,
-                            Spanned.SPAN_INCLUSIVE_EXCLUSIVE
-                        )
+                            // Apply color span
+                            val textColor =
+                                ContextCompat.getColor(requireContext(), R.color.muted_orange)
+                            val colorSpan = ForegroundColorSpan(textColor)
+                            spannableBuilder.setSpan(
+                                colorSpan,
+                                start,
+                                end,
+                                Spanned.SPAN_INCLUSIVE_EXCLUSIVE
+                            )
 
-                        // Apply size span
-                        val sizeSpan = RelativeSizeSpan(1.3f)  // Adjust this value as needed
-                        spannableBuilder.setSpan(
-                            sizeSpan,
-                            start,
-                            end,
-                            Spanned.SPAN_INCLUSIVE_EXCLUSIVE
-                        )
-                    }
+                            // Apply size span
+                            val sizeSpan = RelativeSizeSpan(1.3f)  // Adjust this value as needed
+                            spannableBuilder.setSpan(
+                                sizeSpan,
+                                start,
+                                end,
+                                Spanned.SPAN_INCLUSIVE_EXCLUSIVE
+                            )
+                        }
+
 
 // Set the SpannableStringBuilder to a TextView
-                    lasttext?.text = spannableBuilder
+                        lasttext?.text = spannableBuilder
 
-                    result?.visibility = View.VISIBLE
-                    if(flag) {
-                        result?.text = "Correct"
-                    }else{
-                        result?.text = "False  "
+                        result?.visibility = View.VISIBLE
+                        if (flag) {
+                            result?.text = "Correct"
+                        } else {
+                            result?.text = "False  "
+                        }
                     }
-
-
                 }
 
                 if (question?.style == "multiple choice") {
                     lasttext?.visibility = View.GONE
                     text?.visibility = View.GONE
                     result?.visibility = View.GONE
-
-                    // Iterate over all possible answers
+                    optionA?.visibility = View.GONE
+                    optionB?.visibility = View.GONE
+                    optionC?.visibility = View.GONE
+                    optionD?.visibility = View.GONE
+                        // Iterate over all possible answers
                     question.possibleAnswers.forEachIndexed { index, option ->
                         // Determine the TextView for the current option (e.g., optionA, optionB, etc.)
                         val optionTextView = when (index) {
@@ -952,6 +1054,54 @@ class QuizFragment : Fragment()  {
                     }else{
                         result?.text = "False  "
                     }
+                }
+
+                if (question?.style == "Fill") {
+                    text?.visibility = View.GONE
+                    lasttext?.visibility = View.GONE
+                    text?.text = question.question_text
+                    result?.visibility = View.VISIBLE
+
+                    optionA?.visibility = View.GONE
+                    optionB?.visibility = View.GONE
+                    optionC?.visibility = View.GONE
+                    optionD?.visibility = View.GONE
+
+                    val options: List<TextView?> = listOf(
+                        optionD,
+                        optionC,
+                        optionB,
+                        optionA
+                    )
+
+
+                    if(flag) {
+                        result?.text = "Correct"
+                    }else{
+                        result?.text = "False  "
+                    }
+
+                    var index = 0;
+
+                    question.correctAnswers.forEach { correctAnswer ->
+                        // Perform your action with each checkBox here
+                        options[index]?.text = "${question.possibleAnswers[index]} = $correctAnswer"
+                        options[index]?.visibility = View.VISIBLE
+                        options[index]?.textSize = 20f
+                        index++
+                    }
+
+                    val regex = """index (\w+)""".toRegex()
+                    val matchResults = regex.findAll(textFromAnswer)
+                    Log.d("Kenatext"," matchResults + $matchResults")
+                    val wordsAfterExpected = matchResults.map { it.groupValues[1].toInt() }.toList()
+                    Log.d("fillwords", " $wordsAfterExpected")
+
+                    wordsAfterExpected.forEach { index ->
+                        // Perform your action with each checkBox here
+                        options[index]?.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
+                    }
+
                 }
             }
             // Ensure it's always visible (if you have previously set it to gone somewhere)

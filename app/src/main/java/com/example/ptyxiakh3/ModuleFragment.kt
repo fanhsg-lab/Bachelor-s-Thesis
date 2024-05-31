@@ -89,24 +89,7 @@ class ModuleFragment : Fragment() {
 
     private fun setupModuleModels() {
         val myList = listOf(
-            "Python",
-            "Chapter1",
-            "Programming",
-            "Data " +
-                    "Structures",
-            "Syntax",
-            "Functions",
-            "Data Types",
-            "Control Structures",
-            "Operators",
-            "Variables",
-            "Lists",
-            "Conditional",
-            "Loops",
-            "Conditions",
-            "Operations",
-            "Testing",
-            "List Comprehension"
+            "Πανελλήνιες", "Κεφάλαιο1","Θεωρία"
         )
 
         moduleModels.clear() // Clear existing data to handle reset correctly

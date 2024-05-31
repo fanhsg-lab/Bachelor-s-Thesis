@@ -16,7 +16,8 @@ data class Question(
     val style: String = "",
     val modules: List<String> = emptyList(),
     val possibleAnswers: List<String> = emptyList(), // List of possible answers
-    val correctAnswers: List<Long> = emptyList() // List of correct answers (assuming they are indices of possible answers)
+    val correctAnswers: List<Long> = emptyList(), // List of correct answers (assuming they are indices of possible answers)
+    val image: Int = 0,
 )
 
 

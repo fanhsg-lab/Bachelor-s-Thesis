@@ -50,23 +50,7 @@ class LeaderboardFragment : Fragment() {
     private val questionsViewModel: QuestionsViewModel by viewModels()
 
     val selectedModules = mutableListOf(
-        "Python",
-        "Chapter1",
-        "Programming",
-        "Data Structures",
-        "Syntax",
-        "Functions",
-        "Data Types",
-        "Control Structures",
-        "Operators",
-        "Variables",
-        "Lists",
-        "Conditional",
-        "Loops",
-        "Conditions",
-        "Operations",
-        "Testing",
-        "List Comprehension"
+        "Πανελλήνιες", "Κεφάλαιο1","Θεωρία"
     )
 
     val selectedStyles = mutableListOf("SouLou", "Kena", "Mistakes", "multiple choice", "Queue")

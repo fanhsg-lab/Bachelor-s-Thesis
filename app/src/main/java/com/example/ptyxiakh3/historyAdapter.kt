@@ -87,7 +87,8 @@ class AdapterHistory(
                             firstInvalidPosition = position
                             firstInvalidIndex = index
                             Log.d("moveto", "firstInvalidPosition: $firstInvalidPosition")
-                            println("First invalid position saved: $firstInvalidPosition")
+                            Log.d("moveto", "First invalid index saved: $firstInvalidIndex")
+
                         }
                     }
                 }

@@ -53,7 +53,7 @@ class AdapterModule(private val context: Context, private val ModuleModels: Arra
 
             cardView.setOnClickListener {
                 // Handle the click event for the CardView
-                Toast.makeText(context, "AHA", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(context, "AHA", Toast.LENGTH_SHORT).show()
                 Log.d("ModuleA", "${adapterPosition}")
 
                 val action = when (currentButtonState) {

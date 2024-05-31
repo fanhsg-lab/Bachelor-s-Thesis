@@ -12,10 +12,8 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ptyxiakh3.DbQuery.myProfile
 import com.example.ptyxiakh3.data.Question
 import com.google.android.flexbox.FlexboxLayout
-import org.w3c.dom.Text
 
 class quizAdapter(
     private val context: Context,
@@ -40,7 +37,7 @@ class quizAdapter(
         const val TYPE_THREE = 2
         const val TYPE_FOUR = 3
         const val TYPE_FIVE = 4
-
+        const val TYPE_SIX = 5
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -48,12 +45,14 @@ class quizAdapter(
         return when (quizModels[position].style) {
             "multiple choice" -> TYPE_ONE
             "SouLou" -> TYPE_TWO
-            "Kena"-> TYPE_THREE
-            "Queue"-> TYPE_FOUR
-            "Mistakes"-> TYPE_FIVE
+            "Kena" -> TYPE_THREE
+            "Queue" -> TYPE_FOUR
+            "Mistakes" -> TYPE_FIVE
+            "Fill" -> TYPE_SIX
             else -> TYPE_ONE // Default case or you might want to handle it differently
         }
     }
+
     fun getQuestionAtPosition(position: Int): Question? {
         return if (position >= 0 && position < itemCount) {
             quizModels[position] // Use quizModels here
@@ -64,20 +63,19 @@ class quizAdapter(
         layoutChangeListener?.invoke()
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
         return when (viewType) {
-            TYPE_ONE -> ViewHolderTypeOne(inflater.inflate(R.layout.quiz_item_layout_multiple, parent, false))
+            TYPE_ONE -> ViewHolderTypeOne(inflater.inflate(R.layout.quiz_item_layout_multiple, parent, false), context)
             TYPE_TWO -> ViewHolderTypeTwo(inflater.inflate(R.layout.quiz_item_layout_soulou, parent, false))
             TYPE_THREE -> ViewHolderTypeThree(inflater.inflate(R.layout.quiz_item_layout_kena, parent, false))
             TYPE_FOUR -> ViewHolderTypeFour(inflater.inflate(R.layout.quiz_item_layout_queue, parent, false), context)
             TYPE_FIVE -> ViewHolderTypeFive(inflater.inflate(R.layout.quiz_item_layout_mistakes, parent, false))
+            TYPE_SIX -> ViewHolderTypeSix(inflater.inflate(R.layout.quiz_item_layout_fill, parent, false))
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
-
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val question = quizModels[position]
@@ -87,6 +85,7 @@ class quizAdapter(
             is ViewHolderTypeThree -> holder.bind(question)
             is ViewHolderTypeFour -> holder.bind(question)
             is ViewHolderTypeFive -> holder.bind(question)
+            is ViewHolderTypeSix -> holder.bind(question)
         }
         Log.d("quizAdapter2", "mphka")
     }
@@ -94,23 +93,25 @@ class quizAdapter(
     override fun getItemCount(): Int = quizModels.size
 
     // ViewHolder for type one
-    class ViewHolderTypeOne(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolderTypeOne(itemView: View, private val context: Context) : RecyclerView.ViewHolder(itemView) {
         private val questionTextView1: CheckBox = itemView.findViewById(R.id.text1multiplechoice)
         private val questionTextView2: CheckBox = itemView.findViewById(R.id.text2multiplechoice)
         private val questionTextView3: CheckBox = itemView.findViewById(R.id.text3multiplechoice)
         private val questionTextView4: CheckBox = itemView.findViewById(R.id.text4multiplechoice)
         private val questionTextView5: CheckBox = itemView.findViewById(R.id.text5multiplechoice)
-
+        private var question_image: ImageView = itemView.findViewById(R.id.question_image)
         private val questionText: TextView = itemView.findViewById(R.id.quetextmultiplechoice)
 
-        val questionTextViews = listOf<TextView>(questionTextView1, questionTextView2, questionTextView3,questionTextView4,questionTextView5)
-
-
+        val questionTextViews = listOf<TextView>(questionTextView1, questionTextView2, questionTextView3, questionTextView4, questionTextView5)
 
         fun bind(question: Question) {
             Log.d("quizAdapter2", "mphka1")
             // Bind data for type one
-            questionText.text =question.question_text
+            questionText.text = question.question_text
+            if (question.image != 0) {
+                question_image.setImageDrawable(ContextCompat.getDrawable(context, question.image))
+                question_image.visibility=View.VISIBLE
+            }
             question.possibleAnswers.forEachIndexed { index, answer ->
                 if (index < questionTextViews.size) {
                     questionTextViews[index].text = answer
@@ -118,9 +119,6 @@ class quizAdapter(
                 }
             }
         }
-
-
-
     }
 
 
@@ -423,12 +421,7 @@ class quizAdapter(
         private lateinit var spannableString: SpannableString
         private val coloredWords = mutableSetOf<IntRange>()
 
-
-
         init {
-
-
-
             textView.movementMethod = LinkMovementMethod.getInstance()
             textView.setOnTouchListener { v, event ->
                 if (event.action == MotionEvent.ACTION_UP) {
@@ -455,6 +448,7 @@ class quizAdapter(
                                     val spans = spannableString.getSpans(segmentStart, segmentEnd, ForegroundColorSpan::class.java)
                                     if (spans.isNotEmpty()) {
                                         spannableString.removeSpan(spans[0])
+                                        coloredWords.remove(it.range)
                                     } else {
                                         // Assign colors based on the type of segment
                                         val customColor = if (it.value.matches(Regex("\\d+"))) {
@@ -465,6 +459,7 @@ class quizAdapter(
                                             Color.parseColor("#FF6347") // Tomato for punctuation and other characters
                                         }
                                         spannableString.setSpan(ForegroundColorSpan(customColor), segmentStart, segmentEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                        coloredWords.add(it.range)
                                     }
                                     textView.text = spannableString
                                 }
@@ -476,7 +471,6 @@ class quizAdapter(
                     false // Return false for other actions (e.g., touch down)
                 }
             }
-
         }
 
         fun bind(question: Question) {
@@ -488,16 +482,67 @@ class quizAdapter(
 
         fun showColoredText(): List<String> {
             val coloredTextList = coloredWords.map { range ->
-                originalText.substring(range.first, range.last)
+                originalText.substring(range.first, range.last + 1) // Adjusted to include the end character
             }
 
             val coloredTextString = coloredTextList.joinToString(", ")
-            Toast.makeText(itemView.context, "Colored words: $coloredTextString", Toast.LENGTH_LONG).show()
+            //Toast.makeText(itemView.context, "Colored words: $coloredTextString", Toast.LENGTH_LONG).show()
 
             return coloredTextList
         }
     }
 
+// Usage in ViewHolderTypeFive
+
+
+
+
+    class ViewHolderTypeSix(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val questionTextView: TextView = itemView.findViewById(R.id.paragraphTextView)
+        private val Titlos: TextView = itemView.findViewById(R.id.titlosfill)
+
+        private val nextButtonDrawableId = R.drawable.next_button_drawable
+        private val tfButtonsClickedDrawableId = R.drawable.tf_buttons_clicked
+        private val startingBackground = R.drawable.next_button_drawable
+        private val questionTextView1: TextView = itemView.findViewById(R.id.gramma1)
+        private val questionTextView2: TextView = itemView.findViewById(R.id.gramma2)
+        private val questionTextView3: TextView = itemView.findViewById(R.id.gramma3)
+        private val questionTextView4: TextView = itemView.findViewById(R.id.gramma4)
+
+        private val lin4: LinearLayout = itemView.findViewById(R.id.lin4)
+        private val lin3: LinearLayout = itemView.findViewById(R.id.lin3)
+        private val lin2: LinearLayout = itemView.findViewById(R.id.lin2)
+        private val lin1: LinearLayout = itemView.findViewById(R.id.lin1)
+        var isTrueButtonClicked = false
+
+        init {
+
+
+
+        }
+
+        fun getCurrentState(): Boolean {
+            return isTrueButtonClicked
+        }
+        val questionTextViews = listOf<TextView>(questionTextView1, questionTextView2, questionTextView3,questionTextView4)
+        val lins = listOf<LinearLayout>(lin1, lin2, lin3, lin4)
+
+        fun bind(question: Question) {
+            Log.d("quizAdapter2", "mphka2")
+            // Bind data for type one
+            questionTextView.text = question.question_text
+            Titlos.text=question.question_text2
+
+            question.possibleAnswers.forEachIndexed { index, answer ->
+                if (index < questionTextViews.size) {
+                    questionTextViews[index].text = answer + " ="
+                    lins[index].visibility = View.VISIBLE
+                }
+            }
+
+        }
+
+    }
 
 
 
@@ -710,19 +755,17 @@ class quizAdapter(
                     val unnecessaryWords = ListWords.filter { word ->
                         !normalizedPossibleAnswers.contains(word)
                     }
-
                     // Logging the results
                     if (missedAnswers.isNotEmpty()) {
-                        Log.d("Four", "Missed Answers: ${missedAnswers.joinToString(", ")}")
-                        text +=  missedAnswers.joinToString(", ")
+                        text +=" expected "
+                        text +=  missedAnswers.joinToString(" expected ")
                     } else {
                         Log.d("Four", "All answers found.")
                     }
 
                     if (unnecessaryWords.isNotEmpty()) {
-                        Log.d("Four", "Unnecessary Words: ${unnecessaryWords.joinToString(", ")}")
-                        text +="/"
-                        text +=  unnecessaryWords.joinToString(", ")
+                        text +=" expected "
+                        text +=  unnecessaryWords.joinToString(" expected ")
                     }
                     if(missedAnswers.isEmpty() && unnecessaryWords.isEmpty()){
                         updateQHistory(currentQuestion.question_id.toInt(), true,flagforH)
@@ -734,10 +777,65 @@ class quizAdapter(
 
                     }
                     return Pair(flag,text)
-
                 }
 
 
+                is ViewHolderTypeSix -> {
+                    val questionTextView1: EditText =
+                        viewHolder.itemView.findViewById(R.id.keno1)
+                    val questionTextView2: EditText =
+                        viewHolder.itemView.findViewById(R.id.keno2)
+                    val questionTextView3: EditText =
+                        viewHolder.itemView.findViewById(R.id.keno3)
+                    val questionTextView4: EditText =
+                        viewHolder.itemView.findViewById(R.id.keno4)
+
+
+
+
+                    val EditTexts = listOf<EditText>(
+                        questionTextView1,
+                        questionTextView2,
+                        questionTextView3,
+                        questionTextView4
+                    )
+
+                    var flag = true
+                    var text = ""
+                    var index = 0;
+                    var aaa=currentQuestion.question_text
+                    Log.d("QuizAdapter", "IsCheck : $aaa")
+
+                    currentQuestion.correctAnswers.forEach { correctAnswer ->
+                            // Perform your action with each checkBox here
+                            val apanthsh = EditTexts[index].text.toString().toLongOrNull()
+                            var kati = currentQuestion.correctAnswers[index]
+                            Log.d("QuizAdapter", "IsCheck : $apanthsh Index : $kati")
+                            if(apanthsh == kati){
+                                Log.d("QuizAdapter", "Mphka")
+                            }else{
+                                text +=  " index " + index + " , "
+                                flag =false
+                            }
+                            index++
+
+                    }
+                    if(flag){
+                        updateQHistory(currentQuestion.question_id.toInt(), true,flagforH)
+
+                    }else{
+                        updateQHistory(currentQuestion.question_id.toInt(), false,flagforH)
+
+                    }
+
+                    Log.d("QuizAdapter", "Flag : $flag")
+
+
+                    // Now you can use isChecked1, isChecked2, isChecked3, isChecked4, isChecked5
+                    // For example, logging their values
+
+                    return Pair(flag,text)
+                }
 
 
 

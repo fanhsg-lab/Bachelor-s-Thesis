@@ -67,7 +67,7 @@ class HistoryFragment : Fragment() {
         val buttonScrollToItem = view.findViewById<ImageView>(R.id.buttonScrollToItem)
         Log.d("moveto", "button exists: $buttonScrollToItem")
         buttonScrollToItem.setOnClickListener {
-            Log.d("moveto", "button clicked")
+            Log.d("moveto", "button clicked ,firstInvalidPosition $firstInvalidPosition, firstInvalidIndex $firstInvalidIndex")
             firstInvalidPosition?.let { position ->
                 recyclerView.smoothScrollToPosition(position)
                 recyclerView.post {
@@ -161,9 +161,9 @@ class HistoryFragment : Fragment() {
     }
 
     private fun setupHistoryModels() {
-        historyModels.add(HistoryModel("Chapter 1", "Λες απλές προτάσεις, μιλάς στον πληθυντικό", "fasdfasdf", R.drawable.logo, 5))
-        historyModels.add(HistoryModel("Chapter 2", "Λες δύσκολες λέξεις και δύσκολες προτάσεις προσπάθησε πολύ σκληρά", "fasdfasdf", R.drawable.logo, 6))
-        historyModels.add(HistoryModel("Chapter 3", "Lorem ipsum", "fasdfasdf", R.drawable.logo, 7))
-        historyModels.add(HistoryModel("Chapter 1", "Λες απλές προτάσεις, μιλάς στον πληθυντικό sdfg sdsdfg ssdf", "fasdfasdf", R.drawable.logo, 8))
+        historyModels.add(HistoryModel("Κεφάλαιο 1", "Εισαγωγή στην ψευδογλώσσα", "fasdfasdf", R.drawable.logo, 5))
+        historyModels.add(HistoryModel("Κεφάλαιο 2", "Δομές Ακολουθίας", "fasdfasdf", R.drawable.logo, 6))
+        historyModels.add(HistoryModel("Κεφάλαιο 3", "Δομές Επανάληψης", "fasdfasdf", R.drawable.logo, 7))
+        historyModels.add(HistoryModel("Κεφάλαιο 4", "Λες απλές προτάσεις, μιλάς στον πληθυντικό sdfg sdsdfg ssdf", "fasdfasdf", R.drawable.logo, 8))
     }
 }

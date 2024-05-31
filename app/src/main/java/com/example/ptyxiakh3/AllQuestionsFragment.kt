@@ -40,7 +40,7 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
 
         // Initialize an empty LinkedHashMap
         // Initialize an empty LinkedHashMap with chapters as keys
-        val chapters = listOf("Syntax", "Python", "Conditional")
+        val chapters = listOf("Πανελλήνιες", "Κεφάλαιο1","Θεωρία")
         val data: LinkedHashMap<String, List<Quartet<String, Int, Long, String>>> = linkedMapOf<String, List<Quartet<String, Int, Long, String>>>().apply {
             chapters.forEach { chapter ->
                 this[chapter] = listOf()
@@ -81,7 +81,7 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
             Log.d("ExpandableListViewDebug", "Child Clicked: GroupPosition: $groupPosition, ChildPosition: $childPosition")
             val childItem = adapter.getChild(groupPosition, childPosition) as Quartet<String, Int, Long, String>
             Log.d("ExpandableListViewDebug", "Clicked Item: ${childItem.first}")
-            Toast.makeText(context, "Clicked: ${childItem.first}", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Clicked: ${childItem.first}", Toast.LENGTH_SHORT).show()
             true // Return true to indicate that the click was handled
         }
 
