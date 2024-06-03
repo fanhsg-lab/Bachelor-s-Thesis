@@ -331,8 +331,11 @@ class LeaderboardFragment : Fragment() {
             val minCorrectnessBar : ProgressBar? = view?.findViewById(R.id.progressBarMiddle)
             val minText : TextView? = view?.findViewById(R.id.textcenter)
             val minTextBar : TextView? = view?.findViewById(R.id.centerBarText)
-            minTextBar?.text = minCorrectness.toString() + "%"
-            minCorrectnessBar?.progress = minCorrectness
+            if(minCorrectness < 1000) {
+                minTextBar?.text = minCorrectness.toString() + "%"
+                minCorrectnessBar?.progress = minCorrectness
+            }
+
             minText?.text = minCorrectnessCategory
         }
 

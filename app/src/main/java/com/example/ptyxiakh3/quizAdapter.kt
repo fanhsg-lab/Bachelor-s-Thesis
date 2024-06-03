@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ptyxiakh3.DbQuery.myProfile
 import com.example.ptyxiakh3.data.Question
 import com.google.android.flexbox.FlexboxLayout
+import java.util.Collections
 
 class quizAdapter(
     private val context: Context,
@@ -341,45 +342,39 @@ class quizAdapter(
 
 
         // Define ItemTouchHelper.Callback here
-        private val itemTouchHelperCallback = object : ItemTouchHelper.Callback() {
-            override fun getMovementFlags(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder
-            ): Int {
+        val itemTouchHelperCallback = object : ItemTouchHelper.Callback() {
+            override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
                 val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
                 return makeMovementFlags(dragFlags, 0)
             }
 
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
                 val fromPosition = viewHolder.adapterPosition
                 val toPosition = target.adapterPosition
 
                 // Swap the items in the list
-                val movedItem = queueModels[fromPosition]
-                queueModels.removeAt(fromPosition)
-                queueModels.add(toPosition, movedItem)
-
-                // Notify the adapter about the change
+                Collections.swap(queueModels, fromPosition, toPosition)
                 recyclerView.adapter?.notifyItemMoved(fromPosition, toPosition)
-
+                Log.d("ItemTouchHelper", "RecyclerView id: ${recyclerView.id}, Item moved from $fromPosition to $toPosition")
                 return true
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                // Not used in this example
+                // Handle swipe actions if any (not used in this example)
             }
 
-            override fun getMoveThreshold(viewHolder: RecyclerView.ViewHolder): Float {
-                return 0.1f // Adjust this value as needed
+            override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+                super.clearView(recyclerView, viewHolder)
+                Log.d("ItemTouchHelper", "Drag finished")
             }
         }
 
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+
+
         init {
             // Attach ItemTouchHelper to enable drag-and-drop
+            Log.d("Fillerror","omos 11fd111")
             val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
             itemTouchHelper.attachToRecyclerView(recyclerView)
         }
@@ -389,7 +384,7 @@ class quizAdapter(
             var index = 1
             titletext.text=question.question_text2
             Log.d("QuizAdapter22", "Possible Answers Before Iteration: ${question.possibleAnswers.joinToString()}")
-
+            Log.d("Fillerror","omos 2")
             Log.d("QuizAdapter22", "Possible Answers: ${question.possibleAnswers.joinToString()}")
 
             question.possibleAnswers.forEach { possibleAnswer ->
@@ -650,7 +645,7 @@ class quizAdapter(
                     var minMistakes = Int.MAX_VALUE
                     var bestMatch = 0
                     var index2 = 0
-
+                    Log.d("Fillerror","mphka 6")
                     currentQuestion.correctAnswers.forEach { correctAnswer ->
                         val correctAnswerString = correctAnswer.toString()
                         val buttonOrderString = buttonClickOrder.joinToString("")
@@ -703,6 +698,7 @@ class quizAdapter(
 
                 is ViewHolderTypeFour -> {
                     // Get the final order
+                    Log.d("Fillerror","mphka 5")
                     val finalOrder = viewHolder.getCurrentOrder() // Υποθέτουμε ότι αυτή είναι μια λίστα αριθμών
                     val correctAnswers = currentQuestion.correctAnswers // Υποθέτουμε ότι αυτή είναι μια λίστα αριθμών
 
@@ -783,14 +779,21 @@ class quizAdapter(
                 is ViewHolderTypeSix -> {
                     val questionTextView1: EditText =
                         viewHolder.itemView.findViewById(R.id.keno1)
+                    questionTextView1.clearFocus()
                     val questionTextView2: EditText =
                         viewHolder.itemView.findViewById(R.id.keno2)
+                    questionTextView2.clearFocus()
                     val questionTextView3: EditText =
                         viewHolder.itemView.findViewById(R.id.keno3)
+                    questionTextView3.clearFocus()
                     val questionTextView4: EditText =
                         viewHolder.itemView.findViewById(R.id.keno4)
+                    questionTextView4.clearFocus()
 
 
+
+
+                    Log.d("Fillerror","Sto fill interact")
 
 
                     val EditTexts = listOf<EditText>(

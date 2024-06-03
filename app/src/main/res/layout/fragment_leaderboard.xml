@@ -277,7 +277,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:fontFamily="@font/peinirli"
-                        android:text="40%"
+                        android:text="0%"
                         android:textColor="@color/text_color"
                         android:textSize="35dp"  />
 

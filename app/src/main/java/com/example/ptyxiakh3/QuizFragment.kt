@@ -12,6 +12,7 @@ import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,7 +65,9 @@ class QuizFragment : Fragment()  {
         binding = FragmentQuizBinding.inflate(inflater, container, false)
 
         val myRecyclerView = activity?.findViewById<RecyclerView>(R.id.quizRecycler)
-
+        if (myRecyclerView != null) {
+            Log.d("ItemTouchHelper", "RecyclerView id: ${myRecyclerView.id}, Item moved fro")
+        }
         // Assuming you have the ProgressBar with id R.id.progressBar4
 
 
@@ -75,9 +78,22 @@ class QuizFragment : Fragment()  {
 
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+
+        val rootView = activity?.window?.decorView?.findViewById<View>(android.R.id.content)
+        rootView?.viewTreeObserver?.addOnGlobalLayoutListener {
+            val heightDiff = rootView.rootView.height - rootView.height
+            if (heightDiff > 200) { // If more than 200 pixels, its probably a keyboard...
+                Log.d("KeyboardVisibility", "Keyboard is visible")
+            } else {
+                Log.d("KeyboardVisibility", "Keyboard is hidden")
+            }
+        }
 
 
         myRecyclerView = binding?.quizRecycler
@@ -88,7 +104,7 @@ class QuizFragment : Fragment()  {
 
 
         myRecyclerView?.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
+        Log.d("ItemTouchHelper", "RecyclerView id: ${myRecyclerView?.id}, Item moved fro")
         val progressBar = view.findViewById<ProgressBar>(R.id.progressBar4)
         Log.d("edo1","${progressBar.progress}")
         progressBar.progress = 0
@@ -606,7 +622,9 @@ class QuizFragment : Fragment()  {
 
             Log.d("Scoremessage","nextBtn1")
             val viewHolder = myRecyclerView?.findViewHolderForAdapterPosition(currentPosition)
+
             viewHolder?.let {
+                Log.d("Fillerror","Sto fill interact apo ejo1")
                 var (flag, textFromAnswer) = quizAdapter.interactWithCurrentItem(it, 0)
 
                 if (flag && flag2) {
@@ -734,6 +752,7 @@ class QuizFragment : Fragment()  {
                 }
 
                 if (question?.style == "Mistakes") {
+                    Log.d("Fillerror","mphka 2")
                     Log.d("apapapa", "edo2")
                     text?.visibility = View.VISIBLE
                     optionA?.visibility = View.GONE
@@ -1006,7 +1025,7 @@ class QuizFragment : Fragment()  {
                     textFromAnswer = textFromAnswer.trimIndent()
 
                     val spannableString = SpannableString(question.question_text)
-
+                    Log.d("Fillerror","mphka 3")
                     // Extract mistake positions from the textFromAnswer string
                     val regex = """Position (\d+):""".toRegex()
                     val matchResults = regex.findAll(textFromAnswer)
@@ -1066,7 +1085,7 @@ class QuizFragment : Fragment()  {
                     optionB?.visibility = View.GONE
                     optionC?.visibility = View.GONE
                     optionD?.visibility = View.GONE
-
+                    Log.d("Fillerror","mphka 1")
                     val options: List<TextView?> = listOf(
                         optionD,
                         optionC,
@@ -1160,6 +1179,8 @@ class QuizFragment : Fragment()  {
                         val nextPosition = currentPosition + 1
                         if (nextPosition < (myRecyclerView?.adapter?.itemCount ?: 0)) {
                             //EDO
+                            Log.d("Fillerror","edo $currentPosition")
+
                             myRecyclerView?.layoutManager?.scrollToPosition(nextPosition)
                             progressBar.progress += progressbarprogress
                             // Notify the adapter about the next position
@@ -1225,6 +1246,7 @@ class QuizFragment : Fragment()  {
                     }
 
                 } else {
+
                     Log.d("popup","nextBtn2")
                     // Actions to perform when the ConstraintLayout is not visible (i.e., GONE or INVISIBLE)
                     it.visibility = View.VISIBLE
@@ -1232,12 +1254,11 @@ class QuizFragment : Fragment()  {
                         val viewHolder = myRecyclerView?.findViewHolderForAdapterPosition(currentPosition)
 
                         viewHolder?.let {
+                            Log.d("Fillerror","Sto fill interact apo ejo2")
                             var (flag, text) = quizAdapter.interactWithCurrentItem(it, 1)
                             if (it is quizAdapter.ViewHolderTypeOne) {
                                 // it is an instance of ViewHolderTypeOne
                                 Log.d("flagg", "flag = ${flag} + text = ${text}, it ${it}")
-                            } else if (it is quizAdapter.ViewHolderTypeTwo){
-                                text=flag.toString()
                             } else if (it is quizAdapter.ViewHolderTypeThree){
 
                             }
