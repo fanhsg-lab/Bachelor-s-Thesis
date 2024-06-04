@@ -655,9 +655,9 @@ class QuizFragment : Fragment()  {
                     result?.visibility = View.VISIBLE
 
                     if (question.correctAnswers[0].toInt() == 1) {
-                        result?.text = textFromAnswer
+                        result?.text = "Σωστά"
                     } else {
-                        result?.text = textFromAnswer
+                        result?.text = "Λάθος"
                     }
                     optionA?.visibility = View.GONE
                     optionB?.visibility = View.GONE
@@ -745,9 +745,9 @@ class QuizFragment : Fragment()  {
                     text?.text = spannableString
                     result?.visibility = View.VISIBLE
                     if(flag) {
-                        result?.text = "Correct"
+                        result?.text = "Σωστά"
                     }else{
-                        result?.text = "False  "
+                        result?.text = "Λάθος"
                     }
                 }
 
@@ -861,9 +861,9 @@ class QuizFragment : Fragment()  {
 
                         result?.visibility = View.VISIBLE
                         if (flag) {
-                            result?.text = "Correct"
+                            result?.text = "Σωστά"
                         } else {
-                            result?.text = "False  "
+                            result?.text = "Λάθος"
                         }
                     }
 
@@ -958,9 +958,9 @@ class QuizFragment : Fragment()  {
 
                         result?.visibility = View.VISIBLE
                         if (flag) {
-                            result?.text = "Correct"
+                            result?.text = "Σωστά"
                         } else {
-                            result?.text = "False  "
+                            result?.text = "Λάθος"
                         }
                     }
                 }
@@ -973,6 +973,20 @@ class QuizFragment : Fragment()  {
                     optionB?.visibility = View.GONE
                     optionC?.visibility = View.GONE
                     optionD?.visibility = View.GONE
+
+
+
+// Adjusted regex to handle multiple segments correctly
+                    Log.d("mpmpmp","$textFromAnswer")
+                    val regex = """expected (\w+)""".toRegex()
+                    val matchResults = regex.findAll(textFromAnswer)
+                    val wordsAfterExpected = matchResults.map { it.groupValues[1] }.toList()
+
+                    wordsAfterExpected.forEach { option ->
+                        Log.d("mpmpmp","$option")
+                    }
+
+
                         // Iterate over all possible answers
                     question.possibleAnswers.forEachIndexed { index, option ->
                         // Determine the TextView for the current option (e.g., optionA, optionB, etc.)
@@ -984,6 +998,7 @@ class QuizFragment : Fragment()  {
                             else -> null // Add more cases if you have more options
                         }
 
+
                         // Set the text for the option
                         optionTextView?.text = option
                         optionTextView?.visibility = View.VISIBLE
@@ -993,7 +1008,7 @@ class QuizFragment : Fragment()  {
                                 R.color.text_color
                             )
                         )
-                        optionTextView?.textSize = 15f
+                        optionTextView?.textSize = 18f
                         // Check if the current option is a correct answer
                         if (question.correctAnswers.contains(index.toLong())) { // Assuming correctAnswers are 1-indexed
                             // Assuming 'this' or 'getActivity()' can be used to obtain a Context. Adjust accordingly.
@@ -1007,13 +1022,24 @@ class QuizFragment : Fragment()  {
                             optionTextView?.textSize = 22f
 
                         }
+
+                        if (wordsAfterExpected.contains(index.toString())){
+                            optionTextView?.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.red
+                                )
+                            );
+
+                            optionTextView?.textSize = 22f
+                        }
                     }
                     Log.d("Mistakesall", "point2")
                     result?.visibility = View.VISIBLE
                     if(flag) {
-                        result?.text = "Correct"
+                        result?.text = "Σωστά"
                     }else{
-                        result?.text = "False  "
+                        result?.text = "Λάθος"
                     }
 
                 }
@@ -1069,9 +1095,9 @@ class QuizFragment : Fragment()  {
 
                     result?.visibility = View.VISIBLE
                     if(flag) {
-                        result?.text = "Correct"
+                        result?.text = "Σωστά"
                     }else{
-                        result?.text = "False  "
+                        result?.text = "Λάθος"
                     }
                 }
 
@@ -1095,9 +1121,9 @@ class QuizFragment : Fragment()  {
 
 
                     if(flag) {
-                        result?.text = "Correct"
+                        result?.text = "Σωστά"
                     }else{
-                        result?.text = "False  "
+                        result?.text = "Λάθος"
                     }
 
                     var index = 0;

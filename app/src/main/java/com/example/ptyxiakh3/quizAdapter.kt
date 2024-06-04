@@ -588,12 +588,15 @@ class quizAdapter(
                         Log.d("QuizAdapter", "IsCheck : $apanthsh Index : $kati")
                         if ( !apanthsh == kati  ) {
                             Log.d("QuizAdapter", "LAAAATTTHHHHOOSSS")
-                            text += checkBox.text
-                            text += " \n"
+                            text += " expected "
+                            text += index
+
                             flag = false
                         }
+
                         index++
                     }
+                    Log.d("MultipleTExt", "Text : $text")
                     if(flag){
                         updateQHistory(currentQuestion.question_id.toInt(), true,flagforH)
 

@@ -127,8 +127,8 @@ android:text="Ο κωδικός σου πρέπει να έχει τουλάχι
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="50pt"
+            android:layout_height="50pt"
             android:src="@drawable/astronaft" />
 
         <TextView
@@ -161,7 +161,7 @@ android:text="Ο κωδικός σου πρέπει να έχει τουλάχι
             android:textSize="20sp"
             android:fontFamily="@font/peinirli"
             android:backgroundTint="@color/muted_orange"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:hint="Όνομα"
             android:ems="10"
             android:inputType="text"/>
@@ -176,7 +176,7 @@ android:text="Ο κωδικός σου πρέπει να έχει τουλάχι
             android:textSize="20sp"
             android:fontFamily="@font/peinirli"
             android:backgroundTint="@color/muted_orange"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:hint="E-Mail "
             android:ems="10"
             android:inputType="text"/>
@@ -191,7 +191,7 @@ android:text="Ο κωδικός σου πρέπει να έχει τουλάχι
             android:textSize="20sp"
             android:fontFamily="@font/peinirli"
             android:backgroundTint="@color/muted_orange"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:hint="Κωδικός"
             android:ems="10"
             android:inputType="textPassword"/>
@@ -206,7 +206,7 @@ android:text="Ο κωδικός σου πρέπει να έχει τουλάχι
             android:textSize="20sp"
             android:fontFamily="@font/peinirli"
             android:backgroundTint="@color/muted_orange"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:hint="Επαλήθευση Κωδικού"
             android:ems="10"
             android:inputType="textPassword"/>

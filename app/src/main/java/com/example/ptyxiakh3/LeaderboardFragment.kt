@@ -1,6 +1,7 @@
 package com.example.ptyxiakh3
 
 import QuestionsViewModel
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context.MODE_PRIVATE
 import android.graphics.drawable.Drawable
@@ -53,7 +54,7 @@ class LeaderboardFragment : Fragment() {
         "Πανελλήνιες", "Κεφάλαιο1","Θεωρία"
     )
 
-    val selectedStyles = mutableListOf("SouLou", "Kena", "Mistakes", "multiple choice", "Queue")
+    val selectedStyles = mutableListOf("SouLou", "Kena", "Mistakes", "multiple choice", "Queue", "Fill")
     private var currentButtonState = ButtonState.CIRCLE
     private var currentButtonState2 = ButtonState.CIRCLE
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,6 +88,7 @@ class LeaderboardFragment : Fragment() {
     }
 
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -105,12 +107,14 @@ class LeaderboardFragment : Fragment() {
         mAdView?.loadAd(adRequest)
 
         // Initialize progress bars
-        val bar1 : ProgressBar? = view.findViewById(R.id.vertical_progressbar0)
-        val bar2 : ProgressBar? = view.findViewById(R.id.vertical_progressbar1)
-        val bar3 : ProgressBar? = view.findViewById(R.id.vertical_progressbar2)
-        val bar4 : ProgressBar? = view.findViewById(R.id.vertical_progressbar3)
-        val bar5 : ProgressBar? = view.findViewById(R.id.vertical_progressbar4)
-        val bar6 : ProgressBar? = view.findViewById(R.id.vertical_progressbar5)
+        val bar01 : ProgressBar? = view.findViewById(R.id.vertical_progressbar01)
+        val bar02 : ProgressBar? = view.findViewById(R.id.vertical_progressbar02)
+        val bar03 : ProgressBar? = view.findViewById(R.id.vertical_progressbar03)
+        val bar04 : ProgressBar? = view.findViewById(R.id.vertical_progressbar04)
+        val bar05 : ProgressBar? = view.findViewById(R.id.vertical_progressbar05)
+        val bar06 : ProgressBar? = view.findViewById(R.id.vertical_progressbar06)
+        val bar07 : ProgressBar? = view.findViewById(R.id.vertical_progressbar07)
+
         val bar7 : ProgressBar? = view.findViewById(R.id.vertical_progressbar6)
         val bar8 : ProgressBar? = view.findViewById(R.id.vertical_progressbar7)
         val bar9 : ProgressBar? = view.findViewById(R.id.vertical_progressbar8)
@@ -135,7 +139,7 @@ class LeaderboardFragment : Fragment() {
             var rightProgress = handleQuestions(
                 questions = questions,
                 userAnswers = DbQuery.myProfile.qHistory,
-                bars =  listOf(bar1, bar2, bar3, bar4, bar5 ,bar6),
+                bars =  listOf(bar01, bar02, bar03, bar04, bar05 ,bar06 ,bar07),
                 countingMethod = CountingMethod.USED_COUNTS,
                 selectedCategories = selectedModules, // These are modules
                 groupBy = "style", // Group results by style
@@ -149,7 +153,7 @@ class LeaderboardFragment : Fragment() {
             var leftProgress = handleQuestions(
                 questions = questions,
                 userAnswers = DbQuery.myProfile.qHistory,
-                bars =  listOf(bar1, bar2, bar3, bar4, bar5 ,bar6),
+                bars =  listOf(bar01, bar02, bar03, bar04, bar05 ,bar06 ,bar07),
                 countingMethod = CountingMethod.TOTAL_COUNTS,
                 selectedCategories = selectedModules, // These are modules
                 groupBy = "style", // Group results by style
@@ -166,7 +170,7 @@ class LeaderboardFragment : Fragment() {
                 userAnswers = DbQuery.myProfile.qHistory,
                 bars =  listOf(bar7, bar8, bar9, bar10, bar11 ,bar12,bar13 ,bar14 ,bar15),
                 countingMethod = CountingMethod.TOTAL_COUNTS,
-                selectedCategories = listOf("SouLou", "Kena", "Mistakes", "multiple choice", "Queue"), // These are modules
+                selectedCategories = listOf("SouLou", "Kena", "Mistakes", "multiple choice", "Queue", "Fill"), // These are modules
                 groupBy = "module", // Group results by style
                 filterBy = "style" // Filter questions by module
             )
@@ -381,12 +385,15 @@ class LeaderboardFragment : Fragment() {
         val Textallagh : TextView = view.findViewById(R.id.anaTiText)
         val Textallagh2 : TextView = view.findViewById(R.id.anaTiText2)
 
-        val bar1 : ProgressBar? = view.findViewById(R.id.vertical_progressbar0)
-        val bar2 : ProgressBar? = view.findViewById(R.id.vertical_progressbar1)
-        val bar3 : ProgressBar? = view.findViewById(R.id.vertical_progressbar2)
-        val bar4 : ProgressBar? = view.findViewById(R.id.vertical_progressbar3)
-        val bar5 : ProgressBar? = view.findViewById(R.id.vertical_progressbar4)
-        val bar6 : ProgressBar? = view.findViewById(R.id.vertical_progressbar5)
+        val bar01 : ProgressBar? = view.findViewById(R.id.vertical_progressbar01)
+        val bar02 : ProgressBar? = view.findViewById(R.id.vertical_progressbar02)
+        val bar03 : ProgressBar? = view.findViewById(R.id.vertical_progressbar03)
+        val bar04 : ProgressBar? = view.findViewById(R.id.vertical_progressbar04)
+        val bar05 : ProgressBar? = view.findViewById(R.id.vertical_progressbar05)
+        val bar06 : ProgressBar? = view.findViewById(R.id.vertical_progressbar06)
+        val bar07 : ProgressBar? = view.findViewById(R.id.vertical_progressbar07)
+
+
         val bar7 : ProgressBar? = view.findViewById(R.id.vertical_progressbar6)
         val bar8 : ProgressBar? = view.findViewById(R.id.vertical_progressbar7)
         val bar9 : ProgressBar? = view.findViewById(R.id.vertical_progressbar8)
@@ -500,7 +507,7 @@ class LeaderboardFragment : Fragment() {
                         handleQuestions(
                             questions = questions,
                             userAnswers = DbQuery.myProfile.qHistory,
-                            bars =  listOf(bar1, bar2, bar3, bar4, bar5 ,bar6),
+                            bars =  listOf(bar01, bar02, bar03, bar04, bar05 ,bar06, bar07),
                             countingMethod = CountingMethod.TOTAL_COUNTS,
                             selectedCategories = selectedModules, // These are modules
                             groupBy = "style", // Group results by style
@@ -515,7 +522,7 @@ class LeaderboardFragment : Fragment() {
                         handleQuestions(
                             questions = questions,
                             userAnswers = DbQuery.myProfile.qHistory,
-                            bars =  listOf(bar1, bar2, bar3, bar4, bar5 ,bar6),
+                            bars =  listOf(bar01, bar02, bar03, bar04, bar05 ,bar06, bar07),
                             countingMethod = CountingMethod.USED_COUNTS,
                             selectedCategories = selectedModules, // These are modules
                             groupBy = "style", // Group results by style
@@ -646,7 +653,7 @@ class LeaderboardFragment : Fragment() {
                         handleQuestions(
                             questions = questions,
                             userAnswers = DbQuery.myProfile.qHistory,
-                            bars =  listOf(bar1, bar2, bar3, bar4, bar5 ,bar6),
+                            bars =  listOf(bar01, bar02, bar03, bar04, bar05 ,bar06, bar07),
                             countingMethod = CountingMethod.USED_COUNTS,
                             selectedCategories = selectedModules, // These are modules
                             groupBy = "style", // Group results by style
@@ -662,7 +669,7 @@ class LeaderboardFragment : Fragment() {
                         handleQuestions(
                             questions = questions,
                             userAnswers = DbQuery.myProfile.qHistory,
-                            bars =  listOf(bar1, bar2, bar3, bar4, bar5 ,bar6),
+                            bars =  listOf(bar01, bar02, bar03, bar04, bar05 ,bar06, bar07),
                             countingMethod = CountingMethod.TOTAL_COUNTS,
                             selectedCategories = selectedModules, // These are modules
                             groupBy = "style", // Group results by style

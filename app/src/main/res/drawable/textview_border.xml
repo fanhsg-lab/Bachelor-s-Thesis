@@ -8,31 +8,31 @@
     </item>
 
     <!-- Horizontal lines for the paper with padding on the sides and transparency -->
-    <item android:top="-259dp" android:left="20dp" android:right="20dp">
+    <item android:top="-265dp" android:left="20dp" android:right="20dp">
         <shape android:shape="line">
             <stroke android:width="1dp" android:color="#80000000"/> <!-- Semi-transparent black line color -->
         </shape>
     </item>
 
-    <item android:top="-159dp" android:left="20dp" android:right="20dp">
+    <item android:top="-165dp" android:left="20dp" android:right="20dp">
         <shape android:shape="line">
             <stroke android:width="1dp" android:color="#80000000"/> <!-- Semi-transparent black line color -->
         </shape>
     </item>
 
-    <item android:top="-59dp" android:left="20dp" android:right="20dp">
+    <item android:top="-65dp" android:left="20dp" android:right="20dp">
         <shape android:shape="line">
             <stroke android:width="1dp" android:color="#80000000"/> <!-- Semi-transparent black line color -->
         </shape>
     </item>
 
-    <item android:top="41dp" android:left="20dp" android:right="20dp">
+    <item android:top="35dp" android:left="20dp" android:right="20dp">
         <shape android:shape="line">
             <stroke android:width="1dp" android:color="#80000000"/> <!-- Semi-transparent black line color -->
         </shape>
     </item>
 
-    <item android:top="140dp" android:left="20dp" android:right="20dp">
+    <item android:top="135dp" android:left="20dp" android:right="20dp">
         <shape android:shape="line">
             <stroke android:width="1dp" android:color="#80000000"/> <!-- Semi-transparent black line color -->
         </shape>
