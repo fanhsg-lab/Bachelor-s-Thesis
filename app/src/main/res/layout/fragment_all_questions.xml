@@ -225,6 +225,16 @@
             />
 
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="D : 123"
+            android:textSize="17sp"
+            android:textColor="@color/text_color"
+            android:fontFamily="@font/peinirli"
+            android:id="@+id/optionE"
+            />
+
+        <TextView
             android:id="@+id/lasttext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
