@@ -17,7 +17,7 @@
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:padding="10dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,133 +39,20 @@
 
 
 
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
             android:gravity="center"
             android:textSize="18sp"
+            android:textColor="@color/text_color"
             android:fontFamily="@font/greek1"
             android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:fontFamily="@font/mpompa"
-            android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
-      <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:fontFamily="@font/miracode"
-            android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:fontFamily="@font/ifbombergsansbold"
-            android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:fontFamily="@font/acvarela"
-            android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:fontFamily="@font/acblur"
-            android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:fontFamily="@font/acchivoblack"
-            android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:fontFamily="@font/acconcert"
-            android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
-
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:fontFamily="@font/acloving"
-            android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:fontFamily="@font/mgabcol"
-            android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:fontFamily="@font/acscifly"
-            android:text="Συνδεση χεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
-
-
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:fontFamily="@font/acsofticecream"
-            android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/actitan"
-            android:gravity="center"
-            android:paddingLeft="15dp"
-            android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "
-            android:textSize="18sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:fontFamily="@font/acthickstick"
-            android:text="Άλλαξε τα στοιχεία σου σε περίπτωση που το θεωρείς απαραίτητο. "/>
 
 
         <ImageView

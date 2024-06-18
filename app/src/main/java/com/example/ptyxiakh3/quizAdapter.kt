@@ -27,7 +27,9 @@ class quizAdapter(
     private val context: Context,
     private val quizModels: ArrayList<Question>,
     private val navController: NavController,
-    var layoutChangeListener: (() -> Unit)? = null
+    var layoutChangeListener: (() -> Unit)? = null,
+    private var isTrueButtonClicked: Boolean = false,
+    private var isFalseButtonClicked: Boolean = false
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val buttonClickOrder = mutableListOf<Int>()
@@ -127,7 +129,7 @@ class quizAdapter(
     // ViewHolder for type two
     // ViewHolder for type two
     // ViewHolder for type two
-    class ViewHolderTypeTwo(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolderTypeTwo(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val questionTextView: TextView = itemView.findViewById(R.id.souloutext)
         private val Titlos: TextView = itemView.findViewById(R.id.titlossoulou)
         private val falsebut: Button = itemView.findViewById(R.id.falsebut_image)
@@ -137,11 +139,12 @@ class quizAdapter(
         private val tfButtonsClickedDrawableId = R.drawable.tf_buttons_clicked
         private val startingBackground = R.drawable.next_button_drawable
 
-        var isTrueButtonClicked = false
 
         init {
+            Log.d("flagError4", " 5 $isTrueButtonClicked")
 
-
+            isTrueButtonClicked = false
+            isFalseButtonClicked = false
             falsebut.setOnClickListener {
                 // Check if the true button is already clicked
 
@@ -154,6 +157,7 @@ class quizAdapter(
 
                 // Update the state
                 isTrueButtonClicked = false
+                isFalseButtonClicked = true
             }
 
             truebut.setOnClickListener {
@@ -168,12 +172,14 @@ class quizAdapter(
 
                 // Update the state
                 isTrueButtonClicked = true
+                isFalseButtonClicked = false
             }
         }
 
-        fun getCurrentState(): Boolean {
-            return isTrueButtonClicked
+        fun getCurrentState(): Pair<Boolean, Boolean> {
+            return Pair(isTrueButtonClicked, isFalseButtonClicked)
         }
+
 
         fun bind(question: Question) {
             Log.d("quizAdapter2", "mphka2")
@@ -259,7 +265,7 @@ class quizAdapter(
                 val currentIndex = index // Capture the current index value
 
                 button.setOnClickListener {
-                    Log.d("apapa","${currentPlaceholderIndex} , ${placeholders.size}" )
+                    Log.d("Kenatext3","${currentPlaceholderIndex} , ${placeholders.size}" )
                     if (currentPlaceholderIndex < characterCount) {
                         buttonClickHistory.add(
                             ButtonClickState(
@@ -268,6 +274,7 @@ class quizAdapter(
                             )
                         )
                         buttonClickOrder.add(currentIndex + 1) // Use captured index value here (+1 if you want to start from 1 instead of 0)
+                        Log.d("Kenatext3","buttonClickOrder , ${currentIndex + 1}" )
                         replaceNextPlaceholder(button.text.toString())
                         button.visibility = View.GONE
 
@@ -503,30 +510,27 @@ class quizAdapter(
         private val questionTextView2: TextView = itemView.findViewById(R.id.gramma2)
         private val questionTextView3: TextView = itemView.findViewById(R.id.gramma3)
         private val questionTextView4: TextView = itemView.findViewById(R.id.gramma4)
+        private val questionTextView5: TextView = itemView.findViewById(R.id.gramma5)
 
+        private val lin5: LinearLayout = itemView.findViewById(R.id.lin5)
         private val lin4: LinearLayout = itemView.findViewById(R.id.lin4)
         private val lin3: LinearLayout = itemView.findViewById(R.id.lin3)
         private val lin2: LinearLayout = itemView.findViewById(R.id.lin2)
         private val lin1: LinearLayout = itemView.findViewById(R.id.lin1)
-        var isTrueButtonClicked = false
 
-        init {
-
-
-
-        }
-
-        fun getCurrentState(): Boolean {
-            return isTrueButtonClicked
-        }
-        val questionTextViews = listOf<TextView>(questionTextView1, questionTextView2, questionTextView3,questionTextView4)
-        val lins = listOf<LinearLayout>(lin1, lin2, lin3, lin4)
+        val questionTextViews = listOf<TextView>(questionTextView1, questionTextView2, questionTextView3,questionTextView4,questionTextView5)
+        val lins = listOf<LinearLayout>(lin1, lin2, lin3, lin4 ,lin5)
 
         fun bind(question: Question) {
             Log.d("quizAdapter2", "mphka2")
             // Bind data for type one
             questionTextView.text = question.question_text
             Titlos.text=question.question_text2
+
+            lins.forEach { lin ->
+
+                lin.visibility = View.GONE
+            }
 
             question.possibleAnswers.forEachIndexed { index, answer ->
                 if (index < questionTextViews.size) {
@@ -584,8 +588,9 @@ class quizAdapter(
                     CheckBoxes.forEach { checkBox ->
                         // Perform your action with each checkBox here
                         var apanthsh = checkBox.isChecked
+                        Log.d("QuizAdapter", "index : $index")
                         var kati=currentQuestion.correctAnswers.contains(index.toLong())
-                        Log.d("QuizAdapter", "IsCheck : $apanthsh Index : $kati")
+                        Log.d("QuizAdapter", "IsCheck : $apanthsh kati : $kati")
                         if ( !apanthsh == kati  ) {
                             Log.d("QuizAdapter", "LAAAATTTHHHHOOSSS")
                             text += " expected "
@@ -615,85 +620,99 @@ class quizAdapter(
                 }
                 is ViewHolderTypeTwo -> {
                     var flag = false
+                    val state = viewHolder.getCurrentState()
                     val questionTextView5: TextView =
                         viewHolder.itemView.findViewById(R.id.souloutext)
-                    val isTrueButtonClicked = viewHolder.getCurrentState()
+                    val isTrueButtonClicked = state.first
+                    val isFalseButtonClicked = state.second
+                    Log.d("flagError1", "$flag")
+                    Log.d("flagError4", "$isTrueButtonClicked")
                     Log.d("Scoremessage", "Is True Button Clicked: sosto")
                     Log.d("flagg", "I ${isTrueButtonClicked} , ${currentQuestion.correctAnswers[0].toInt()} , ${isTrueButtonClicked==(currentQuestion.correctAnswers[0].toInt() ==1)}")
-                    if (isTrueButtonClicked==(currentQuestion.correctAnswers[0].toInt() ==1)) {
-                        Log.d("Scoremessage", "Is True Button Clicked: sosto")
-                        Log.d("QuizFragment2", "${currentQuestion.question_id}")
-                        updateQHistory(currentQuestion.question_id.toInt(), true,flagforH)
-                        flag = true
-                    }else{
-                        Log.d("QuizFragment2", "Is True Button Clicked: lathos")
-                        updateQHistory(currentQuestion.question_id.toInt(), false,flagforH)
-                        flag = false
-                    }
+                    Log.d("j", "mphka2")
+                  if(isTrueButtonClicked || isFalseButtonClicked) {
+                      if (isTrueButtonClicked == (currentQuestion.correctAnswers[0].toInt() == 1)) {
+                          Log.d("Three4", "Is True Button Clicked: sosto")
+                          Log.d("QuizFragment2", "${currentQuestion.question_id}")
+                          updateQHistory(currentQuestion.question_id.toInt(), true, flagforH)
+                          flag = true
+                          Log.d("DataQuiz", "mphka1")
+                      } else {
+                          Log.d("Three4", "Is True Button Clicked: lathos")
+                          updateQHistory(currentQuestion.question_id.toInt(), false, flagforH)
+                          flag = false
+                          Log.d("flagError3", "$flag")
+                          Log.d("DataQuiz", "mphka3")
+                      }
+                  }
+                    Log.d("Three3","KAI OMOS2")
                     Log.d("flagg", "Id ${flag} ")
                     if(flag) {
-                        return Pair(flag, "Correct")
+                        return Pair(flag, "Σωστά")
                     }else{
                         if(!isTrueButtonClicked ){
-                            return Pair(flag, "False")
+                            return Pair(flag, "Λάθος")
                         }else{
-                            return Pair(flag, "False")
+                            return Pair(flag, "Λάθος")
                         }
                     }
                 }
 
                 is ViewHolderTypeThree -> {
                     var flag =true;
-                    var text = ""
+
+                    var finaltext =""
                     var minMistakes = Int.MAX_VALUE
                     var bestMatch = 0
                     var index2 = 0
+                    var minText =""
                     Log.d("Fillerror","mphka 6")
                     currentQuestion.correctAnswers.forEach { correctAnswer ->
                         val correctAnswerString = correctAnswer.toString()
                         val buttonOrderString = buttonClickOrder.joinToString("")
+                        Log.d("Three5","buttonOrderString ,$buttonOrderString" )
                         var mistakes = 0
+                        var text = ""
 
                         for (index in correctAnswerString.indices) {
                             if (index >= buttonOrderString.length || buttonOrderString[index] != correctAnswerString[index]) {
                                 mistakes++
+                                text +=  " expected " +correctAnswerString[index].toString()
+
                             }
                         }
 
                         if (mistakes < minMistakes) {
                             minMistakes = mistakes
                             bestMatch = index2
+                            minText = text
+                            Log.d("Three5","minText ,$minText" )
                         }
                         index2++
+                        Log.d("Three5","mphkaCurrent" )
                     }
-
-
+                    finaltext = minText
+                    Log.d("Kenatext5","finaltext $finaltext" )
                     val correctAnswerString = currentQuestion.correctAnswers[bestMatch].toString()
                     val buttonOrderString = buttonClickOrder.joinToString("")
 
-                    for (index in currentQuestion.correctAnswers[bestMatch].toString().indices) {
-                        if (index >= buttonOrderString.length || buttonOrderString[index] != correctAnswerString[index]) {
-                            text +=  " expected " + currentQuestion.possibleAnswers[index] + " " + "found " + buttonOrderString.getOrNull(index)?.toString()
-                        }
-                    }
-                    Log.d("Scoremessage","KAI OMOS")
+
+
+                    Log.d("Three3","KAI OMOS")
 
                     Log.d("Three3", "Result: ${minMistakes}")
                     if (minMistakes<1) {
                         Log.d("Scoremessage","Flag true")
-
-                        Log.d("Three3", "Result: Correct")
-                        buttonClickOrder.clear()
+                        Log.d("Three4", "Result: Correct")
                         updateQHistory(currentQuestion.question_id.toInt(), true,flagforH)
                         return Pair(flag,"Sosta")
 
 
                     } else {
-                        Log.d("Three3", "Result: False")
+                        Log.d("Three4", "Result: False")
                         Log.d("Scoremessage","Flag false")
-                        buttonClickOrder.clear()
                         updateQHistory(currentQuestion.question_id.toInt(), false,flagforH)
-                        return Pair(false,text)
+                        return Pair(false,finaltext)
 
                     }
 
@@ -705,8 +724,8 @@ class quizAdapter(
                     val finalOrder = viewHolder.getCurrentOrder() // Υποθέτουμε ότι αυτή είναι μια λίστα αριθμών
                     val correctAnswers = currentQuestion.correctAnswers // Υποθέτουμε ότι αυτή είναι μια λίστα αριθμών
 
-                    Log.d("finalOrder", "finalOrder $finalOrder")
-                    Log.d("finalOrder", "correct $correctAnswers")
+                    Log.d("wert", "finalOrder $finalOrder")
+                    Log.d("wert", "correct $correctAnswers")
 
                     var flag = true
                     val mistakes = mutableListOf<String>()
@@ -720,10 +739,12 @@ class quizAdapter(
                     }
 
                     if (flag) {
-                        Log.d("OrderCheck", "The final order is correct!")
+                        Log.d("Three6", "The final order is correct!")
+                        updateQHistory(currentQuestion.question_id.toInt(), true,flagforH)
                     } else {
-                        Log.d("OrderCheck", "The final order is incorrect.")
+                        Log.d("Three6", "The final order is incorrect.")
                         mistakes.forEach { Log.d("OrderCheck", it) }
+                        updateQHistory(currentQuestion.question_id.toInt(), false,flagforH)
                     }
 
                     Log.d("QuizFragment2", "Final Order is correct: $flag")
@@ -792,18 +813,23 @@ class quizAdapter(
                     val questionTextView4: EditText =
                         viewHolder.itemView.findViewById(R.id.keno4)
                     questionTextView4.clearFocus()
+                    val questionTextView5: EditText =
+                        viewHolder.itemView.findViewById(R.id.keno5)
+                    questionTextView4.clearFocus()
 
 
 
 
-                    Log.d("Fillerror","Sto fill interact")
+
+
 
 
                     val EditTexts = listOf<EditText>(
                         questionTextView1,
                         questionTextView2,
                         questionTextView3,
-                        questionTextView4
+                        questionTextView4,
+                        questionTextView5
                     )
 
                     var flag = true
@@ -814,8 +840,10 @@ class quizAdapter(
 
                     currentQuestion.correctAnswers.forEach { correctAnswer ->
                             // Perform your action with each checkBox here
+
                             val apanthsh = EditTexts[index].text.toString().toLongOrNull()
                             var kati = currentQuestion.correctAnswers[index]
+                        Log.d("Fillerror2","correctAnswer $correctAnswer  kati  $kati")
                             Log.d("QuizAdapter", "IsCheck : $apanthsh Index : $kati")
                             if(apanthsh == kati){
                                 Log.d("QuizAdapter", "Mphka")
@@ -853,17 +881,19 @@ class quizAdapter(
     }
 
     fun updateQHistory(questionId: Int, isCorrect: Boolean,flagforH: Int) {
+        Log.d("Three4", "flagforH  ${flagforH} ")
         if (flagforH==1) {
+            buttonClickOrder.clear()
             val segmentLength = 5
             val startIndex = (questionId - 1) * segmentLength
             val endIndex = startIndex + segmentLength
-
+Log.d("DataQuiz","questionId $questionId ")
             // Ensure the indices are within the bounds of the string
             if (startIndex < myProfile.qHistory.length && endIndex <= myProfile.qHistory.length) {
                 val newAnswer = if (isCorrect) 'T' else 'F'
                 val currentSegment = myProfile.qHistory.substring(startIndex, endIndex)
                 val updatedSegment = newAnswer + currentSegment.substring(0, segmentLength - 1)
-
+                Log.d("Three6", "currentSegment  ${currentSegment}  updatedSegment  ${updatedSegment}")
                 myProfile.qHistory = myProfile.qHistory.substring(0, startIndex) +
                         updatedSegment +
                         myProfile.qHistory.substring(endIndex)

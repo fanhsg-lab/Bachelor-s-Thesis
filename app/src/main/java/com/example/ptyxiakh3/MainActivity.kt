@@ -1,17 +1,23 @@
 package com.example.ptyxiakh3
 
+import QuestionsViewModel
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.ptyxiakh3.DbQuery.g_usersCount
 import com.example.ptyxiakh3.DbQuery.g_usersList
 import com.example.ptyxiakh3.DbQuery.myPerformance
+import com.example.ptyxiakh3.data.Question
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -23,6 +29,10 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         lateinit var auth: FirebaseAuth
+         var  myList2 = listOf(
+            "Κεφάλαιο1","Κεφάλαιο2","Κεφάλαιο3","Κεφάλαιο4","Θεωρία","Πανελλήνιες"
+        )
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +49,13 @@ class MainActivity : AppCompatActivity() {
         MobileAds.initialize(this) {}
         setContentView(R.layout.activity_main)
 
+         val questionsViewModel: QuestionsViewModel by viewModels()
+        questionsViewModel.getQuestionsByQuizNumber(1.1).observe(this, Observer { allQuestions ->
+            val questionsRepeat = mutableListOf<Question>()
+            allQuestions.forEach { question ->
+                Log.d("bugdata","ID: ${question.question_id}")
+            }
+        })
 
         DbQuery.getUserData(object : MyCompleteListener {
             override fun onSuccess() {

@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.room.InvalidationTracker
+import com.example.ptyxiakh3.MainActivity.Companion.myList2
 import com.example.ptyxiakh3.data.Question
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
@@ -49,10 +50,9 @@ class LeaderboardFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private val questionsViewModel: QuestionsViewModel by viewModels()
+    val selectedModules = mutableListOf<String>()
 
-    val selectedModules = mutableListOf(
-        "Πανελλήνιες", "Κεφάλαιο1","Θεωρία"
-    )
+
 
     val selectedStyles = mutableListOf("SouLou", "Kena", "Mistakes", "multiple choice", "Queue", "Fill")
     private var currentButtonState = ButtonState.CIRCLE
@@ -62,6 +62,9 @@ class LeaderboardFragment : Fragment() {
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
+
+
+
         }
 
         if (!NetworkUtil.isInternetAvailable(requireContext())) {
@@ -95,7 +98,7 @@ class LeaderboardFragment : Fragment() {
     ): View? {
 
 
-
+        selectedModules.addAll(myList2)
 
         // Only inflate the layout once
         val view = inflater.inflate(R.layout.fragment_leaderboard, container, false)
@@ -124,6 +127,24 @@ class LeaderboardFragment : Fragment() {
         val bar13 : ProgressBar? = view.findViewById(R.id.vertical_progressbar12)
         val bar14 : ProgressBar? = view.findViewById(R.id.vertical_progressbar13)
         val bar15 : ProgressBar? = view.findViewById(R.id.vertical_progressbar14)
+
+
+        val textViews: List<TextView?> = listOf(
+            view.findViewById(R.id.textView6),
+            view.findViewById(R.id.textView7),
+            view.findViewById(R.id.textView8),
+            view.findViewById(R.id.textView9),
+            view.findViewById(R.id.textView10),
+            view.findViewById(R.id.textView11),
+            view.findViewById(R.id.textView12),
+            view.findViewById(R.id.textView13),
+            view.findViewById(R.id.textView14)
+        )
+
+        myList2.forEachIndexed { index, module ->
+
+            textViews[index]?.text  = module
+        }
 
         val barLeft : ProgressBar? = view?.findViewById(R.id.progressBarLeft)
         val barRight : ProgressBar? = view?.findViewById(R.id.progressBarRight)
@@ -172,7 +193,8 @@ class LeaderboardFragment : Fragment() {
                 countingMethod = CountingMethod.TOTAL_COUNTS,
                 selectedCategories = listOf("SouLou", "Kena", "Mistakes", "multiple choice", "Queue", "Fill"), // These are modules
                 groupBy = "module", // Group results by style
-                filterBy = "style" // Filter questions by module
+                filterBy = "style",
+                difficultyFilter = listOf(1,2,3)  // Filter questions by module
             )
 
 
@@ -210,14 +232,14 @@ class LeaderboardFragment : Fragment() {
     ): Int {
         val difficultyCounts = mutableMapOf(1 to 0, 2 to 0, 3 to 0)
         val categoryGroups = when (groupBy) {
-            "module" -> questions.flatMap { it.modules }.toSet()
+            "module" -> myList2
             "style" -> questions.map { it.style }.toSet()
             "difficulty" -> questions.map { it.difficulty.toString() }.toSet()
             else -> throw IllegalArgumentException("Group by must be 'module', 'style', or 'difficulty'")
         }
 
         val filterGroups = when (filterBy) {
-            "module" -> questions.flatMap { it.modules }.toSet()
+            "module" -> myList2
             "style" -> questions.map { it.style }.toSet()
             "difficulty" -> questions.map { it.difficulty.toString() }.toSet()
             else -> throw IllegalArgumentException("Filter by must be 'module', 'style', or 'difficulty'")
@@ -263,6 +285,7 @@ class LeaderboardFragment : Fragment() {
                     if (hasAnswers) {
 
                         totalAnsweredQuestions++
+                        Log.d("diffd", "question.id ${question.question_id}   question.difficulty ${question.difficulty}    difficultyCounts[question.difficulty] ${difficultyCounts[question.difficulty]}")
                         difficultyCounts[question.difficulty] = difficultyCounts.getOrDefault(question.difficulty, 0) + 1
                     }
 
@@ -299,7 +322,6 @@ class LeaderboardFragment : Fragment() {
         }
 
         val overallCorrectness = if (overallCount > 0) 100 * overallCorrect / overallCount else 0
-        var minCorrectness = Int.MAX_VALUE // Initialize with the maximum possible integer value
 
         activity?.runOnUiThread {
             var minCorrectness = Int.MAX_VALUE // Make sure it's initialized to a very high value initially.
@@ -311,7 +333,7 @@ class LeaderboardFragment : Fragment() {
                 val categoryCorrectness = if (count > 0) 100 * correct / count else -1
 
                 // Update the minimum correctness and the corresponding category name
-                if (categoryCorrectness < minCorrectness && categoryCorrectness != -1) {
+                if (categoryCorrectness < minCorrectness && categoryCorrectness != -1 && minCorrectness != 0) {
                     minCorrectness = categoryCorrectness
                     minCorrectnessCategory = category // Update the category name here
                 }
@@ -321,8 +343,8 @@ class LeaderboardFragment : Fragment() {
                     Log.d("LeaderBoard", "index: $index, categoryCorrectness: $categoryCorrectness, category: $category")
                 }
 
-                Log.d("LeaderBoard", "Category: $category, Correct: $correct, Count: $count")
-                Log.d("LeaderBoard", "Category: $category, Correctness: $categoryCorrectness%")
+                Log.d("LeaderBoard2", "Category: $category, Correct: $correct, Count: $count")
+                Log.d("LeaderBoard2", "Category: $category, Correctness: $categoryCorrectness%")
             }
             // Ensure there is a last bar to update with overall correctness
             bars.lastOrNull()?.progress = overallCorrectness
@@ -344,12 +366,20 @@ class LeaderboardFragment : Fragment() {
         }
 
         val difficultyPercentages = difficultyCounts.mapValues { (difficulty, count) ->
+            Log.d("diffd", "difficulty: $difficulty count: $count")
             if (totalAnsweredQuestions > 0) {
                 (count.toDouble() / totalAnsweredQuestions) * 100
             } else {
                 0.0
             }
         }
+
+        Log.d("diffd", "Total answered questions: $totalAnsweredQuestions")
+        difficultyCounts.forEach { (difficulty, count) ->
+            Log.d("diffd", "Difficulty $difficulty count: $count")
+        }
+
+
         Log.d("diffd","Difficulty 1 count: ${difficultyCounts[1]}, percentage: ${"%.2f".format(difficultyPercentages[1])}%")
         Log.d("diffd","Difficulty 2 count: ${difficultyCounts[2]}, percentage: ${"%.2f".format(difficultyPercentages[2])}%")
         Log.d("diffd","Difficulty 3 count: ${difficultyCounts[3]}, percentage: ${"%.2f".format(difficultyPercentages[3])}%")
@@ -413,16 +443,18 @@ class LeaderboardFragment : Fragment() {
         val checkBox3 : CheckBox? = view.findViewById(R.id.checkBox3)
         val checkBox4 : CheckBox? = view.findViewById(R.id.checkBox4)
         val checkBox5 : CheckBox? = view.findViewById(R.id.checkBox5)
+        val checkBox6 : CheckBox? = view.findViewById(R.id.checkBox6)
 
         val checkBox21 : CheckBox? = view.findViewById(R.id.checkBox21)
         val checkBox22 : CheckBox? = view.findViewById(R.id.checkBox22)
         val checkBox23 : CheckBox? = view.findViewById(R.id.checkBox23)
         val checkBox24 : CheckBox? = view.findViewById(R.id.checkBox24)
         val checkBox25 : CheckBox? = view.findViewById(R.id.checkBox25)
+        val checkBox26 : CheckBox? = view.findViewById(R.id.checkBox26)
 
 
         view.postDelayed({
-            listOf(checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox21, checkBox22, checkBox23, checkBox24, checkBox25).forEach {
+            listOf(checkBox1, checkBox2, checkBox3, checkBox4, checkBox5,checkBox6, checkBox21, checkBox22, checkBox23, checkBox24, checkBox25 ,checkBox26).forEach {
                 it?.isChecked = true
             }
         }, 100)  // Delay by 100 milliseconds
@@ -485,11 +517,12 @@ class LeaderboardFragment : Fragment() {
             // Toggle visibility
             selectedModules.clear()
 
-            if (checkBox1?.isChecked == true) selectedModules.add("Chapter1")
-            if (checkBox2?.isChecked == true) selectedModules.add("Chapter2")
-            if (checkBox3?.isChecked == true) selectedModules.add("Chapter3")
-            if (checkBox4?.isChecked == true) selectedModules.add("For")
-            if (checkBox5?.isChecked == true) selectedModules.add("If")
+            if (checkBox1?.isChecked == true) selectedModules.add("Κεφάλαιο1")
+            if (checkBox2?.isChecked == true) selectedModules.add("Κεφάλαιο2")
+            if (checkBox3?.isChecked == true) selectedModules.add("Κεφάλαιο3")
+            if (checkBox4?.isChecked == true) selectedModules.add("Κεφάλαιο4")
+            if (checkBox5?.isChecked == true) selectedModules.add("Θεωρία")
+            if (checkBox6?.isChecked == true) selectedModules.add("Πανελλήνιες")
 
 
             Log.d("statisticcheck", "exoume $selectedModules ")
@@ -550,6 +583,7 @@ class LeaderboardFragment : Fragment() {
             if (checkBox23?.isChecked == true) selectedStyles.add("multiple choice")
             if (checkBox24?.isChecked == true) selectedStyles.add("Queue")
             if (checkBox25?.isChecked == true) selectedStyles.add("Mistakes")
+            if (checkBox26?.isChecked == true) selectedStyles.add("Fill")
 
             Log.d("statisticcheck", "exoume $selectedStyles ")
             popupLayout2.visibility = if (popupLayout2.visibility == View.VISIBLE) View.GONE else View.VISIBLE

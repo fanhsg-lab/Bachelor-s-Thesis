@@ -19,6 +19,10 @@ interface QuestionsDao {
     @Query("DELETE FROM Questions")
     suspend fun deleteAllQuestions()
 
+        @Insert(onConflict = OnConflictStrategy.REPLACE)
+        suspend fun addQuestions(questions: List<Question>)
+
+
     @Query("SELECT * FROM Questions ORDER BY question_id ASC")
     fun readAllData(): LiveData<List<Question>>
 

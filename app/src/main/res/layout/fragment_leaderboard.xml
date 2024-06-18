@@ -65,7 +65,7 @@
                 android:id="@+id/button2"
                 android:layout_width="37dp"
                 android:layout_height="37dp"
-                android:background="@drawable/ic_account"
+                android:background="@drawable/module"
                 android:text=""
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
@@ -85,6 +85,19 @@
                 android:text="Επέλεξε όσα στοιχεία είναι σημαντικά για εσένα"/>
 
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="@color/text_color"
+            android:fontFamily="@font/peinirli"
+            android:text="Άλλαξε τον τρόπο ελέγχου."/>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -113,7 +126,7 @@
                 android:textSize="18sp"
                 android:textColor="@color/text_color"
                 android:fontFamily="@font/peinirli"
-                android:text="Άλλαξε το τρόπο ελέγχου. Πρώτος υπολογίζει το ποσοστό ανάλογα με τις σωστές απαντήσεις."/>
+                android:text="Υπολογίζει το ποσοστό ανάλογα με τις σωστές απαντήσεις.(Όλες οι προσπάθειες του χρήστη)"/>
 
         </LinearLayout>
 
@@ -143,7 +156,7 @@
                 android:textSize="18sp"
                 android:textColor="@color/text_color"
                 android:fontFamily="@font/peinirli"
-                android:text=" Ο δεύτερος ανάλογα τις σωστές ασκήσεις."/>
+                android:text="Υπολογίζει το ποσοστό ανάλογα με τις σωστές ασκήσεις.(Αρκεί μία σωστή προσπάθεια για να θεωρηθεί μία άσκηση σωστή)"/>
 
         </LinearLayout>
 
@@ -334,7 +347,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/peinirli"
                     android:gravity="center"
-                    android:text="Επιτυχίες"
+                    android:text="Απαντήσεις"
                     android:textColor="@color/text_color"
                     android:textSize="20dp" />
 
@@ -355,7 +368,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:fontFamily="@font/peinirli"
-                android:text="Απαντήσεις"
+                android:text="Ασκήσεις"
                 android:textColor="@color/text_color"
                 android:textSize="20dp" />
         </LinearLayout>
@@ -594,10 +607,11 @@
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
                                 android:gravity="center"
+                                android:textSize="12sp"
                                 android:fontFamily="@font/peinirli"
                                 android:textColor="@color/text_color"
-                                android:rotation="-8"
-                                android:text="False/True" />
+                                android:rotation="-25"
+                                android:text="Σωστό/Λάθος" />
 
 
                             <TextView
@@ -607,10 +621,11 @@
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
                                 android:gravity="center"
+                                android:textSize="12sp"
                                 android:fontFamily="@font/peinirli"
                                 android:textColor="@color/text_color"
-                                android:rotation="-8"
-                                android:text="Queue" />
+                                android:rotation="-25"
+                                android:text="Κενά" />
 
                             <TextView
                                 android:id="@+id/textView03"
@@ -619,10 +634,11 @@
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
                                 android:gravity="center"
+                                android:textSize="12sp"
                                 android:fontFamily="@font/peinirli"
                                 android:textColor="@color/text_color"
-                                android:rotation="-8"
-                                android:text="Mistakes" />
+                                android:rotation="-25"
+                                android:text="Πολλαπλής" />
 
                             <TextView
                                 android:id="@+id/textView04"
@@ -631,10 +647,11 @@
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
                                 android:gravity="center"
+                                android:textSize="12sp"
                                 android:fontFamily="@font/peinirli"
                                 android:textColor="@color/text_color"
-                                android:rotation="-8"
-                                android:text="Multiple Choice" />
+                                android:rotation="-25"
+                                android:text="Αποτέλεσμα" />
 
                             <TextView
                                 android:id="@+id/textView05"
@@ -643,10 +660,11 @@
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
                                 android:gravity="center"
+                                android:textSize="12sp"
                                 android:fontFamily="@font/peinirli"
                                 android:textColor="@color/text_color"
-                                android:rotation="-8"
-                                android:text="Kena" />
+                                android:rotation="-25"
+                                android:text="Σειρά" />
 
                             <TextView
                                 android:id="@+id/textView06"
@@ -655,9 +673,10 @@
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
                                 android:gravity="center"
+                                android:textSize="12sp"
                                 android:fontFamily="@font/peinirli"
                                 android:textColor="@color/text_color"
-                                android:rotation="-8"
+                                android:rotation="-25"
                                 android:text="Kena" />
 
                             <TextView
@@ -667,10 +686,11 @@
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
                                 android:gravity="center"
+                                android:textSize="12sp"
                                 android:fontFamily="@font/peinirli"
                                 android:textColor="@color/text_color"
-                                android:rotation="-8"
-                                android:text="Kena" />
+                                android:rotation="-25"
+                                android:text="Σύνολο" />
 
 
 
@@ -936,10 +956,11 @@
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
                                 android:gravity="center"
+                                android:textSize="12sp"
                                 android:fontFamily="@font/peinirli"
                                 android:textColor="@color/text_color"
-                                android:rotation="-8"
-                                android:text="False/True" />
+                                android:rotation="-25"
+                                android:text="Σωστό/Λάθος" />
 
 
                             <TextView
@@ -949,9 +970,10 @@
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
                                 android:gravity="center"
+                                android:textSize="12sp"
                                 android:fontFamily="@font/peinirli"
                                 android:textColor="@color/text_color"
-                                android:rotation="-8"
+                                android:rotation="-25"
                                 android:text="Queue" />
 
                             <TextView
@@ -961,9 +983,10 @@
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
                                 android:gravity="center"
+                                android:textSize="12sp"
                                 android:fontFamily="@font/peinirli"
                                 android:textColor="@color/text_color"
-                                android:rotation="-8"
+                                android:rotation="-25"
                                 android:text="Mistakes" />
 
                             <TextView
@@ -973,9 +996,10 @@
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
                                 android:gravity="center"
+                                android:textSize="12sp"
                                 android:fontFamily="@font/peinirli"
                                 android:textColor="@color/text_color"
-                                android:rotation="-8"
+                                android:rotation="-25"
                                 android:text="Multiple Choice" />
 
                             <TextView
@@ -985,9 +1009,10 @@
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
                                 android:gravity="center"
+                                android:textSize="12sp"
                                 android:fontFamily="@font/peinirli"
                                 android:textColor="@color/text_color"
-                                android:rotation="-8"
+                                android:rotation="-25"
                                 android:text="Kena" />
 
                             <TextView
@@ -997,9 +1022,10 @@
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
                                 android:gravity="center"
+                                android:textSize="12sp"
                                 android:fontFamily="@font/peinirli"
                                 android:textColor="@color/text_color"
-                                android:rotation="-8"
+                                android:rotation="-25"
                                 android:text="Kena" />
 
                             <TextView
@@ -1009,9 +1035,10 @@
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
                                 android:gravity="center"
+                                android:textSize="12sp"
                                 android:fontFamily="@font/peinirli"
                                 android:textColor="@color/text_color"
-                                android:rotation="-8"
+                                android:rotation="-25"
                                 android:text="Kena" />
 
                             <TextView
@@ -1021,9 +1048,10 @@
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
                                 android:gravity="center"
+                                android:textSize="12sp"
                                 android:fontFamily="@font/peinirli"
                                 android:textColor="@color/text_color"
-                                android:rotation="-8"
+                                android:rotation="-25"
                                 android:text="Kena" />
 
                             <TextView
@@ -1033,10 +1061,11 @@
                                 android:layout_columnWeight="1"
                                 android:layout_gravity="fill_horizontal"
                                 android:gravity="center"
+                                android:textSize="12sp"
                                 android:fontFamily="@font/peinirli"
                                 android:textColor="@color/text_color"
-                                android:rotation="-8"
-                                android:text="Kena" />
+                                android:rotation="-25"
+                                android:text="Σύνολο" />
 
                         </GridLayout>
                     </HorizontalScrollView>
@@ -1062,6 +1091,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -1146,7 +1177,7 @@
                 android:checked="true"
                 android:fontFamily="@font/peinirli"
                 android:textSize="24sp"
-                android:text="Option 1" />
+                android:text="Κεφάλαιο1" />
 
         </LinearLayout>
 
@@ -1170,7 +1201,7 @@
                 android:checked="true"
                 android:textSize="24sp"
                 android:fontFamily="@font/peinirli"
-                android:text="Chapter2" />
+                android:text="Κεφάλαιο2" />
 
         </LinearLayout>
 
@@ -1193,7 +1224,7 @@
                 android:checked="true"
                 android:layout_weight="5"
                 android:fontFamily="@font/peinirli"
-                android:text="Chapter3" />
+                android:text="Κεφάλαιο3" />
 
         </LinearLayout>
 
@@ -1216,7 +1247,7 @@
                 android:checked="true"
                 android:layout_weight="5"
                 android:fontFamily="@font/peinirli"
-                android:text="For" />
+                android:text="Κεφάλαιο4" />
 
         </LinearLayout>
 
@@ -1239,12 +1270,33 @@
                 android:checked="true"
                 android:layout_weight="5"
                 android:fontFamily="@font/peinirli"
-                android:text="If" />
+                android:text="Θεωρία" />
 
         </LinearLayout>
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""/>
 
+            <CheckBox
+                android:id="@+id/checkBox6"
+                style="@style/CustomCheckBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="24dp"
+                android:checked="true"
+                android:layout_weight="5"
+                android:fontFamily="@font/peinirli"
+                android:text="Πανελλήνιες" />
+
+        </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/closeBtn"
@@ -1295,7 +1347,7 @@
                 android:checked="true"
                 android:textSize="24sp"
                 android:fontFamily="@font/peinirli"
-                android:text="SouLou" />
+                android:text="Σωστό/Λάθος " />
 
         </LinearLayout>
 
@@ -1319,7 +1371,7 @@
                 android:checked="true"
                 android:textSize="24sp"
                 android:fontFamily="@font/peinirli"
-                android:text="Kena" />
+                android:text="Κενά" />
 
         </LinearLayout>
 
@@ -1342,7 +1394,7 @@
                 android:checked="true"
                 android:layout_weight="5"
                 android:fontFamily="@font/peinirli"
-                android:text="Multiple Choice" />
+                android:text="Πολλαπλής Επιλογής" />
 
         </LinearLayout>
 
@@ -1365,7 +1417,7 @@
                 android:checked="true"
                 android:layout_weight="5"
                 android:fontFamily="@font/peinirli"
-                android:text="Queue" />
+                android:text="Σειρά" />
 
         </LinearLayout>
 
@@ -1388,10 +1440,32 @@
                 android:checked="true"
                 android:layout_weight="5"
                 android:fontFamily="@font/peinirli"
-                android:text="Mistakes" />
+                android:text="Λάθη" />
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""/>
+
+            <CheckBox
+                android:id="@+id/checkBox26"
+                style="@style/CustomCheckBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="24dp"
+                android:checked="true"
+                android:layout_weight="5"
+                android:fontFamily="@font/peinirli"
+                android:text="Συμπλήρωσης" />
+
+        </LinearLayout>
 
 
 

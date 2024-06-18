@@ -6,8 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.ptyxiakh3.data.Question
-
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.google.android.play.integrity.internal.t
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -36,7 +36,7 @@ abstract class QuestionsDatabase : RoomDatabase() {
 
         private class QuestionsDatabaseCallback(
             private val scope: CoroutineScope
-        ) : Callback() {
+        ) : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
                 INSTANCE?.let { database ->
@@ -48,146 +48,182 @@ abstract class QuestionsDatabase : RoomDatabase() {
         }
 
         suspend fun populateDatabase(questionsDao: QuestionsDao) {
-            // Dummy data
+            val batchSize = 20 // Define the batch size
+            val allQuestions = listOf(
 
-            val question1h = Question(
-                question_number = 1.1,
-                question_text = "Στην Python, οι εντολές πρέπει να είναι σωστά εσοχείς για να εκτελεστούν σωστά.",
-                question_text2 = "",
-                quiz = 1.1,
-                difficulty = 1,
-                style = "SouLou",
-                modules = listOf("Προγραμματισμός", "Python", "Σύνταξη"),
-                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
-                correctAnswers = listOf(1) // Αληθής
+                Question( question_number = "1.1", question_text ="Πρόβλημα είναι μια αποκλειστικά μαθηματική κατάσταση που πρέπει νααντιμετωπίσουμε. ", question_text2 = "a", quiz = 1.2, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.2", question_text ="Πρόβλημα είναι μια οποιαδήποτε κατάσταση που πρέπει να αντιμετωπί­σουμε. ", question_text2 = "a", quiz = 1.3, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.3", question_text ="Ο υπολογιστής και το πρόβλημα είναι έννοιες αλληλένδετες. ", question_text2 = "a", quiz = 1.1, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.4", question_text ="Η κατανόηση ενός προβλήματος εξαρτάται από τη σωστή διατύπωση του δημιουργού του. ", question_text2 = "a", quiz = 1.5, difficulty = 2, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.5", question_text ="Η κακή διατύπωση ενός προβλήματος μπορεί να οδηγήσει στη μη επίλυσή του.", question_text2 = "a", quiz = 1.3, difficulty = 2, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.6", question_text ="Η κατανόηση ενός προβλήματος εξαρτάται μόνο από τη διατύπωσή του.", question_text2 = "a", quiz = 1.1, difficulty = 3, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.7", question_text =" Πριν από την επίλυση ενός προβλήματος πρέπει αυτό να έχει διατυπωθείμε ακρίβεια και σαφήνεια.", question_text2 = "a", quiz = 1.4, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.8", question_text ="Η σαφήνεια στη διατύπωση ενός προβλήματος είναι πολύ σημαντική για την επίλυσή του. ", question_text2 = "a", quiz = 1.1, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.9", question_text ="Μόνο μέσω του προφορικού λόγου μπορεί να αποτυπωθεί επαρκώς ένα πρόβλημα. ", question_text2 = "a", quiz = 1.1, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.10", question_text ="Ένα πρόβλημα για την ευκολότερη επίλυσή του πρέπει να αναλυθεί σε επι­μέρους προβλήματα. ", question_text2 = "a", quiz = 1.3, difficulty = 2, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.11", question_text ="Δομή ενός προβλήματος είναι μόνο η εύρεση του συνόλου των μερών που το απαρτίζουν. ", question_text2 = "a", quiz = 1.5, difficulty = 2, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.12", question_text ="Στη δομή ενός προβλήματος περιλαμβάνονται τα συστατικά του μέρη. ", question_text2 = "a", quiz = 1.1, difficulty = 3, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.13", question_text ="Ένα πρόβλημα μπορεί να αναπαρασταθεί είτε διαγραμματικά είτε φρα­στικά. ", question_text2 = "a", quiz = 1.4, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.14", question_text ="Η καταγραφή της δομής ενός προβλήματος σημαίνει αυτόματα ότι έχει αρχίσει η διαδικασία ανάλυσης του προβλήματος σε άλλα απλούστερα. ", question_text2 = "a", quiz = 1.1, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.15", question_text ="Τα δεδομένα ενός προβλήματος είναι πάντοτε κάποιοι αριθμοί.", question_text2 = "a", quiz = 1.2, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.16", question_text ="Πληροφορία είναι το αποτέλεσμα από την επεξεργασία των δεδομένων.", question_text2 = "a", quiz = 1.3, difficulty = 2, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.17", question_text ="Για την παραγωγή πληροφοριών απαιτούνται δεδομένα ή άλλες πληροφο­ρίες. ", question_text2 = "a", quiz = 1.1, difficulty = 2, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.18", question_text ="Αν υποβάλλουμε τα δεδομένα σε επεξεργασία, παίρνουμε πληροφορίες.", question_text2 = "a", quiz = 1.2, difficulty = 3, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.19", question_text ="Αν επαναϋποβάλλουμε πληροφορίες σε επεξεργασία, παίρνουμε νέες πλη­ροφορίες. ", question_text2 = "a", quiz = 1.2, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.20", question_text ="Με τον όρο δεδομένο αναφέρεται οποιοδήποτε γνωσιακό στοιχείο προέρ­χεται από επεξεργασία δεδομένων. ", question_text2 = "a", quiz = 1.5, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.21", question_text ="Το ότι το ύψος ενός ατόμου είναι 1.90 αποτελεί δεδομένο, ενώ το ότι το άτομο αυτό είναι ψηλό αποτελεί πληροφορία. ", question_text2 = "a", quiz = 1.4, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.22", question_text ="Για την επίλυση ενός προβλήματος πρέπει να έχουν καθοριστεί τα δεδομέ­να και τα ζητούμενα. ", question_text2 = "a", quiz = 1.1, difficulty = 2, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.23", question_text ="Η διαδικασία μέσω της οποίας βρίσκεται το ζητούμενο ενός προβλήματος ονομάζεται επίλυση του προβλήματος. ", question_text2 = "a", quiz = 1.2, difficulty = 2, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.24", question_text ="Η κατανόηση ενός προβλήματος ακολουθεί την ανάλυσή του. ", question_text2 = "a", quiz = 1.2, difficulty = 3, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο1"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.25", question_text ="Η [____] είναι η βάση της επίλυσης ενός προβλήματος.", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 1.3, difficulty = 1, style = "Kena", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("περιγραφή", "ανάλυση", "κατανόηση", "μέθοδος"), correctAnswers = listOf(3) ),
+                Question( question_number = "1.26", question_text ="Σημαντικός παράγοντας στην κατανόηση ενός προβλήματος είναι η [____] του.", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 1.1, difficulty = 1, style = "Kena", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("ανάλυση","διατύπωσή","αξιολόγηση", "μέτρηση"), correctAnswers = listOf(2) ),
+                Question( question_number = "1.27", question_text ="Η [____] είναι το αποτέλεσμα επεξεργασίας δεδομένων.", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 1.5, difficulty = 1, style = "Kena", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("πληροφορία", "γνώση", "απάντηση"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.28", question_text ="Τα [____] μπορούν να παρέχουν [____] όταν υποβάλλονται σε [____].", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 1.3, difficulty = 1, style = "Kena", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("δεδομένα", "στοιχεία", "αριθμοί", "πληροφορίες", "αποτελέσματα", "συμπεράσματα" ,"ανάλυση", "επεξεργασία", "μέτρηση"), correctAnswers = listOf(148) ),
+                Question( question_number = "1.29", question_text ="Οποιοδήποτε στοιχείο γίνεται αντιληπτό με μία από τις πέντε αισθήσεις ενός παρατηρη­τή ονομάζεται [____].", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 1.2, difficulty = 1, style = "Kena", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("σήμα", "ένδειξη", "πληροφορία","δεδομένο"), correctAnswers = listOf(4) ),
+                Question( question_number = "1.30", question_text =" Με τον όρο [____] προβλήματος αναφερόμαστε στα συστατικά μέρη του προβλήμα­τος, καθώς και στον τρόπο που αυτά συνδέονται μεταξύ τους.", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 1.4, difficulty = 1, style = "Kena", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("περιγραφή", "ανάλυση", "δομή"), correctAnswers = listOf(3) ),
+                Question( question_number = "1.31", question_text ="Τα συστατικά μέρη που αποτελούν ένα πρόβλημα προσδιορίζουν τη [____] του.", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 1.3, difficulty = 1, style = "Kena", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("φύση", "μορφή", "δομή"), correctAnswers = listOf(3) ),
+                Question( question_number = "1.32", question_text ="Η [____] μπορεί να χρησιμοποιηθεί για την απεικόνιση της δομής ενός προβλήματος.", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 1.3, difficulty = 1, style = "Kena", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("γραφική παράσταση","διαγραμματική απεικόνιση", "χάρτης", "διάγραμμα"), correctAnswers = listOf(2) ),
+                Question( question_number = "1.33", question_text ="Ένα πρόβλημα αναπαρίσταται [____] είτε [____].", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 1.5, difficulty = 1, style = "Kena", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("γραφικά", "λεκτικά","φραστικά", "διαγραμματικά", "αναλυτικά", "περιληπτικά"), correctAnswers = listOf(34) ),
+                Question( question_number = "1.34", question_text ="Για την επίλυση ενός προβλήματος πρέπει να γίνει ο καθορισμός [____].", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 1.3, difficulty = 1, style = "Kena", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("στόχων","απαιτήσεων", "κριτηρίων", "περιορισμών"), correctAnswers = listOf(2) ),
+                Question( question_number = "1.35", question_text ="Τα στάδια αντιμετώπισης προβλήματος είναι: κατανόηση, [____], επίλυση.", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 1.2, difficulty = 1, style = "Kena", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("ανάλυση", "προγραμματισμός", "εφαρμογή"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.36", question_text ="Τα δεδομένα ενός προβλήματος πρέπει:", question_text2 = "a", quiz = 1.4, difficulty = 1, style = "multiple choice", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("να είναι δομημένα ","να έχουν καθοριστεί με σαφήνεια","να είναι αριθμητικά."), correctAnswers = listOf(1) ),
+                Question( question_number = "1.37", question_text =" Η διαδικασία μέσω της οποίας βρίσκουμε το ζητούμενο ενός προβλήματος ονομάζεται:", question_text2 = "a", quiz = 1.1, difficulty = 1, style = "multiple choice", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("επίλυση","ανάλυση","αξιολόγηση ","εύρεση."), correctAnswers = listOf(0) ),
+                Question( question_number = "1.38", question_text ="α. επίλυση \n" + "β. ανάλυση \n" + "γ. κατανόηση.", question_text2 = "Να τοποθετήσετε τις παρακάτω έννοιες στην ορθή σειρά.", quiz = 1.2, difficulty = 1, style = "Fill", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("γ", "β", "α"), correctAnswers = listOf(1,2,3) ),
+                Question( question_number = "1.39", question_text ="α. επεξεργασία \n" + "β. Έλεγχος \n" + "γ. έξοδος. \n"+ "δ. είσοδος.", question_text2 = "Να τοποθετήσετε τις παρακάτω έννοιες στην ορθή σειρά.", quiz = 1.3, difficulty = 1, style = "Fill", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("δ", "γ", "β","α"), correctAnswers = listOf(1,4,2,3) ),
+                Question( question_number = "1.40", question_text ="Επιλύσιμο είναι ένα πρόβλημα για το οποίο ξέρουμε ότι έχει λύση, αλλάαυτή δεν έχει βρεθεί ακόμη. ", question_text2 = "a", quiz = 2.1, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2","Πανελλήνιες"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.41", question_text ="Άλυτα χαρακτηρίζονται εκείνα τα προβλήματα για τα οποία έχουμε φτάσειστην παραδοχή ότι δεν επιδέχονται λύση. ", question_text2 = "a", quiz = 2.3, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2","Πανελλήνιες"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.42", question_text ="Ανοικτά είναι τα προβλήματα που δεν είναι άλυτα ούτε επιλύσιμα.", question_text2 = "a", quiz = 2.4, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.43", question_text ="Ανοικτά είναι τα προβλήματα που μπορούν να επιλυθούν με πολλούς τρό­πους.", question_text2 = "a", quiz = 2.6, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.44", question_text ="Ο υπολογισμός του εμβαδού ενός τριγώνου είναι ανοικτό πρόβλημα.", question_text2 = "a", quiz = 2.1, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.45", question_text ="Ο υπολογισμός του εμβαδού τετραγώνου είναι πρόβλημα άλυτο.", question_text2 = "a", quiz = 2.1, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2","Πανελλήνιες"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.46", question_text ="Τα προβλήματα για τα οποία δεν μπορούμε να απαντήσουμε ακόμη εάν εί­ναι δυνατόν να επιλυθούν ονομάζονται μη επιλύσιμα.", question_text2 = "a", quiz = 2.4, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.47", question_text ="Ένα επιλύσιμο πρόβλημα είναι πάντοτε δομημένο.", question_text2 = "a", quiz = 2.1, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.48", question_text ="Ένα δομημένο πρόβλημα είναι πάντοτε επιλύσιμο.", question_text2 = "a", quiz = 2.5, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.49", question_text ="Ένα επιλύσιμο πρόβλημα μπορεί να είναι αδόμητο.", question_text2 = "a", quiz = 2.1, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2","Πανελλήνιες"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.50", question_text ="Ένα επιλύσιμο πρόβλημα μπορεί να είναι αδόμητο.", question_text2 = "a", quiz = 2.1, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2","Πανελλήνιες"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.51", question_text ="Η επίλυση της πρωτοβάθμιας εξίσωσης αποτελεί αδόμητο πρόβλημα.", question_text2 = "a", quiz = 2.6, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.52", question_text =" Ο υπολογισμός του εμβαδού ενός τριγώνου είναι δομημένο πρόβλημα.", question_text2 = "a", quiz = 2.2, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.53", question_text ="Άλυτα ονομάζουμε τα προβλήματα των οποίων η λύση δεν έχει βρεθεί.", question_text2 = "a", quiz = 2.1, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.54", question_text ="Με κριτήριο το είδος επίλυσης ενός προβλήματος, διακρίνουμε τις εξής κατηγορίες προβλημάτων: επιλύσιμα, βελτιστοποίησης και απόφασης.", question_text2 = "a", quiz = 2.4, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.55", question_text ="Με κριτήριο τη δυνατότητα επίλυσης ενός προβλήματος, διακρίνουμε τις εξής κατηγορίες προβλημάτων: επιλύσιμα, υπολογιστικά και άλυτα.", question_text2 = "a", quiz = 2.5, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.56", question_text ="Ο ανθρώπινος εγκέφαλος είναι ένας μηχανισμός επεξεργασίας δεδομένων.", question_text2 = "a", quiz = 2.2, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.57", question_text ="Ο ταχύτερος μηχανισμός επεξεργασίας δεδομένων είναι ο υπολογιστής.", question_text2 = "a", quiz = 2.2, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.58", question_text ="Ο Η/Υ δεν μπορεί να επιτελέσει όλες τις λειτουργίες του ανθρώπινου εγκε­φάλου.", question_text2 = "a", quiz = 2.6, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.59", question_text ="Η χρήση Η/Υ για την επίλυση προβλημάτων ενδείκνυται στις περιπτώσεις που χρειάζεται διαχείριση μεγάλου όγκου δεδομένων.", question_text2 = "a", quiz = 2.2, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.60", question_text ="Αν ένα πρόβλημα απαιτεί απλούς υπολογισμούς σε μικρό όγκο δεδομένων, δεν μπορεί να ανατεθεί σε έναν Η/Υ.", question_text2 = "a", quiz = 2.6, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.61", question_text ="Όλα τα προβλήματα μπορούν να λυθούν με τη βοήθεια ηλεκτρονικού υπο­λογιστή. ", question_text2 = "a", quiz = 2.4, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2","Πανελλήνιες"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.62", question_text ="Με τη χρήση αλγορίθμων επιλύονται όλα τα προβλήματα.", question_text2 = "a", quiz = 2.3, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.63", question_text ="Για κάθε πρόβλημα υπάρχει μοναδικός αλγόριθμος επίλυσής του.", question_text2 = "a", quiz = 2.5, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.64", question_text ="Αλγόριθμος είναι μια «συνταγή» που ορίζει τι πρέπει να γίνει ώστε να φτά­σουμε στον επιθυμητό σκοπό.", question_text2 = "a", quiz = 2.4, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.65", question_text ="Ένα άλυτο πρόβλημα είναι και αδόμητο.", question_text2 = "a", quiz = 2.3, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.66", question_text ="Η πρόσθεση είναι μία από τις βασικές λειτουργίες που μπορεί να επιτελέ- σει ένας Η/Υ", question_text2 = "a", quiz = 2.6, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.67", question_text ="Η μεταφορά δεδομένων είναι μία από τις λειτουργίες που εκτελεί ο υπολο­γιστής. ", question_text2 = "a", quiz = 2.5, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2","Πανελλήνιες"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.68", question_text ="Αναθέτουμε την επίλυση προβλημάτων στους υπολογιστές, λόγω της δυ­νατότητάς τους να επιτελούν πρόσθεση, σύγκριση και μεταφορά δεδομένων.", question_text2 = "a", quiz = 2.4, difficulty = 1, style = "SouLou", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.69", question_text ="Το πρόβλημα μεγιστοποίησης των κερδών μιας επιχείρησης είναι πρόβλημα [____].", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 2.3, difficulty = 1, style = "Kena", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("γεωμετρικό", "βελτιστοποίησης","στατιστικό", "φυσικό"), correctAnswers = listOf(2) ),
+                Question( question_number = "1.70", question_text ="Το πρόβλημα τετραγωνισμού του κύκλου είναι πρόβλημα [____].", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 2.2, difficulty = 1, style = "Kena", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("μηχανικής", "χημείας", "άλυτο","οικονομίας"), correctAnswers = listOf(3) ),
+                Question( question_number = "1.71", question_text ="Ανάλογα με το [____] , τα προβλήματα διακρίνονται σε υπολογιστικά, βελ­τιστοποίησης και απόφασης.", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 2.5, difficulty = 1, style = "Kena", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("χρώμα", "βάρος", "μέγεθος","είδος επίλυσης "), correctAnswers = listOf(4) ),
+                Question( question_number = "1.72", question_text ="Ο [____] είναι ο ταχύτερος μηχανισμός επεξεργασίας δεδομένων.", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 2.4, difficulty = 1, style = "Kena", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("άνθρωπος", "βιβλίο", "πινέλο","υπολογιστής"), correctAnswers = listOf(4) ),
+                Question( question_number = "1.73", question_text ="Τα ημιδομημένα είναι κατηγορία προβλημάτων που διακρίνονται με κριτήριο:", question_text2 = "a", quiz = 2.1, difficulty = 1, style = "multiple choice", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("το είδος επίλυσης ","τη δυνατότητα επίλυσης","τον βαθμό δόμησης."), correctAnswers = listOf(2) ),
+                Question( question_number = "1.74", question_text ="Οι λόγοι για τους οποίους αναθέτουμε την επίλυση προβλημάτων σε Η/Υ σχετίζονται με: ", question_text2 = "a", quiz = 2.2, difficulty = 1, style = "multiple choice", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("την ταχύτητα εκτέλεσης πράξεων ","τον χειρισμό μεγάλου όγκου δεδομένων","την ικανότητα εκτέλεσης συγκρίσεων","την ικανότητα για ανάλυση δεδομένων","το ότι μπορεί να λύσει όλα τα υπολογιστικά προβλήματα δεδομένων."), correctAnswers = listOf(0,1) ),
+                Question( question_number = "1.75", question_text ="Βασικές λειτουργίες που μπορεί να επιτελέσει ένας Η/Υ είναι:", question_text2 = "a", quiz = 2.3, difficulty = 1, style = "multiple choice", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf(" ο πολλαπλασιασμός "," χειρισμός μεγάλου όγκου δεδομένων","η μεταφορά δεδομένων "," ικανότητα για ανάλυση δεδομένων","η σύγκριση "), correctAnswers = listOf(2,4) ),
+                Question( question_number = "1.76", question_text ="Ανάλογα με το είδος επίλυσης που επιζητούν τα προβλήματα διακρίνονται σε:", question_text2 = "a", quiz = 2.4, difficulty = 1, style = "multiple choice", modules = listOf("Θεωρία","Κεφάλαιο2"), possibleAnswers = listOf("ημιδομημένα ","απόφασης","ανοικτά","υπολογιστικά"), correctAnswers = listOf(1,3) ),
+                Question( question_number = "1.77", question_text ="Οι λόγοι που αναθέτουμε την επίλυση ενός προβλήματος σε υπολογιστή σχετίζονται με: [____] των υπολογισμών. Την [____] των διαδικασιών. την ταχύτητα εκτέλεσης των [____]• το μεγάλο πλήθος των [____]", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 2.5, difficulty = 1, style = "Kena", modules = listOf("Θεωρία","Κεφάλαιο2","Πανελλήνιες"), possibleAnswers = listOf("πολυπλοκότητα", "δεδομένων ", "ζητουμένων","αληθοφάνεια","πράξεων", "επαναληπτικότητα"), correctAnswers = listOf(1652) ),
+                Question( question_number = "1.78", question_text ="Η έννοια του αλγορίθμου συνδέεται αποκλειστικά και μόνο με προβλήματα της Πληροφορικής", question_text2 = "a", quiz = 3.1, difficulty = 1, style = "SouLou", modules = listOf("Πανελλήνιες", "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.79", question_text ="Η έννοια του αλγορίθμου συνδέεται αποκλειστικά με την Πληροφορική.", question_text2 = "α", quiz = 3.2, difficulty = 1, style = "SouLou", modules = listOf("Πανελλήνιες", "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.80", question_text ="Η αλγοριθμική υποστήριξη βοηθά στην επίλυση προβλημάτων.", question_text2 = "α", quiz = 3.3, difficulty = 1, style = "SouLou", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.81", question_text ="Ο αλγόριθμος αποτελείται από ένα πεπερασμένο σύνολο εντολών.", question_text2 = "α", quiz = 3.4, difficulty = 1, style = "SouLou", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.82", question_text ="Ένας αλγόριθμος είναι μία πεπερασμένη σειρά ενεργειών.", question_text2 = "α", quiz = 3.1, difficulty = 1, style = "SouLou", modules = listOf("Πανελλήνιες", "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.83", question_text ="Ο αλγόριθμος μπορεί να περιλαμβάνει και εντολές που δεν είναι σαφείς.", question_text2 = "α", quiz = 3.2, difficulty = 1, style = "SouLou", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.84", question_text ="Ένας αλγόριθμος στοχεύει στην επίλυση ενός προβλήματος.", question_text2 = "α", quiz = 3.1, difficulty = 1, style = "SouLou", modules = listOf("Πανελλήνιες", "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.85", question_text ="Ένας αλγόριθμος μπορεί να μη διαθέτει έξοδο, αρκεί να ικανοποιεί τα άλ­λα κριτήρια.", question_text2 = "α", quiz = 3.2, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.86", question_text ="Οι ενέργειες που ορίζει ένας αλγόριθμος είναι αυστηρά καθορισμένες.", question_text2 = "α", quiz = 3.3, difficulty = 1, style = "SouLou", modules = listOf("Πανελλήνιες", "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.87", question_text ="Ο αλγόριθμος ουσιαστικά είναι η περιγραφή ενός προβλήματος με συγκε­κριμένα βήματα.", question_text2 = "α", quiz = 3.4, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.88", question_text =" Ένας αλγόριθμος επιλύει μόνο υπολογιστικά προβλήματα.", question_text2 = "α", quiz = 3.1, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.89", question_text =" Όλα τα προβλήματα λύνονται και αλγοριθμικά.", question_text2 = "α", quiz = 3.2, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.90", question_text ="Ένας αλγόριθμος πρέπει απαραίτητα να έχει έξοδο.", question_text2 = "α", quiz = 3.1, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.91", question_text ="Ο αλγόριθμος τελειώνει έπειτα από πεπερασμένα βήματα εκτέλεσης εντολων", question_text2 = "α", quiz = 3.2, difficulty = 1, style = "SouLou", modules = listOf("Πανελλήνιες", "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.92", question_text ="Η περατότητα ενός αλγορίθμου αναφέρεται στο γεγονός ότι καταλήγει στη λύση του προβλήματος έπειτα από πεπερασμένο αριθμό βημάτων (εντολών).", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 3.3, difficulty = 1, style = "SouLou", modules = listOf("Πανελλήνιες", "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.93", question_text ="Κάθε εντολή ενός αλγορίθμου πρέπει να καθορίζεται χωρίς αμφιβολία γιατον τρόπο εκτέλεσής της. ", question_text2 = "α", quiz = 3.4, difficulty = 1, style = "SouLou", modules = listOf("Πανελλήνιες", "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.94", question_text ="Η αποτελεσματικότητα είναι ένα από τα κριτήρια που πρέπει να ικανοποι­εί ένας αλγόριθμος. ", question_text2 = "α", quiz = 3.1, difficulty = 1, style = "SouLou", modules = listOf("Πανελλήνιες", "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.95", question_text ="Μια διαδικασία που δεν τελειώνει έπειτα από συγκεκριμένο αριθμό βημά­των αποτελεί λογιστική διαδικασία.", question_text2 = "α", quiz = 3.2, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.96", question_text ="Η Πληροφορική μελετά τους αλγορίθμους μόνο από τη σκοπιά των γλωσ­σών προγραμματισμού.", question_text2 = "α", quiz = 3.1, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.97", question_text ="Ο πιο δομημένος τρόπος παρουσίασης αλγορίθμων είναι με ελεύθερο κείμενο.", question_text2 = "α", quiz = 3.2, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο3","Θεωρία" , "Πανελλήνιες"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.98", question_text =" Η [____] ενός αλγορίθμου γίνεται με ένα πρόγραμμα που όταν εκτελεσθεί θα δώσειτα ίδια αποτελέσματα με έναν αλγόριθμο.", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 3.3, difficulty = 1, style = "Kena", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("υλοποίηση","εφαρμογή","κωδικοποίηση"), correctAnswers = listOf(3) ),
+                Question( question_number = "1.99", question_text ="Από την [____] σκοπιά, η πληροφορική μελετά τους αλγορίθμους σε σχέση με τιςανάγκες τους σε υπολογιστικούς πόρους.", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 3.4, difficulty = 1, style = "Kena", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("θετική","θεωρητική","πρακτική","αναλυτική"), correctAnswers = listOf(4) ),
+                Question( question_number = "1.100", question_text ="Ένας αλγόριθμος πρέπει να τελειώνει έπειτα από [____] αριθμό βημάτων.", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 3.1, difficulty = 1, style = "Kena", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("πεπερασμένο","απεριόριστο","καθορισμένο","διακριτό"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.101", question_text ="Κάθε αλγόριθμος πρέπει να ικανοποιεί το κριτήριο της:", question_text2 = "a", quiz = 3.2, difficulty = 1, style = "multiple choice", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("επιλογής","ακολουθίας","ανάθεσης","περατότητας"), correctAnswers = listOf(3) ),
+                Question( question_number = "1.102", question_text ="Η επιστήμη της Πληροφορικής περιλαμβάνει τη μελέτη των αλγορίθμων μεταξύ άλλων και από τη σκοπιά:", question_text2 = "a", quiz = 3.1, difficulty = 1, style = "multiple choice", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("υλικού","ελευθέρου κειμένου", "αποτελεσματικότητας","ανάγνωσης/εκτύπωσης"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.103", question_text =" Ένας από τους τρόπους αναπαράστασης των αλγορίθμων είναι:", question_text2 = "a", quiz = 3.2, difficulty = 1, style = "multiple choice", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("λογικές εκφράσεις","θεωρητική τυποποίηση","διαγραμματικές τεχνικές","αριθμητικές πράξεις"), correctAnswers = listOf(2) ),
+                Question( question_number = "1.104", question_text ="Ποια από τα παρακάτω κριτήρια πρέπει να ικανοποιεί απαραίτητα ένας αλγόριθμος;", question_text2 = "a", quiz = 3.3, difficulty = 1, style = "multiple choice", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("είσοδος / έξοδος","ύπαρξη βρόχου ή συνθήκης επανάληψης","καθοριστικότητα","αποτελεσματικότητα"), correctAnswers = listOf(0,2,3) ),
+                Question( question_number = "1.105", question_text =" Η πληροφορική είναι η επιστήμη που μελετά τους αλγορίθμους από τις ακόλουθες σκοπιές", question_text2 = "α", quiz = 3.4, difficulty = 1, style = "multiple choice", modules = listOf( "Κεφάλαιο3","Θεωρία"), possibleAnswers = listOf("υλικού","θεωρητική","πιθανολογική","αναλυτική"), correctAnswers = listOf(0,1,3) ),
+                Question( question_number = "1.106", question_text ="Τα κυριότερα σύμβολα των διαγραμμάτων ροής είναι η έλλειψη, ο ρόμβος, το ορθογώνιο και το πλάγιο παραλληλόγραμμο. ", question_text2 = "α", quiz = 4.1, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.107", question_text ="Το πλάγιο παραλληλόγραμμο χρησιμοποιείται για την είσοδο/έξοδο και τη συνθήκη σε ένα διάγραμμα ροής.", question_text2 = "α", quiz = 4.2, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.108", question_text ="Το διάγραμμα ροής (flow chart) είναι ένας τρόπος περιγραφής αλγορίθμου.", question_text2 = "α", quiz = 4.3, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο4","Θεωρία" ,"Πανελλήνιες"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.109", question_text ="Ένα διάγραμμα ροής αποτελείται από ένα σύνολο γεωμετρικών σχημάτων όπου το καθένα δηλώνει μια συγκεκριμένη ενέργεια ή λειτουργία.", question_text2 = "α", quiz = 4.4, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο4","Θεωρία" ,"Πανελλήνιες"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.110", question_text ="Στο διάγραμμα ροής το σχήμα του ρόμβου δηλώνει το τέλος ενός αλγο­ρίθμου.", question_text2 = "α", quiz = 4.5, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο4","Θεωρία" ,"Πανελλήνιες"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.111", question_text ="Σε ένα διάγραμμα ροής ο ρόμβος δηλώνει την αρχή και το τέλος του αλγορίθμου. ", question_text2 = "α", quiz = 4.6, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο4","Θεωρία" ,"Πανελλήνιες"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.112", question_text ="Τα είδη των μεταβλητών που χρησιμοποιούμε είναι οι αριθμητικές, οι αλφαριθμητικές και οι σταθερές.", question_text2 = "α", quiz = 4.7, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.113", question_text ="Για την αναπαράσταση των δεδομένων εισόδου ενός αλγορίθμου χρησιμοποιούμε τις σταθερές. ", question_text2 = "α", quiz = 4.1, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο4","Θεωρία" ,"Πανελλήνιες"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.114", question_text ="Η είσοδος σε ένα αλγοριθμικό πρόβλημα είναι κυρίως ένα σύνολο μετα­βλητών που σχετίζονται με τα δεδομένα του.", question_text2 = "α", quiz = 4.2, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.115", question_text ="Η δομή της ακολουθίας είναι ιδιαίτερα χρήσιμη για την αντιμετώπιση πολύπλοκων προβλημάτων.", question_text2 = "α", quiz = 4.1, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.116", question_text ="Η τιμή μιας μεταβλητής δεν μπορεί να αλλάξει κατά τη διάρκεια εκτέλεσηςενός αλγορίθμου. ", question_text2 = "α", quiz = 4.2, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο4","Θεωρία" ,"Πανελλήνιες"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.117", question_text ="Μια μεταβλητή μπορεί να αλλάζει τύπο δεδομένων κατά τη διάρκεια εκτέ­λεσης ενός αλγορίθμου. ", question_text2 = "α", quiz = 4.3, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο4","Θεωρία" ,"Πανελλήνιες"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.118", question_text ="Ενώ η τιμή μιας μεταβλητής μπορεί να αλλάζει κατά την εκτέλεση του προγράμματος, αυτό που μένει υποχρεωτικά αναλλοίωτο είναι ο τύπος της.", question_text2 = "α", quiz = 4.4, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο4","Θεωρία" ,"Πανελλήνιες"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.119", question_text ="Στην αριθμητική έκφραση A + Β * Γ εκτελείται πρώτα η πρόσθεση καιμετά ο πολλαπλασιασμός. ", question_text2 = "α", quiz = 4.5, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο4","Θεωρία" ,"Πανελλήνιες"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.120", question_text ="Η εντολή εκχώρησης τιμής αποδίδει το αποτέλεσμα μιας έκφρασης (παρά­στασης) σε μια μεταβλητή. ", question_text2 = "α", quiz = 4.6, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο4","Θεωρία" ,"Πανελλήνιες"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.121", question_text ="Σε μια εντολή εκχώρησης είναι δυνατόν μια παράσταση στο δεξί μέλος να περιέχει τη μεταβλητή που βρίσκεται στο αριστερό μέλος.", question_text2 = "α", quiz = 4.7, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο4","Θεωρία" ,"Πανελλήνιες"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.122", question_text ="Σε μια εντολή εκχώρησης του αποτελέσματος μιας έκφρασης σε μια μετα­βλητή, η μεταβλητή και η έκφραση πρέπει να είναι του ίδιου τύπου.", question_text2 = "α", quiz = 4.1, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο4","Θεωρία" ,"Πανελλήνιες"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.123", question_text =" Κάθε μεταβλητή παίρνει τιμή μόνο με την εντολή Διάβασε.", question_text2 = "α", quiz = 4.2, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο4","Θεωρία" ,"Πανελλήνιες"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.124", question_text ="Ο τελεστής MOD χρησιμοποιείται για τον υπολογισμό του πηλίκου μιας διαίρεσης ακέραιων αριθμών.", question_text2 = "α", quiz = 4.1, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο4","Θεωρία" ,"Πανελλήνιες"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.125", question_text ="Η δομή[____](σειριακών βημάτων) χρησιμοποιείται πρακτικά για την αντιμετώπισηαπλών προβλημάτων, όπου είναι δεδομένη η σειρά εκτέλεσης ενός συνόλου ενεργειών.", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 4.2, difficulty = 1, style = "Kena", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("επανάληψης", "ακολουθίας", "δομής"), correctAnswers = listOf(2) ),
+                Question( question_number = "1.126", question_text ="Σε ένα διάγραμμα ροής η [____] και το [____]του αλγορίθμου συμβολίζεται με [____].", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 4.3, difficulty = 1, style = "Kena", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("έλλειψη","αρχή", "τέλος","έναρξη", "λήξη", "πρώτη", "τελευταία", ), correctAnswers = listOf(231) ),
+                Question( question_number = "1.127", question_text ="Τα [____] αποτελούν έναν γραφικό τρόπο παρουσίασης ενός αλγορίθμου.", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 4.4, difficulty = 1, style = "Kena", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("διαγράμματα", "γραφήματα", "σχήματα","διαγράμματα ροής"), correctAnswers = listOf(4) ),
+                Question( question_number = "1.128", question_text ="Το σύμβολο [____] χρησιμοποιείται σε ένα διάγραμμα ροής για τη διατύπωση συνθη­κών.", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 4.5, difficulty = 1, style = "Kena", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("κύκλος", "τετράγωνο","ρόμβος", "γραμμή"), correctAnswers = listOf(3) ),
+                Question( question_number = "1.129", question_text ="Τα αναγνωριστικά των οποίων οι τιμές μεταβάλλονται κατά τη διάρκεια του αλγορίθμουονομάζονται [____] και εκείνα των οποίων οι τιμές δεν μπορούν να μεταβληθούν ονομά­ζονται [____] .", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 4.6, difficulty = 1, style = "Kena", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("σύμβολα", "γραφήματα","σταθερές", "μεταβλητές","αριθμοί", "γράμματα"), correctAnswers = listOf(43) ),
+                Question( question_number = "1.130", question_text ="Οι [____] μεταβλητές μπορούν να λάβουν μόνο δυο τιμές.", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 4.7, difficulty = 1, style = "Kena", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("αλφαριθμητικές","αριθμητικές", "σταθερές", "λογικές"), correctAnswers = listOf(4) ),
+                Question( question_number = "1.131", question_text ="Οι τρεις τύποι μεταβλητών που υποστηρίζονται σε έναν αλγόριθμο είναι οι αριθμητικές,οι [____] και οι λογικές.", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 4.1, difficulty = 1, style = "Kena", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("συμβολικές","αλφαριθμητικές", "σταθερές", "απλές"), correctAnswers = listOf(2) ),
+                Question( question_number = "1.132", question_text ="Οι [____] είναι σύμβολα που χρησιμοποιούνται για τις διάφορες πράξεις.", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 4.2, difficulty = 1, style = "Kena", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("χαρακτήρες", "λέξεις","τελεστές", "αριθμοί"), correctAnswers = listOf(3) ),
+                Question( question_number = "1.133", question_text ="Η εντολή [____] τιμής αποδίδει την τιμή μιας [____] σε μια [____] .", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 4.1, difficulty = 1, style = "Kena", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("μεταβλητή","μεταφοράς","εκχώρησης","έκφρασης", "σταθεράς", "πράξης", "συνάρτησης", "μεταβλητής"), correctAnswers = listOf(341) ),
+                Question( question_number = "1.134", question_text =" Η τελευταία εντολή κάθε αλγορίθμου είναι [____] ακολουθούμενη από το όνομά του.", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 4.2, difficulty = 1, style = "Kena", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("Eναρξη", "Aνάλυση", "Αλγόριθμος","Τέλος"), correctAnswers = listOf(4) ),
+                Question( question_number = "1.135", question_text =" Η λέξη Διάβασε είναι [____] λέξη.", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 4.3, difficulty = 1, style = "Kena", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("αριθμητική", "συμβολική", "σταθερή","δεσμευμένη"), correctAnswers = listOf(4) ),
+                Question( question_number = "1.136", question_text ="Η πράξη 5 mod 0:", question_text2 = "a", quiz = 4.4, difficulty = 1, style = "multiple choice", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf(" έχει αποτέλεσμα 5 ","δεν ορίζεται"," έχει αποτέλεσμα άπειρο ","έχει αποτέλεσμα 0."), correctAnswers = listOf(1) ),
+                Question( question_number = "1.137", question_text ="Αν κ = 5 mod 130 και λ = 5 div 130, τότε:", question_text2 = "a", quiz = 4.5, difficulty = 1, style = "multiple choice", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf(" κ = 5, λ = 0 ","δεν ορίζονται οι πράξεις"," κ = 0, λ = 0 ","κ = 5, λ =130."), correctAnswers = listOf(0) ),
+                Question( question_number = "1.138", question_text ="Σε ένα πρόγραμμα έχουμε μια μεταβλητή Πλήθος, την οποία θέλουμε να αυξήσουμε κα­τά μία μονάδα. Ποια από τις παρακάτω εντολές έχει ως αποτέλεσμα την αύξηση αυτή;", question_text2 = "a", quiz = 4.6, difficulty = 1, style = "multiple choice", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("Πλήθος + 1 <— Πλήθος ","Πλήθος <- Πλήθος + 1"," Πλήθος <— +1 ","Πλήθος = Πλήθος + 1."), correctAnswers = listOf(1) ),
+                Question( question_number = "1.139", question_text ="Ποιο είναι το αποτέλεσμα της πράξης 5 mod 2*10;", question_text2 = "a", quiz = 4.7, difficulty = 1, style = "multiple choice", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf(" 10 ","0 ι","5 ","απροσδιόριστο"), correctAnswers = listOf(0) ),
+                Question( question_number = "1.140", question_text ="Ποιο από τα παρακάτω αποτελεί εντολή της ψευδογλώσσας των αλγορίθμων;", question_text2 = "a", quiz = 4.1, difficulty = 1, style = "multiple choice", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf(" Α + Β = 1 ","Α <— Β * 5"," Α + Β <— 23 ","Α <— 2 * Β — 12"), correctAnswers = listOf(1) ),
+                Question( question_number = "1.141", question_text ="Ποια η τιμή της μεταβλητής Α μετά την εκτέλεση της παρακάτω εντολής;\n" +"Α«-(5 + 4/ 2*2)*2-(3 *2 + 5-3)Λ2 + 9/ 3- 2", question_text2 = "a", quiz = 4.2, difficulty = 1, style = "multiple choice", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf(" -53 ","-37 "," -125 ","-45."), correctAnswers = listOf(3) ),
+                Question( question_number = "1.142", question_text ="Μετά την εκτέλεση της εντολής Υ<—5*(Χ-3) + ΧΛ3-2 + Ζ, όπου X = 5 και Ζ = 1,ποια είναι η τιμή της μεταβλητής Υ;", question_text2 = "a", quiz = 4.1, difficulty = 1, style = "multiple choice", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf(" 35 ","134 "," 22 ","148."), correctAnswers = listOf(1) ),
+                Question( question_number = "1.143", question_text =" Τι θα τυπώσουν οι εντολές; \n" +" Α<- 100 \n" + "X «—(2 + ■'^Α * 3 /10) Λ 2 — (Α+50) / 5", question_text2 = "a", quiz = 4.2, difficulty = 1, style = "multiple choice", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf(" 22 ","-5 "," 10 ","25."), correctAnswers = listOf(1) ),
+                Question( question_number = "1.144", question_text ="Τα χρησιμοποιούμενα γεωμετρικά σχήματα για την αναπαράσταση των διαγραμμάτων ροής είναι τα εξής:", question_text2 = "a", quiz = 4.3, difficulty = 1, style = "multiple choice", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf(" έλλειψη","ρόμβος "," ορθογώνιο ","κύκλος."), correctAnswers = listOf(0,1,2) ),
+                Question( question_number = "1.145", question_text ="Τα είδη μεταβλητών που υποστηρίζει ένας αλγόριθμος είναι: ", question_text2 = "a", quiz = 4.4, difficulty = 1, style = "multiple choice", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("αριθμητικές","πραγματικές"," μιγαδικές. ","αλφαριθμητικές","λογικές"), correctAnswers = listOf(0,3,4) ),
+                Question( question_number = "1.146", question_text ="Ποια από τα παρακάτω είναι δεκτά ως ονόματα σταθερών:", question_text2 = "a", quiz = 4.5, difficulty = 1, style = "multiple choice", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("Α","Στοιχείο 1 "," ΣΤΟΙΧΕΙΟ","Φύλλο μαθητή ","Τιμή-σε-$ "), correctAnswers = listOf(0,1) ),
+                Question( question_number = "1.147", question_text ="Διάβασε x \n" +" α. z <— x * y \n" +" Εκτύπωσε ζ", question_text2 = " Να τοποθετήσετε τα παρακάτω στην ορθή σειρά.", quiz = 4.6, difficulty = 1, style = "Queue", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("α. z <— x * y","Διάβασε x, y","Εκτύπωσε ζ"), correctAnswers = listOf(2,1,3) ),
+                Question( question_number = "1.148", question_text ="Διάβασε δρχ \n" +" ευρώ <τ- δρχ * 340.75 \n" +" ποσό ευρώ + ευρώ * 0.18 \n" +" Εκτύπιοσε ποσό", question_text2 = " Να τοποθετήσετε τα παρακάτω στην ορθή σειρά.", quiz = 4.7, difficulty = 1, style = "Queue", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("Εκτύπιοσε ποσό","Διάβασε δρχ","ευρώ <τ- δρχ * 340.75","ποσό ευρώ + ευρώ * 0.18"), correctAnswers = listOf(2,3,4,1) ),
+                Question( question_number = "1.149", question_text ="Αρχή \n" +" Διάβασε δεδομένα \n" +"Κάνε υπολογισμούς\n" +" Εμφάνισε αποτελέσματα \n" +" Τέλος", question_text2 = " Να τοποθετήσετε τα παρακάτω στην ορθή σειρά.", quiz = 4.1, difficulty = 1, style = "Queue", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("Τέλος","Διάβασε δεδομένα","Εμφάνισε αποτελέσματα ","Αρχή","Κάνε υπολογισμούς"), correctAnswers = listOf(4,2,5,3,1) ),
+                Question( question_number = "1.150", question_text ="1 .Λογικές \n" + "2. Χαρακτήρες \n" + "3. Πραγματικές \n" + "4. Ακέραιες", question_text2 = "Αντιστοιχίστε τα στοιχεία", quiz = 4.2, difficulty = 1, style = "Fill", modules = listOf("Κεφάλαιο4","Θεωρία" ,"Πανελλήνιες"), possibleAnswers = listOf("όνομα πελάτη", "αριθμός παιδιών ", "Ψευδής ","\"Χ\"","0.34"), correctAnswers = listOf(2,4,1,2,3) ),
+                Question( question_number = "1.151", question_text ="1 Ακέραιος \n" + "2. Πραγματικός\n" + "3. Αλφαριθμητικός - συμβολοσειρά \n" + "4. Λογικός ", question_text2 = "Αντιστοιχίστε τα στοιχεία", quiz = 4.1, difficulty = 1, style = "Fill", modules = listOf("Κεφάλαιο4","Θεωρία" ,"Πανελλήνιες"), possibleAnswers = listOf("Ύψος εφήβου", "Επώνυμο μαθητή", "Αριθμός επιβατών σε αεροπλάνο ","\"85\""), correctAnswers = listOf(2,3,1,3) ),
+                Question( question_number = "1.152", question_text ="1 Αλφαριθμητικός \n" + "2. Αριθμητικός\n" + "3. Λογικός", question_text2 = "Αντιστοιχίστε τα στοιχεία", quiz = 4.2, difficulty = 1, style = "Fill", modules = listOf("Κεφάλαιο4","Θεωρία" ,"Πανελλήνιες"), possibleAnswers = listOf("345", "\"Αληθής\"", "Ψευδής","-15,3"), correctAnswers = listOf(2,1,3,2) ),
+
+                Question( question_number = "1.153", question_text ="1. Αποδεκτό όνομα \n" + "2. Μη αποδεκτό όνομα", question_text2 = "Αντιστοιχίστε τα στοιχεία", quiz = 4.3, difficulty = 1, style = "Fill", modules = listOf("Κεφάλαιο4","Θεωρία" ,"Πανελλήνιες"), possibleAnswers = listOf("Φ.Π.Α.", "2ΑΒ", "ΒΑΘΜΟΣ","\"ΜΙΣΘΟΣ\"","ΑΚΕΡΑΙΟΣ"), correctAnswers = listOf(2,2,1,2,1) ),
+                Question( question_number = "1.154", question_text ="Μετέτρεψε σε κώδικα προγράμματος την συνάρτηση:", question_text2 = "a", quiz = 4.4, difficulty = 1, style = "multiple choice", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("T=2×(3.14)×Τ_Ρ(m/D)","T=2×3.14×Τ_Ρ(m/D)","T=2×(3.14)×ΤΡ(m/D)"), correctAnswers = listOf(0) , image = R.drawable.p1),
+                Question( question_number = "1.155", question_text ="Μετέτρεψε σε κώδικα προγράμματος την συνάρτηση:", question_text2 = "a", quiz = 4.5, difficulty = 1, style = "multiple choice", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("Eκιν <— (1 / 2) * m * υ Λ 2","Eκιν <— m * υ Λ 2 /2","Eκιν <— (m / 2) * υ Λ 2"), correctAnswers = listOf(0,1), image = R.drawable.p2 ),
+                Question( question_number = "1.156", question_text ="A. 14 mod 5-25 mod 8 \n" +"B. 3 * (3 mod 2) + 4 div (5 mod 3) \n" +"Γ. 13 mod (27 div 4) \n" + "Δ. 2 Λ 3 + 3 * (27 mod (25 mod 7)) ", question_text2 = "Ποια θα είναι τα αποτελέσματα;", quiz = 4.6, difficulty = 1, style = "Fill", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("Δ", "Γ", "Β","Α"), correctAnswers = listOf(17,1,5,3) ),
+                Question( question_number = "1.157", question_text ="Αλγόριθμος ΠίνακαςΤιμών \n" + "β<—α+14 \n" +"γ <— α * β - 20 \n" +"α <— (γ - α) div 3 \n" +"β <— β med α \n" +"γ <- γ - (α + β) \n" +"Εμφάνισε α, β, γ\n" +"Τέλος ΠίνακαςΤιμών", question_text2 = "Ποια θα είναι τα αποτελέσματα;", quiz = 4.7, difficulty = 1, style = "Fill", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("γ","β","α"), correctAnswers = listOf(14,8,9) ),
+                Question( question_number = "1.158", question_text ="Να υπολογίσετε την τιμή της αριθ­μητικής έκφρασης:\n" +"Β * (A div Β) + (A mod Β) \n" +"για τις παρακάτω περιπτώσεις: \n" +"α. Α = 10 και Β = 5 \n" +"β. Α = -5 και Β = 1 \n" +"γ. Α = 1 και Β = 5.", question_text2 = "Ποια θα είναι τα αποτελέσματα;", quiz = 4.1, difficulty = 1, style = "Fill", modules = listOf("Κεφάλαιο4","Θεωρία" ,"Πανελλήνιες"), possibleAnswers = listOf("γ","β","α"), correctAnswers = listOf(1,-5,10) ),
+                Question( question_number = "1.159", question_text ="Ποιες από τις παρα­κάτω εντολές εκχώρησης είναι σωστές;", question_text2 = "a", quiz = 4.2, difficulty = 1, style = "multiple choice", modules = listOf("Κεφάλαιο4","Θεωρία" ,"Πανελλήνιες"), possibleAnswers = listOf("W <- 4*2*x-3/3*x*x*x-l)-10 ","W <- 4*(2x-3)/(3*χ*χ*χ-1)-10 ","W <— 4**2*χ-3)/(3 *χ*χ*χ-1)-10 ","W <- 4*(2*x-3)/3 *χ*χ*χ-1-10 "), correctAnswers = listOf(3) ),
+                Question( question_number = "1.160", question_text ="Αλγόριθμος Ασκηση\n" +"Χ<-5 \n" +"Υ<-Χ \n" +"Χ<—Χ + 5 \n" +"Υ<-Υ+5 \n" +"Εκτύπωσε X, Υ \n" +"Τέλος Ασκηση", question_text2 = "Ποια θα είναι τα αποτελέσματα;", quiz = 4.1, difficulty = 1, style = "Fill", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("Χ","Υ"), correctAnswers = listOf(10,10) ),
+                Question( question_number = "1.161", question_text ="Αλγόριθμος Άσκηση\n" +"Χ<—5\n" +"Υ<-Χ\n" +"Χ<—Χ + 5\n" +"Υ<—Χ + 5\n" +"Εκτύπωσε X, Υ\n" +"Τέλος Άσκηση", question_text2 = "Ποια θα είναι τα αποτελέσματα;", quiz = 4.2, difficulty = 1, style = "Fill", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("Χ","Υ"), correctAnswers = listOf(10,15) ),
+                Question( question_number = "1.162", question_text ="Θα εισαχθούν οι τιμές 3, 6, 9\n" +"Αλγόριθμος Άσκηση\n" +"ΔιάβασεΥ\n" +"Διάβασε X, Υ\n" +"Εκτύπωσε Υ, X, Υ\n" +"Τέλος Άσκηση", question_text2 = "Ποια θα είναι τα αποτελέσματα;", quiz = 4.3, difficulty = 1, style = "Fill", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("Υ","Χ","Υ"), correctAnswers = listOf(9,6,9) ),
+                Question( question_number = "1.163", question_text ="Αλγόριθμος Κενά \n" +"\t\t α <- [____]\t\tώστε α=3 \n" +"\t\t β <— 5 \t\t ώστε β=5 \n" +"\t\t γ <- α [____] β \t\t ώστε γ=-2 \n" +"\t\t α <— α+ [____] \t\t ώστε α=1 \n" +"\t\t [____] <- β- [____] \t\t ώστε β=3 \n" +"\t\t γ<—γ-(α + [____]) \t\t ώστε γ=-6 \n" +"\t\t [____] <— α + β — [____] \t\t ώστε α=10 \n" +"\t\t Εμφάνισε [____]. \t\t ώστε 3,10 \n" +"Τέλος Κενά", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή ώστε οι τιμές του πίνακα να είναι αληθείς", quiz = 4.4, difficulty = 1, style = "Kena", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("3","γ","β","2","β,α","β","α","γ","-"), correctAnswers = listOf(192346785,192643785,198346725,1928643725) ),
+                Question( question_number = "1.164", question_text ="Αλγόριθμος ΠίνακαςΤιμών \n" +"\t\t\t\tx <— 84 \n" +"\t\t\t\ty <— x mod 5 \n" +"\t\t\t\tx <— x div 5 - y Λ 2 \n" +"\t\t\t\tz <— (x + y) / 2 \n" +"\t\t\t\ty <-z-y \n" +"\t\t\t\tΕμφάνισε x, y, z \n" +"Τέλος ΠίνακαςΤιμών", question_text2 = "Ποια θα είναι τα αποτελέσματα;", quiz = 4.5, difficulty = 1, style = "Fill", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("Z","Y","X"), correctAnswers = listOf(2,-2,0) ),
+                Question( question_number = "1.165", question_text ="Αλγόριθμος ΠίνακαςΤιμών\t\t\t\tΔιάβασε κ\t\t\t\tλ +- κ div (κ mod 5 + 2)\t\t\t\tν <— κ mod λ mod 4\t\t\t\tκ <— κ - (λ + ν)\t\t\t\tλ <- κ Λ 2 div (λ + ν) \t\t\t\tΕμφάνισε κ, λ, νΤέλος ΠίνακαςΤιμών", question_text2 = "Ποια θα είναι τα αποτελέσματα;", quiz = 4.6, difficulty = 1, style = "Fill", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("Ν","Λ","Κ"), correctAnswers = listOf(1,116,60) ),
+                Question( question_number = "1.166", question_text ="Αλγόριθμος ΠίνακαςΤιμών\t\t\t\tΔιάβασε α\t\t\t\tχ <- (α div 100) mod 4\t\t\t\ty <— (α div 50) * x\t\t\t\tΕκτύπωσε y\t\t\t\tζ <- α div y\t\t\t\tΕκτύπωσε ζΤέλος ΠίνακαςΤιμών", question_text2 = "Ποια θα είναι τα αποτελέσματα;", quiz = 4.7, difficulty = 1, style = "Fill", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("Ζ","Υ"), correctAnswers = listOf(50,171) ),
+                Question( question_number = "1.167", question_text ="Αλγόριθμος ΠίνακαςΤιμών\t\t\t\tX <- 3\t\t\t\tΥ<—Χ^3-4\t\t\t\tΖ <- Υ div X\t\t\t\tX <- (X + Ζ) mod Υ\t\t\t\tΥ<-(Υ + Ζ) divX\t\t\t\tΖ<—Χ * Υ-Ζ ^ 2\t\t\t\tΕκτύπωσε Υ, Ζ, XΤέλος ΠίνακαςΤιμών", question_text2 = "Ποια θα είναι τα αποτελέσματα;", quiz = 4.1, difficulty = 1, style = "Fill", modules = listOf("Κεφάλαιο4","Θεωρία" ), possibleAnswers = listOf("Χ","Ζ","Υ"), correctAnswers = listOf(10,-19,3) ),
+
+                // Add all your questions here
             )
-
-
-            val question1 = Question( question_number = 1.1, question_text ="Η έννοια του αλγορίθμου συνδέεται αποκλειστικά και μόνο με προβλήματα της Πληροφορικής", question_text2 = "a", quiz = 1.1, difficulty = 1, style = "SouLou", modules = listOf("Πανελλήνιες", "Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) )
-            val question2 = Question( question_number = 1.2, question_text ="Η έννοια του αλγορίθμου συνδέεται αποκλειστικά με την Πληροφορική.", question_text2 = "α", quiz = 1.1, difficulty = 1, style = "SouLou", modules = listOf("Πανελλήνιες", "Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) )
-            val question3 = Question( question_number = 1.3, question_text ="Η αλγοριθμική υποστήριξη βοηθά στην επίλυση προβλημάτων.", question_text2 = "α", quiz = 1.3, difficulty = 1, style = "SouLou", modules = listOf( "Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) )
-            val question4 = Question( question_number = 1.4, question_text ="Ο αλγόριθμος αποτελείται από ένα πεπερασμένο σύνολο εντολών.", question_text2 = "α", quiz = 1.3, difficulty = 1, style = "SouLou", modules = listOf( "Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) )
-            val question5 = Question( question_number = 1.5, question_text ="Ένας αλγόριθμος είναι μία πεπερασμένη σειρά ενεργειών.", question_text2 = "α", quiz = 1.8, difficulty = 1, style = "SouLou", modules = listOf("Πανελλήνιες", "Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) )
-            val question6 = Question( question_number = 1.6, question_text ="Ο αλγόριθμος μπορεί να περιλαμβάνει και εντολές που δεν είναι σαφείς.", question_text2 = "α", quiz = 1.8, difficulty = 1, style = "SouLou", modules = listOf( "Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) )
-            val question7 = Question( question_number = 1.7, question_text ="Ένας αλγόριθμος στοχεύει στην επίλυση ενός προβλήματος.", question_text2 = "α", quiz = 1.8, difficulty = 1, style = "SouLou", modules = listOf("Πανελλήνιες", "Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) )
-            val question8 = Question( question_number = 1.8, question_text ="Ένας αλγόριθμος μπορεί να μη διαθέτει έξοδο, αρκεί να ικανοποιεί τα άλ­λα κριτήρια.", question_text2 = "α", quiz = 1.8, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) )
-            val question9 = Question( question_number = 1.9, question_text ="Οι ενέργειες που ορίζει ένας αλγόριθμος είναι αυστηρά καθορισμένες.", question_text2 = "α", quiz = 1.8, difficulty = 1, style = "SouLou", modules = listOf("Πανελλήνιες", "Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) )
-            val question10 = Question( question_number = 1.10, question_text ="Ο αλγόριθμος ουσιαστικά είναι η περιγραφή ενός προβλήματος με συγκε­κριμένα βήματα.", question_text2 = "α", quiz = 1.8, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) )
-            val question11 = Question( question_number = 1.11, question_text =" Ένας αλγόριθμος επιλύει μόνο υπολογιστικά προβλήματα.", question_text2 = "α", quiz = 1.8, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) )
-            val question12 = Question( question_number = 1.12, question_text =" Όλα τα προβλήματα λύνονται και αλγοριθμικά.", question_text2 = "α", quiz = 1.8, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) )
-            val question13 = Question( question_number = 1.13, question_text ="Ένας αλγόριθμος πρέπει απαραίτητα να έχει έξοδο.", question_text2 = "α", quiz = 1.8, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) )
-            val question14 = Question( question_number = 1.14, question_text ="Ο αλγόριθμος τελειώνει έπειτα από πεπερασμένα βήματα εκτέλεσης εντολων", question_text2 = "α", quiz = 1.8, difficulty = 1, style = "SouLou", modules = listOf("Πανελλήνιες", "Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) )
-            val question15 = Question( question_number = 1.15, question_text ="Η περατότητα ενός αλγορίθμου αναφέρεται στο γεγονός ότι καταλήγει στη λύση του προβλήματος έπειτα από πεπερασμένο αριθμό βημάτων (εντολών).", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 1.1, difficulty = 1, style = "SouLou", modules = listOf("Πανελλήνιες", "Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) )
-            val question16 = Question( question_number = 1.16, question_text ="Κάθε εντολή ενός αλγορίθμου πρέπει να καθορίζεται χωρίς αμφιβολία γιατον τρόπο εκτέλεσής της. ", question_text2 = "α", quiz = 1.7, difficulty = 1, style = "SouLou", modules = listOf("Πανελλήνιες", "Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) )
-            val question17 = Question( question_number = 1.17, question_text ="Η αποτελεσματικότητα είναι ένα από τα κριτήρια που πρέπει να ικανοποι­εί ένας αλγόριθμος. ", question_text2 = "α", quiz = 1.7, difficulty = 1, style = "SouLou", modules = listOf("Πανελλήνιες", "Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(1) )
-            val question18 = Question( question_number = 1.18, question_text ="Μια διαδικασία που δεν τελειώνει έπειτα από συγκεκριμένο αριθμό βημά­των αποτελεί λογιστική διαδικασία.", question_text2 = "α", quiz = 1.7, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) )
-            val question19 = Question( question_number = 1.19, question_text ="Η Πληροφορική μελετά τους αλγορίθμους μόνο από τη σκοπιά των γλωσ­σών προγραμματισμού.", question_text2 = "α", quiz = 1.7, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) )
-            val question20 = Question( question_number = 1.20, question_text ="Ο πιο δομημένος τρόπος παρουσίασης αλγορίθμων είναι με ελεύθερο κείμενο.", question_text2 = "α", quiz = 1.7, difficulty = 1, style = "SouLou", modules = listOf("Κεφάλαιο1","Θεωρία" , "Πανελλήνιες"), possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"), correctAnswers = listOf(0) )
-            val question21 = Question( question_number = 1.21, question_text =" Η [____] ενός αλγορίθμου γίνεται με ένα πρόγραμμα που όταν εκτελεσθεί θα δώσειτα ίδια αποτελέσματα με έναν αλγόριθμο.", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 1.2, difficulty = 1, style = "Kena", modules = listOf("Θεωρία" , "Πανελλήνιες"), possibleAnswers = listOf("υλοποίηση","εφαρμογή","κωδικοποίηση"), correctAnswers = listOf(3) )
-            val question22 = Question( question_number = 1.22, question_text ="Από την [____] σκοπιά, η πληροφορική μελετά τους αλγορίθμους σε σχέση με τιςανάγκες τους σε υπολογιστικούς πόρους.", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 1.2, difficulty = 1, style = "Kena", modules = listOf("Θεωρία" , "Πανελλήνιες"), possibleAnswers = listOf("θετική","θεωρητική","πρακτική","αναλυτική"), correctAnswers = listOf(4) )
-            val question23 = Question( question_number = 1.23, question_text ="Ένας αλγόριθμος πρέπει να τελειώνει έπειτα από [____] αριθμό βημάτων.", question_text2 = "Συμπλήρωσε τα κενά με την σωστή επιλογή", quiz = 1.2, difficulty = 1, style = "Kena", modules = listOf("Θεωρία" , "Πανελλήνιες"), possibleAnswers = listOf("πεπερασμένο","απεριόριστο","καθορισμένο","διακριτό"), correctAnswers = listOf(1) )
-            val question24 = Question( question_number = 1.24, question_text ="Κάθε αλγόριθμος πρέπει να ικανοποιεί το κριτήριο της:", question_text2 = "a", quiz = 2.1, difficulty = 1, style = "multiple choice", modules = listOf("Θεωρία" , "Πανελλήνιες"), possibleAnswers = listOf("επιλογής","ακολουθίας","ανάθεσης","περατότητας"), correctAnswers = listOf(3) )
-            val question25 = Question( question_number = 1.25, question_text ="Η επιστήμη της Πληροφορικής περιλαμβάνει τη μελέτη των αλγορίθμων μεταξύ άλλων και από τη σκοπιά:", question_text2 = "a", quiz = 1.7, difficulty = 1, style = "multiple choice", modules = listOf("Θεωρία" , "Πανελλήνιες"), possibleAnswers = listOf("υλικού","ελευθέρου κειμένου", "αποτελεσματικότητας","ανάγνωσης/εκτύπωσης"), correctAnswers = listOf(0) )
-            val question26 = Question( question_number = 1.26, question_text =" Ένας από τους τρόπους αναπαράστασης των αλγορίθμων είναι:", question_text2 = "a", quiz = 1.1, difficulty = 1, style = "multiple choice", modules = listOf("Θεωρία" , "Πανελλήνιες"), possibleAnswers = listOf("λογικές εκφράσεις","θεωρητική τυποποίηση","διαγραμματικές τεχνικές","αριθμητικές πράξεις"), correctAnswers = listOf(2) )
-            val question27 = Question( question_number = 1.27, question_text ="Ποια από τα παρακάτω κριτήρια πρέπει να ικανοποιεί απαραίτητα ένας αλγόριθμος;", question_text2 = "a", quiz = 1.2, difficulty = 1, style = "multiple choice", modules = listOf( "Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("είσοδος / έξοδος","ύπαρξη βρόχου ή συνθήκης επανάληψης","καθοριστικότητα","αποτελεσματικότητα"), correctAnswers = listOf(0,3,4) )
-            val question28 = Question( question_number = 1.28, question_text =" Η πληροφορική είναι η επιστήμη που μελετά τους αλγορίθμους από τις ακόλουθες σκοπιές", question_text2 = "α", quiz = 1.2, difficulty = 1, style = "multiple choice", modules = listOf( "Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("υλικού","θεωρητική","πιθανολογική","αναλυτική"), correctAnswers = listOf(0,1,3) )
-            val question29 = Question( question_number = 1.29, question_text =" Να αναφερθεί ο τύπος των μεταβλητών που χρησιμοποιούνται στις παρακάτω εντολές εκχώρησης.", question_text2 = "a", quiz = 1.3, difficulty = 1, style = "multiple choice", modules = listOf( "Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("Ακαίραια","Πραγματικές","Λογικές","Αλφαριθμιτικές"), correctAnswers = listOf() )
-            val question30 = Question( question_number = 1.30, question_text ="Μετέτρεψε σε κώδικα προγράμματος την συνάρτηση:", question_text2 = "a", quiz = 1.1, difficulty = 1, style = "multiple choice", modules = listOf( "Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("T=2×(3.14)×Τ_Ρ(m/D)","T=2×3.14×Τ_Ρ(m/D)","T=2×(3.14)×ΤΡ(m/D)"), correctAnswers = listOf(0),image = R.drawable.p1 )
-            val question31 = Question( question_number = 1.31, question_text ="Αλγόριθμος ΠίνακαςΤιμών\n" + "α <- 3\n" + "β <- α + 14\n" + "γ <- α * β - 20\n" + "α <- (γ - α) div 3\n" + "β <- β med α\n" + "γ <- γ - (α + β)\n" + "Εμφάνισε α, β, γ\n" + "Τέλος ΠίνακαςΤιμών", question_text2 = "Να βρείτε τι θα εμφανίσει το παρακάτω τμήμα αλγορίθμου.", quiz = 1.1, difficulty = 1, style = "Fill", modules = listOf( "Κεφάλαιο1","Θεωρία"), possibleAnswers = listOf("α", "β", "γ"), correctAnswers = listOf(9,8,14) )
-
-
-            val question2ο = Question(
-                question_number = 1.11,
-                question_text = "Διάβασε είδος\n" +
-                        "Επίλεξε [____]\n" +
-                        "  Περίπτωση 1\n" +
-                        "    κόστος = 0.085\n" +
-                        "  Περίπτωση 2\n" +
-                        "    κόστος = 0.67\n" +
-                        "  Περίπτωση 3\n" +
-                        "    κόστος = 0.93\n" +
-                        "  Περίπτωση [____]\n" +
-                        "    κόστος = 1.25\n" +
-                        "Τέλος_επιλογών\n" +
-                        "Αν [____] < κόστος τότε\n" +
-                        "  Εκτύπωσε \"Οι μονάδες δεν επαρκούν, το διαθέσιμο υπόλοιπο είναι \", διαθέσιμο_υπόλοιπο\n" +
-                        "Αλλιώς\n" +
-                        "  διαθέσιμο_υπόλοιπο = διαθέσιμο_υπόλοιπο - [____]\n" +
-                        "  Εκτύπωσε \"Το μήνυμα εστάλη...\"\n" +
-                        "Τέλος_αν\n" +
-                        "Αποτελέσματα // διαθέσιμο_υπόλοιπο //\n"
-                ,
-                question_text2 = "Συμπληρώστε τα κενά για τον υπολογισμό κόστους αποστολής μηνύματος",
-                quiz = 1.1,
-                difficulty = 1,
-                style = "Kena",
-                modules = listOf("Programming", "Python", "Variables"),
-                possibleAnswers = listOf("είδος", "Αλλιώς" ,"κόστος" ,"διαθέσιμο_υπόλοιπο", "κόστος"),
-                correctAnswers = listOf(1234,1254) // a = 10 + 5
-            )
-
-            val question3ο = Question(
-                question_number = 1.11,
-                question_text = "Διάβασε είδος\n" +
-                        "Επίλεξε [____]\n" +
-                        "  Περίπτωση 1\n" +
-                        "    κόστος = 0.085\n" +
-                        "  Περίπτωση 2\n" +
-                        "    κόστος = 0.67\n" +
-                        "  Περίπτωση 3\n" +
-                        "    κόστος = 0.93\n" +
-                        "  Περίπτωση [____]\n" +
-                        "    κόστος = 1.25\n" +
-                        "Τέλος_επιλογών\n" +
-                        "Αν [____] < κόστος τότε\n" +
-                        "  Εκτύπωσε \"Οι μονάδες δεν επαρκούν, το διαθέσιμο υπόλοιπο είναι \", διαθέσιμο_υπόλοιπο\n" +
-                        "Αλλιώς\n" +
-                        "  διαθέσιμο_υπόλοιπο = διαθέσιμο_υπόλοιπο - [____]\n" +
-                        "  Εκτύπωσε \"Το μήνυμα εστάλη...\"\n" +
-                        "Τέλος_αν\n" +
-                        "Αποτελέσματα // διαθέσιμο_υπόλοιπο //\n"
-                ,
-                question_text2 = "Συμπληρώστε τα κενά για τον υπολογισμό κόστους αποστολής μηνύματος",
-                quiz = 1.1,
-                difficulty = 1,
-                style = "Queue",
-                modules = listOf("Κεφάλαιο1"),
-                possibleAnswers = listOf(
-                    "Διάβασε είδος",
-                    "  Περίπτωση 1",
-                    "Επίλεξε [____]",
-                    "    κόστος = 0.085",
-                    "  Περίπτωση 2",
-                    "    κόστος = 0.67",
-                    "  Περίπτωση 3",
-                    "    κόστος = 0.93",
-                    "  Περίπτωση [____]",
-                    "    κόστος = 1.25",
-                    "Τέλος_επιλογών",
-                    "Αν [____] < κόστος τότε",
-                    "  Εκτύπωσε \"Οι μονάδες δεν επαρκούν, το διαθέσιμο υπόλοιπο είναι \", διαθέσιμο_υπόλοιπο",
-                    "Αλλιώς",
-                    "  διαθέσιμο_υπόλοιπο = διαθέσιμο_υπόλοιπο - [____]",
-                    "  Εκτύπωσε \"Το μήνυμα εστάλη...\"",
-                    "Τέλος_αν",
-                    "Αποτελέσματα // διαθέσιμο_υπόλοιπο //"
-                ),correctAnswers = listOf(1,3,2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18) // a = 10 + 5
-            )
-
-            val question4ο = Question(
-                question_number = 1.27,
-                question_text = "Which two keywords are used for defining a function in Python?",
-                question_text2=" ",
-                quiz = 1.1,
-                difficulty = 2,
-                style = "multiple choice",
-                modules = listOf("Programming", "Python", "Functions"),
-                possibleAnswers = listOf("func", "def", "lambda", "function"),
-                correctAnswers = listOf(1, 2) // "def", "lambda"
-            )
-
             val question5ο = Question(
-                question_number =1.3,
+                question_number ="1.3567",
                 question_text =
                 "διάβασε α , β \n" +
                         "αν α = 0 τότε \n" +
@@ -210,1261 +246,9 @@ abstract class QuestionsDatabase : RoomDatabase() {
                 correctAnswers = listOf(1) // 1945
             )
 
-            val question6ο = Question(
-                question_number = 1.18,
-                question_text = "A <- 2, B <- ΑΛΗΘΗΣ, Γ <- 3\n" +
-                        "Χ <- (Γ-1)/Α-3*2\n" +
-                        "Υ <- Χ + 10 \n" +
-                        "Ζ <- -Χ mod Y \n"+
-                        "Κ <- (A div Γ)/(Χ-Υ)"+
-                        "Εμφάνισε Ν,Κ,Ζ",
-                question_text2 = "Να βρείτε τι θα εμφανίσει το παρακάτω τμήμα αλγορίθμου.",
-                quiz = 1.1,
-                difficulty = 1,
-                style = "Fill",
-                modules = listOf("Programming", "Python", "Conditions"),
-                possibleAnswers = listOf("X", "Y", "Z"),
-                correctAnswers = listOf(5,4,7) // a < b and c > d
-            )
-
-            val question144 = Question(
-                question_number = 1.18,
-                question_text ="A <- 2, B <- ΑΛΗΘΗΣ, Γ <- 3\n" +
-                        "Χ <- (Γ-1)/Α-3*2\n" +
-                        "Υ <- Χ + 10 \n" +
-                        "Ζ <- -Χ mod Y \n"+
-                        "Κ <- (A div Γ)/(Χ-Υ)"+
-                        "Εμφάνισε Ν,Κ,Ζ",
-                question_text2 = "Να βρείτε τις τιμές των μεταβλητών.",
-                quiz = 1.1,
-                difficulty = 1,
-                style = "Fill",
-                modules = listOf("Programming", "Python", "Conditions"),
-                possibleAnswers = listOf("X", "Y", "Z"),
-                correctAnswers = listOf(5,4,7) )
-
-
-                val question7ο = Question(
-                question_number = 1.18,
-                question_text =
-                "X: 11 DIV 4\n" +
-                "Y: 10 DIV 2 \n" +
-                "Z: 4 DIV 10 \n" +
-                "T: -10 DIV 4 \n",
-
-
-
-                question_text2 = "Να βρείτε τις τιμές των μεταβλητών.",
-                quiz = 1.2,
-                difficulty = 1,
-                style = "Fill",
-                modules = listOf("Programming", "Python", "Conditions"),
-                possibleAnswers = listOf("T", "Z", "Y" ,"X"),
-                correctAnswers = listOf(-2,0,5,2) // a < b and c > d
-            )
-
-            /*
-            val question1 = Question(
-                question_number = 1.1,
-                question_text = "Στην Python, οι εντολές πρέπει να είναι σωστά εσοχείς για να εκτελεστούν σωστά.",
-                question_text2 = "",
-                quiz = 1.1,
-                difficulty = 1,
-                style = "SouLou",
-                modules = listOf("Προγραμματισμός", "Python", "Σύνταξη"),
-                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
-                correctAnswers = listOf(1) // Αληθής
-            )
-
-            val question2 = Question(
-                question_number = 1.2,
-                question_text = "Στην Python, το τέλος κάθε γραμμής πρέπει να σηματοδοτείται με ελληνικό ερωτηματικό.",
-                question_text2 = "",
-                quiz = 1.2,
-                difficulty = 1,
-                style = "SouLou",
-                modules = listOf("Προγραμματισμός", "Python", "Σύνταξη"),
-                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
-                correctAnswers = listOf(0) // Λανθασμένη
-            )
-
-
-            val question3 = Question(
-                question_number = 1.3,
-                question_text = "Στην Python, μπορούμε να χρησιμοποιούμε και τα εισαγωγικά μονά (' ') και τα διπλά ('\"') για να δηλώσουμε μια συμβολοσειρά.",
-                question_text2 = "",
-                quiz = 1.3,
-                difficulty = 1,
-                style = "SouLou",
-                modules = listOf("Προγραμματισμός", "Python", "Σύνταξη"),
-                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
-                correctAnswers = listOf(1) // Αληθής
-            )
-
-            val question4 = Question(
-                question_number = 2.1,
-                question_text = "Μπορούμε να εκτελέσουμε ένα Python script χρησιμοποιώντας την εντολή `python script.py` στον τερματικό.",
-                question_text2 = "",
-                quiz = 2.1,
-                difficulty = 1,
-                style = "SouLou",
-                modules = listOf("Προγραμματισμός", "Python", "Εκτέλεση"),
-                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
-                correctAnswers = listOf(1) // Αληθής
-            )
-
-
-            val question5 = Question(
-                question_number = 2.2,
-                question_text = "Τα Python scripts μπορούν να εκτελεστούν μόνο από τον τερματικό και όχι από IDE όπως το PyCharm ή το VSCode.",
-                question_text2 = "",
-                quiz = 2.2,
-                difficulty = 1,
-                style = "SouLou",
-                modules = listOf("Προγραμματισμός", "Python", "Εκτέλεση"),
-                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
-                correctAnswers = listOf(0) // Λανθασμένη
-            )
-
-            val question6 = Question(
-                question_number = 2.3,
-                question_text = "Το αρχείο `script.txt` μπορεί να εκτελεστεί ως Python script.",
-                question_text2 = "",
-                quiz = 2.3,
-                difficulty = 1,
-                style = "SouLou",
-                modules = listOf("Προγραμματισμός", "Python", "Εκτέλεση"),
-                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
-                correctAnswers = listOf(0) // Λανθασμένη
-            )
-
-
-            val question7 = Question(
-                question_number = 1.4,
-                question_text = "[____]('[____], [____]!')",
-                question_text2 = "Γράψτε την εντολή για να εκτυπώσετε το 'Hello, World!' στην Python.",
-                quiz = 1.4,
-                difficulty = 1,
-                style = "Kena",
-                modules = listOf("Programming", "Python", "Syntax"),
-                possibleAnswers = listOf("print", "echo", "Hello", "World"),
-                correctAnswers = listOf(134) // print('Hello, World!')
-            )
-
-            val question8 = Question(
-                question_number = 1.5,
-                question_text = "b [____] 20 [____]  4",
-                question_text2 = "Ορίστε μια μεταβλητή 'b' και εκχωρήστε την τιμή 20 σε αυτή. Στη συνέχεια, μειώστε την τιμή της κατά 4 χρησιμοποιώντας μια αριθμητική πράξη.",
-                quiz = 1.5,
-                difficulty = 1,
-                style = "Kena",
-                modules = listOf("Programming", "Python", "Variables"),
-                possibleAnswers = listOf("=", "+", "-", "*", "/"),
-                correctAnswers = listOf(13) // b = 20 - 4
-            )
-
-            val question9 = Question(
-                question_number = 2.1,
-                question_text = "[____]  script.py",
-                question_text2 = "Μπορούμε να εκτελέσουμε ένα Python script χρησιμοποιώντας την εντολή `python script.py` στον τερματικό.",
-                quiz = 2.1,
-                difficulty = 1,
-                style = "Kena",
-                modules = listOf("Programming", "Python", "Execution"),
-                possibleAnswers = listOf("run", "python", "execute", "start"),
-                correctAnswers = listOf(2) // python script.py
-            )
-
-            val question10 = Question(
-                question_number = 2.2,
-                question_text = "c [____] 15 [____] 3",
-                question_text2 = "Ορίστε μια μεταβλητή 'c' και εκχωρήστε την τιμή 15 σε αυτή. Στη συνέχεια, πολλαπλασιάστε την τιμή της κατά 3 χρησιμοποιώντας μια αριθμητική πράξη.",
-                quiz = 2.2,
-                difficulty = 1,
-                style = "Kena",
-                modules = listOf("Programming", "Python", "Variables"),
-                possibleAnswers = listOf("=", "+", "-", "*", "/"),
-                correctAnswers = listOf(14) // c = 15 * 3
-            )
-
-            val question11 = Question(
-                question_number = 2.3,
-                question_text = "[____]('[____]', '[____]')",
-                question_text2 = "Γράψτε μια εντολή για να διαβάσετε ένα αρχείο με όνομα 'data.txt' στην Python.",
-                quiz = 2.3,
-                difficulty = 1,
-                style = "Kena",
-                modules = listOf("Programming", "Python", "File Handling"),
-                possibleAnswers = listOf("open", "read", "file", "data.txt", "r"),
-                correctAnswers = listOf(145) // open('data.txt', 'r')
-            )
-
-
-            val question61 = Question(
-                question_number = 1.6,
-                question_text = "Μπορείτε να χρησιμοποιήσετε τη μέθοδο append() για να προσθέσετε ένα στοιχείο στο τέλος μιας λίστας στην Python.",
-                question_text2 = "",
-                quiz = 1.2,
-                difficulty = 1,
-                style = "SouLou",
-                modules = listOf("Προγραμματισμός", "Python", "Δομές Δεδομένων"),
-                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
-                correctAnswers = listOf(1) // Αληθής
-            )
-
-            val question73 = Question(
-                question_number = 1.7,
-                question_text = "Ο τελεστής == στην Python χρησιμοποιείται για την ανάθεση τιμών σε μεταβλητές.",
-                question_text2 = "",
-                quiz = 1.2,
-                difficulty = 1,
-                style = "SouLou",
-                modules = listOf("Προγραμματισμός", "Python", "Τελεστές"),
-                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
-                correctAnswers = listOf(0) // Ψευδής
-            )
-
-            val question83 = Question(
-                question_number = 1.8,
-                question_text = "Ένα tuple είναι μια μεταβλητή δομή δεδομένων στην Python.",
-                question_text2 = "",
-                quiz = 1.2,
-                difficulty = 1,
-                style = "SouLou",
-                modules = listOf("Προγραμματισμός", "Python", "Τύποι Δεδομένων"),
-                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
-                correctAnswers = listOf(0) // Ψευδής
-            )
-
-            val question93 = Question(
-                question_number = 1.9,
-                question_text = "Η λέξη-κλειδί def χρησιμοποιείται στην Python για τον ορισμό μιας νέας συνάρτησης.",
-                question_text2 = "",
-                quiz = 1.2,
-                difficulty = 1,
-                style = "SouLou",
-                modules = listOf("Προγραμματισμός", "Python", "Συναρτήσεις"),
-                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
-                correctAnswers = listOf(1) // Αληθής
-            )
-
-            val question103 = Question(
-                question_number = 1.10,
-                question_text = "Η Python σας επιτρέπει να χρησιμοποιείτε το σύμβολο # για σχόλια μιας γραμμής.",
-                question_text2 = "",
-                quiz = 1.2,
-                difficulty = 1,
-                style = "SouLou",
-                modules = listOf("Προγραμματισμός", "Python", "Σύνταξη"),
-                possibleAnswers = listOf("Είναι αυτή η δήλωση αληθής;"),
-                correctAnswers = listOf(1) // Αληθής
-            )
-
-
-
-
-            val question12 = Question(
-                question_number = 1.11,
-                question_text = "Διάβασε είδος\n" +
-                        "Επίλεξε [____]\n" +
-                        "  Περίπτωση 1\n" +
-                        "    κόστος = 0.085\n" +
-                        "  Περίπτωση 2\n" +
-                        "    κόστος = 0.67\n" +
-                        "  Περίπτωση 3\n" +
-                        "    κόστος = 0.93\n" +
-                        "  Περίπτωση [____]\n" +
-                        "    κόστος = 1.25\n" +
-                        "Τέλος_επιλογών\n" +
-                        "Αν [____] < κόστος τότε\n" +
-                        "  Εκτύπωσε \"Οι μονάδες δεν επαρκούν, το διαθέσιμο υπόλοιπο είναι \", διαθέσιμο_υπόλοιπο\n" +
-                        "Αλλιώς\n" +
-                        "  διαθέσιμο_υπόλοιπο = διαθέσιμο_υπόλοιπο - [____]\n" +
-                        "  Εκτύπωσε \"Το μήνυμα εστάλη...\"\n" +
-                        "Τέλος_αν\n" +
-                        "Αποτελέσματα // διαθέσιμο_υπόλοιπο //\n"
-                ,
-                question_text2 = "Συμπληρώστε τα κενά για τον υπολογισμό κόστους αποστολής μηνύματος",
-                quiz = 1.3,
-                difficulty = 1,
-                style = "Kena",
-                modules = listOf("Programming", "Python", "Variables"),
-                possibleAnswers = listOf("είδος", "Αλλιώς" ,"κόστος" ,"διαθέσιμο_υπόλοιπο", "κόστος"),
-                correctAnswers = listOf(1234,1254) // a = 10 + 5
-            )
-
-            val question122 = Question(
-                question_number = 1.12,
-                question_text = "Create a list named 'fruits' containing 'apple', 'banana', and 'cherry'. Then, access the second item in the list.\n" +
-                        "fruits = [____]('apple', 'banana', 'cherry')\n" +
-                        "print(fruits[____])",
-                question_text2 = "What is the second fruit in the list?",
-                quiz = 1.3,
-                difficulty = 1,
-                style = "Kena",
-                modules = listOf("Programming", "Python", "Lists"),
-                possibleAnswers = listOf("list", "1"),
-                correctAnswers = listOf(12) // fruits = list('apple', 'banana', 'cherry'); print(fruits[1])
-            )
-
-            val question13 = Question(
-                question_number = 1.13,
-                question_text = "Write a Python statement that checks if the value '42' is greater than '24'.\n" +
-                        "42 [____] 24",
-                question_text2 = "Is 42 greater than 24?",
-                quiz = 1.3,
-                difficulty = 1,
-                style = "Kena",
-                modules = listOf("Programming", "Python", "Conditional"),
-                possibleAnswers = listOf(">"),
-                correctAnswers = listOf(1) // 42 > 24
-            )
-
-            val question14 = Question(
-                question_number = 1.14,
-                question_text = "Define a function 'sum' that takes two parameters 'x' and 'y' and returns their sum.\n" +
-                        "def [____](x, y):\n" +
-                        "\treturn x [____] y",
-                question_text2 = "Write the correct syntax to define this function.",
-                quiz = 1.3,
-                difficulty = 1,
-                style = "Kena",
-                modules = listOf("Programming", "Python", "Functions"),
-                possibleAnswers = listOf("sum", "+"),
-                correctAnswers = listOf(12) // def sum(x, y): return x + y
-            )
-
-            val question15 = Question(
-                question_number = 1.15,
-                question_text = "Write a Python loop that prints numbers from 1 to 5.\n" +
-                        "for i in range([____], [____]):\n" +
-                        "\tprint([____])",
-                question_text2 = "Fill in the blanks to correctly write the loop.",
-                quiz = 1.3,
-                difficulty = 1,
-                style = "Kena",
-                modules = listOf("Programming", "Python", "Loops"),
-                possibleAnswers = listOf("1", "6", "i"),
-                correctAnswers = listOf(123) // for i in range(1, 6): print(i)
-            )
-
-            val question16 = Question(
-                question_number = 1.16,
-                question_text = "How do you add an item 'orange' to the end of the list 'fruits'?\n" +
-                        "fruits.[____]('orange')",
-                question_text2 = "What method should you use to add an item to the list?",
-                quiz = 1.4,
-                difficulty = 1,
-                style = "Kena",
-                modules = listOf("Programming", "Python", "Lists"),
-                possibleAnswers = listOf("append"),
-                correctAnswers = listOf(1) // fruits.append('orange')
-            )
-
-            val question17 = Question(
-                question_number = 1.17,
-                question_text = "How do you remove an item 'banana' from the list 'fruits'?\n" +
-                        "fruits.[____]('banana')",
-                question_text2 = "What method should you use to remove an item from the list?",
-                quiz = 1.4,
-                difficulty = 1,
-                style = "Kena",
-                modules = listOf("Programming", "Python", "Lists"),
-                possibleAnswers = listOf("remove"),
-                correctAnswers = listOf(1) // fruits.remove('banana')
-            )
-
-            val question18 = Question(
-                question_number = 1.18,
-                question_text = "Write a condition in Python that evaluates to True if 'a' is less than 'b' and 'c' is greater than 'd'.\n" +
-                        "a [____] b and c [____] d",
-                question_text2 = "Fill in the operators and variable names to complete the condition.",
-                quiz = 1.4,
-                difficulty = 1,
-                style = "Kena",
-                modules = listOf("Programming", "Python", "Conditions"),
-                possibleAnswers = listOf("<", ">"),
-                correctAnswers = listOf(12) // a < b and c > d
-            )
-
-            val question19 = Question(
-                question_number = 1.19,
-                question_text = "Assign the result of the division of 10 by 2 to a variable 'result'.\n" +
-                        "result [____] 10 [____] 2",
-                question_text2 = "What symbols complete the assignment correctly?",
-                quiz = 1.4,
-                difficulty = 1,
-                style = "Kena",
-                modules = listOf("Programming", "Python", "Operations"),
-                possibleAnswers = listOf("=", "/"),
-                correctAnswers = listOf(12) // result = 10 / 2
-            )
-
-            val question20 = Question(
-                question_number = 1.20,
-                question_text = "Check if the variable 'num' is equal to 100 using an if statement in Python.\n" +
-                        "if num [____] 100:\n" +
-                        "\tprint('num is 100')",
-                question_text2 = "What operator should be used to compare 'num' with 100?",
-                quiz = 1.4,
-                difficulty = 1,
-                style = "Kena",
-                modules = listOf("Programming", "Python", "Conditional"),
-                possibleAnswers = listOf("=="),
-                correctAnswers = listOf(1) // if num == 100: print('num is 100')
-            )
-
-
-            val question21 = Question(
-                question_number = 1.21,
-                question_text =
-                "num = 10\n " +
-                        "αν num = 10:\n " +
-                        "εκτύπωσε('Ο αριθμός είναι 10') \n" +
-                        "αλλιώς: \n" +
-                        "εκτύπωσε('Ο αριθμός δεν είναι 10')",
-                question_text2="Click on the incorrect symbols or keywords in the code.",
-                question_module=listOf("answer1", "answer2"),
-                quiz = 1.5,
-                difficulty = 3,
-                style = "Mistakes",
-                modules = listOf("Programming", "Python", "Syntax"),
-                possibleAnswers = listOf("="), // '=' should be '=='
-                correctAnswers = listOf(1) // Incorrect '='
-            )
-
-            val question22 = Question(
-                question_number = 1.22,
-                question_text =
-                "for i in range(10) \n" +
-                        "\tprint(i)\n",
-                question_text2="Identify incorrect symbols or missing elements that should be correctable in the code.",
-                question_module=listOf("answer1", "answer2"),
-                quiz = 1.5,
-                difficulty = 3,
-                style = "Mistakes",
-                modules = listOf("Programming", "Python", "Loops"),
-                possibleAnswers = listOf("range(10)"), // The text 'range(10)' is correctly written but missing ':', suggesting where to look.
-                correctAnswers = listOf(1) // Indicates the need for ':' after 'range(10)'
-            )
-
-            val question23 = Question(
-                question_number = 1.23,
-                question_text =
-                "list = [1, 2, 3]\n" +
-                        " print ( list [3] ) ",
-                question_text2="Identify the incorrect index or keyword used.",
-                question_module=listOf("answer1", "answer2"),
-                quiz = 1.5,
-                difficulty = 3,
-                style = "Mistakes",
-                modules = listOf("Programming", "Python", "Data Structures"),
-                possibleAnswers = listOf("3"), // '3' is an out of range index for the list
-                correctAnswers = listOf(1) // Incorrect index '3'
-            )
-
-            val question24 = Question(
-                question_number = 1.24,
-                question_text =
-                "def calculate_sum(x, y):\n" +
-                        "\treturn x + y\n" +
-                        "result = calculate_sum( 5 )",
-                question_text2="Review the function call for any errors.",
-                question_module=listOf("answer1", "answer2"),
-                quiz = 1.5,
-                difficulty = 3,
-                style = "Mistakes",
-                modules = listOf("Programming", "Python", "Functions"),
-                possibleAnswers = listOf("5"), // Function call with a single argument is incorrect
-                correctAnswers = listOf(1) // Function called with '5' only, needs two arguments
-            )
-
-            val question25 = Question(
-                question_number = 1.25,
-                question_text =
-                "import math\n" +
-                        "print(math.power(2, 3))",
-                question_text2="Examine the function name used from the math module.",
-                question_module=listOf("pow"),
-                quiz = 1.5,
-                difficulty = 3,
-                style = "Mistakes",
-                modules = listOf("Programming", "Python", "Modules"),
-                possibleAnswers = listOf("power"), // Incorrect function name 'power' should be 'pow'
-                correctAnswers = listOf(1) // Incorrect function name 'power'
-            )
-
-            val question26 = Question(
-                question_number = 1.26,
-                question_text = "Select two built-in data types in Python.",
-                question_text2=" ",
-                quiz = 2.1,
-                difficulty = 2,
-                style = "multiple choice",
-                modules = listOf("Programming", "Python", "Data Types"),
-                possibleAnswers = listOf("string", "real", "tuple", "dictionary"),
-                correctAnswers = listOf(0, 2) // "string", "tuple"
-            )
-
-            val question27 = Question(
-                question_number = 1.27,
-                question_text = "Which two keywords are used for defining a function in Python?",
-                question_text2=" ",
-                quiz = 2.1,
-                difficulty = 2,
-                style = "multiple choice",
-                modules = listOf("Programming", "Python", "Functions"),
-                possibleAnswers = listOf("func", "def", "lambda", "function"),
-                correctAnswers = listOf(1, 2) // "def", "lambda"
-            )
-
-            val question28 = Question(
-                question_number = 1.28,
-                question_text = "Choose two types of loops available in Python.",
-                question_text2=" ",
-                quiz = 2.1,
-                difficulty = 2,
-                style = "multiple choice",
-                modules = listOf("Programming", "Python", "Control Structures"),
-                possibleAnswers = listOf("for", "while", "do-while", "repeat"),
-                correctAnswers = listOf(0, 1) // "for", "while"
-            )
-
-            val question29 = Question(
-                question_number = 1.29,
-                question_text = "Identify two methods that can be used to handle exceptions in Python.",
-                question_text2=" ",
-                quiz = 2.1,
-                difficulty = 2,
-                style = "multiple choice",
-                modules = listOf("Programming", "Python", "Error Handling"),
-                possibleAnswers = listOf("try", "catch", "except", "finally"),
-                correctAnswers = listOf(0, 2) // "try", "except"
-            )
-
-            val question30 = Question(
-                question_number = 1.30,
-                question_text = "Select two Python libraries commonly used for data analysis.",
-                question_text2=" ",
-                quiz = 2.1,
-                difficulty = 2,
-                style = "multiple choice",
-                modules = listOf("Programming", "Python", "Libraries"),
-                possibleAnswers = listOf("NumPy", "Pandas", "TensorFlow", "Swift"),
-                correctAnswers = listOf(0, 1) // "NumPy", "Pandas"
-            )
-
-            val question355 = Question(
-                question_number = 1.35,
-                question_text =
-                "2. define a class inheriting from unittest.TestCase\n" +
-                "1. import unittest\n" +
-                        "5. if __name__ == '__main__':\n" +
-                        "3. define a test method inside the class\n" +
-                        "4. use assert methods to test expected outcomes\n" +
-
-                        "6. unittest.main()",
-                question_text2="Arrange the following steps into their correct sequence to set up a basic unit test in Python using the unittest framework.",
-                quiz = 2.2,
-                difficulty = 2,
-                style = "Queue",
-                modules = listOf("Programming", "Python", "Testing"),
-                possibleAnswers = listOf(
-                    "define a class inheriting from unittest.TestCase", // 2
-                    "import unittest",                                   // 1
-                    "if __name__ == '__main__':",                        // 5
-                    "define a test method inside the class",             // 3
-                    "use assert methods to test expected outcomes",      // 4
-                    "unittest.main()"                                    // 6
-                ),
-                correctAnswers = listOf(215346) // Correct sequence for setting up unit tests
-            )
-
-
-            val question35 = Question(
-                question_number = 1.11,
-                question_text = "Διάβασε είδος\n" +
-                        "Επίλεξε [____]\n" +
-                        "  Περίπτωση 1\n" +
-                        "    κόστος = 0.085\n" +
-                        "  Περίπτωση 2\n" +
-                        "    κόστος = 0.67\n" +
-                        "  Περίπτωση 3\n" +
-                        "    κόστος = 0.93\n" +
-                        "  Περίπτωση [____]\n" +
-                        "    κόστος = 1.25\n" +
-                        "Τέλος_επιλογών\n" +
-                        "Αν [____] < κόστος τότε\n" +
-                        "  Εκτύπωσε \"Οι μονάδες δεν επαρκούν, το διαθέσιμο υπόλοιπο είναι \", διαθέσιμο_υπόλοιπο\n" +
-                        "Αλλιώς\n" +
-                        "  διαθέσιμο_υπόλοιπο = διαθέσιμο_υπόλοιπο - [____]\n" +
-                        "  Εκτύπωσε \"Το μήνυμα εστάλη...\"\n" +
-                        "Τέλος_αν\n" +
-                        "Αποτελέσματα // διαθέσιμο_υπόλοιπο //\n"
-                ,
-                question_text2 = "Συμπληρώστε τα κενά για τον υπολογισμό κόστους αποστολής μηνύματος",
-                quiz = 1.3,
-                difficulty = 1,
-                style = "Queue",
-                modules = listOf("Programming", "Python", "Variables"),
-                possibleAnswers = listOf(
-                    "Διάβασε είδος",
-                    "Επίλεξε [____]",
-                    "  Περίπτωση 1",
-                    "    κόστος = 0.085",
-                    "  Περίπτωση 2",
-                    "    κόστος = 0.67",
-                    "  Περίπτωση 3",
-                    "    κόστος = 0.93",
-                    "  Περίπτωση [____]",
-                    "    κόστος = 1.25",
-                    "Τέλος_επιλογών",
-                    "Αν [____] < κόστος τότε",
-                    "  Εκτύπωσε \"Οι μονάδες δεν επαρκούν, το διαθέσιμο υπόλοιπο είναι \", διαθέσιμο_υπόλοιπο",
-                    "Αλλιώς",
-                    "  διαθέσιμο_υπόλοιπο = διαθέσιμο_υπόλοιπο - [____]",
-                    "  Εκτύπωσε \"Το μήνυμα εστάλη...\"",
-                    "Τέλος_αν",
-                    "Αποτελέσματα // διαθέσιμο_υπόλοιπο //"
-                ),correctAnswers = listOf(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18) // a = 10 + 5
-            )
-            //Correct Question About Queue
-            val question36 = Question(
-                question_number = 1.36,
-                question_text =
-                "1. def factorial(n):\n" +
-                "2. if n == 1:\n" +
-
-                        "3. return 1\n" +
-                        "5. else:\n"+
-                        "4. return n * factorial(n - 1)\n" ,
-
-                question_text2="Arrange the following lines of Python code into the correct sequence to define a recursive factorial function that calculates the factorial of a number.",
-                quiz = 2.2,
-                difficulty = 2,
-                style = "Queue",
-                modules = listOf("Programming", "Python", "Functions"),
-                possibleAnswers = listOf(
-                    "if n == 1:",
-                "def factorial(n):",
-            "return 1",
-            "return n * factorial(n - 1)",
-            "else:"
-            ),
-            correctAnswers = listOf(21354) // Correct sequence for defining a recursive factorial function
-            )
-
-            val question37 = Question(
-                question_number = 1.37,
-                question_text =
-                "4. for i in range(20):\n" +
-
-                "1. if i % 2 == 0:\n" +
-                        "2. print('Even number:', i)\n" +
-                        "5. else:\n"+
-                        "3. print('Odd number:', i)\n" ,
-
-
-                question_text2="Arrange the following lines of Python code into the correct sequence to print whether each number from 0 to 19 is even or odd.",
-                quiz = 2.2,
-                difficulty = 2,
-                style = "Queue",
-                modules = listOf("Programming", "Python", "Control Structures"),
-                possibleAnswers = listOf(
-                    "if i % 2 == 0:",
-                "print('Even number:', i)",
-            "print('Odd number:', i)",
-            "for i in range(20):",
-            "else:"
-            ),
-            correctAnswers = listOf(41253) // Correct sequence for a for-loop with
-            )
-
-            val     question38 = Question(
-                question_number = 1.38,
-                question_text =
-                "3. def count_down(start):\n" +
-                "1. while start > 0:\n" +
-                        "2. print('Counting down:', start)\n" +
-                        "6. start -= 1\n" +
-                        "4. else:\n" +
-                        "5. print('Lift off!')\n" ,
-
-                question_text2="Arrange the following lines of Python code into the correct sequence to define a function that counts down from a given start number to zero, then prints 'Lift off!'.",
-                quiz = 2.2,
-                difficulty = 3,
-                style = "Queue",
-                modules = listOf("Programming", "Python", "Functions", "Loops"),
-                possibleAnswers = listOf(
-                    "while start > 0:",
-                "print('Counting down:', start)",
-            "def count_down(start):",
-            "else:",
-            "print('Lift off!')",
-            "start -= 1"
-            ),
-            correctAnswers = listOf(312645) // Correct sequence for a countdown function
-            )
-
-            val question39 = Question(
-                question_number = 1.39,
-                question_text =
-                "4. def filter_and_square(nums):\n" +
-                        "2. nums = [1, 2, 3, 4, 5, 6]\n" +
-                "1. return [x**2 for x in nums if x > 3]\n" +
-
-                        "3. print(filter_and_square(nums))\n" ,
-
-                question_text2="Arrange the following lines of Python code into the correct sequence to define a function that filters numbers greater than 3 from a list and returns their squares.",
-                quiz = 2.2,
-                difficulty = 2,
-                style = "Queue",
-                modules = listOf("Programming", "Python", "List Comprehension", "Functions"),
-                possibleAnswers = listOf(
-                    "return [x**2 for x in nums if x > 3]",
-                "nums = [1, 2, 3, 4, 5, 6]",
-            "print(filter_and_square(nums))",
-            "def filter_and_square(nums):"
-            ),
-            correctAnswers = listOf(4213) // Correct sequence for a function with list comprehension
-            )
-
-            val question40 = Question(
-                question_number = 1.18,
-                question_text = "A <- 2, B <- ΑΛΗΘΗΣ, Γ <- 3\n" +
-                        "Χ <- (Γ-1)/Α-3*2\n" +
-                        "Υ <- Χ + 10 \n" +
-                        "Ζ <- -Χ mod Y \n"+
-                        "Κ <- (A div Γ)/(Χ-Υ)"+
-                        "Εμφάνισε Ν,Κ,Ζ",
-                question_text2 = "Να βρείτε τι θα εμφανίσει το παρακάτω τμήμα αλγορίθμου.",
-                quiz = 1.1,
-                difficulty = 1,
-                style = "Fill",
-                modules = listOf("Programming", "Python", "Conditions"),
-                possibleAnswers = listOf("X", "Y", "Z"),
-                correctAnswers = listOf(5,4,7) // a < b and c > d
-            )
-
-
-
-
-
-             val question2 = Question(
-                question_number =1.2,
-                question_text = "διάβασε α , β\n" +
-                        "αν α * 0 τότε \n" +
-                        "\t\t\t\t[____] [____] [____]\n" +
-                        "\t\t\t\tγράψε χ\n" +
-                        "αλλιώς \n" +
-                        "\t\t\t\t[____] [____] [____]\n" +
-                        "\t\t\t\t\t\t\t\tγράψε ‘αδύνατη’\n" +
-                        "\t\t\t\tαλλιώς \n" +
-                        "\t\t\t\t\t\t\t\tγράψε ‘αόριστη’ \n" +
-                        "\t\t\t\tτέλοςαν\n" +
-                        "τέλοςαν",
-                question_text2="Bρίσκει αυτός ο αλγόριθμος το αποτέλεσμα πρωτοβάθμιας εκπαίδευσης? ",
-                quiz = 1.1,
-                difficulty = 1,
-                style = "Kena",
-                modules = listOf("Mathematics","Chapter1", "Multiplication"),
-                possibleAnswers = listOf("x", "<--", "b*a" ,"an","b<>0","tote"),
-                correctAnswers = listOf(123456) // 9
-            )
-
-
-            val question3 = Question(
-                question_number =1.3,
-                question_text =
-                "διάβασε α , β \n" +
-                        "αν α * 0 τότε \n" +
-                        "\t\t\t\t χ <---- β * α \n" +
-                        "\t\t\t\t γράψε χ \n" +
-                        "αλλιώς ! η εξίσωση έχει τη μορφή 0χ+β=0 \n" +
-                        "\t\t\t\t αν β # 0 τότε \n" +
-                        "\t\t\t\t\t\t\t\t γράψε ‘αόριστη’ \n" +
-                        "\t\t\t\t αλλιώς ! η εξίσωση έχει τη μορφή 0χ+0=0 \n" +
-                        "\t\t\t\t\t\t\t\t γράψε ‘αδύνατη’ \n" +
-                        "\t\t\t\t τέλοςαν \n" +
-                        "τέλοςαν" ,
-                question_text2="Βρες τα λάθη για την πρωτομαθμια εκπαίδευση",
-                question_module=listOf("answer1", "answer2", "answer3"),
-                quiz = 1.1,
-                difficulty = 3,
-                style = "Mistakes",
-                modules = listOf("History", "Wars","Chapter1"),
-                possibleAnswers = listOf("αδύνατη", "αόριστη", "*"),
-                correctAnswers = listOf(1) // 1945
-            )
-
-            val question4 = Question(
-                question_number =1.4,
-                question_text = "Choose two of the most important things",
-                question_text2=" ",
-                quiz = 1.1,
-                difficulty = 2,
-                style = "multiple choice",
-                modules = listOf("Science", "Chemistry","Chapter1"),
-                possibleAnswers = listOf("Oxygen", "Hydrogen", "Carbon Dioxide", "Nitrogen"),
-                correctAnswers = listOf(2,3) // "Carbon Dioxide", "Nitrogen"
-            )
-
-
-
-
-            val question5 = Question(
-                question_number =2.1,
-                question_text = "Question with ID 5",
-                question_text2=" ",
-                quiz = 1.1,
-                difficulty = 3,
-                style = "multiple choice",
-                modules = listOf("Literature", "Books","Chapter2"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question6 = Question(
-                question_number =2.2,
-                question_text =
-                "διάβασε α , β \n" +
-                        "αν α = 0 τότε \n" +
-                        "\t\t\t\t χ <---- β * α \n" +
-                        "\t\t\t\t γράψε χ \n" +
-                        "αλλιώς ! η εξίσωση έχει τη μορφή 0χ+β=0 \n" +
-                        "\t\t\t\t αν β # 0 τότε \n" +
-                        "\t\t\t\t\t\t\t\t γράψε ‘αόριστη’ \n" +
-                        "\t\t\t\t αλλιώς \n" +
-                        "\t\t\t\t\t\t\t\t γράψε ‘αδύνατη’ \n" +
-                        "\t\t\t\t τέλοςαν \n" +
-                        "τέλοςαν" ,
-                question_text2="φτιάξε τον αλγόριθμο της ",
-                quiz = 1.2,
-                difficulty = 2,
-                style = "Queue",
-                modules = listOf("Geography", "Europe","Chapter2"),
-                possibleAnswers = listOf("αν α * 0 τότε","διάβασε α , β",  "γράψε χ", "αλλιώς ","αν β # 0 τότε" ,"γράψε ‘αόριστη’","8","9","10","11","12","13"), correctAnswers = listOf(14235678910111213) // Paris
-            )
-
-            val question7 = Question(
-                question_number =2.3,
-                question_text = "Question with ID 7",
-                question_text2=" ",
-                quiz = 1.2,
-                difficulty = 1,
-                style = "multiple choice",
-                modules = listOf("Mathematics", "Multiplication","Chapter2"),
-                possibleAnswers = listOf("6", "9", "12", "15"),
-                correctAnswers = listOf(1) // 9
-            )
-
-
-
-
-            val question8 = Question(
-                question_number =3.1,
-                question_text = "Question with ID 8",
-                question_text2=" ",
-                quiz = 1.2,
-                difficulty = 3,
-                style = "multiple choice",
-                modules = listOf("History", "Wars","Chapter3"),
-                possibleAnswers = listOf("1941", "1945", "1949", "1955"),
-                correctAnswers = listOf(1) // 1945
-            )
-
-            val question9 = Question(
-                question_number =3.2,
-                question_text = "Question with ID 9",
-                question_text2=" ",
-                quiz = 1.2,
-                difficulty = 2,
-                style = "multiple choice",
-                modules = listOf("Science", "Chemistry","Chapter3"),
-                possibleAnswers = listOf("Oxygen", "Hydrogen", "Carbon Dioxide", "Nitrogen"),
-                correctAnswers = listOf(3) // Nitrogen
-            )
-
-            val question10 = Question(
-                question_number =3.3,
-                question_text = "Question with ID 10",
-                question_text2=" ",
-                quiz = 1.2,
-                difficulty = 3,
-                style = "multiple choice",
-                modules = listOf("Literature", "Books","Chapter3"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-
-            val question11 = Question(
-                question_number =3.4,
-                question_text = "Question with ID 11",
-                question_text2=" ",
-                quiz = 1.3,
-                difficulty = 1,
-                style = "multiple choice",
-                modules = listOf("for","if","Chapter1"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question12 = Question(
-                question_number =3.5,
-                question_text = "Question with ID 12",
-                question_text2=" ",
-                quiz = 1.3,
-                difficulty = 3,
-                style = "multiple choice",
-                modules = listOf("for","Chapter2"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More","Chapter2"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question13 = Question(
-                question_number =3.6,
-                question_text = "Question with ID 13",
-                question_text2=" ",
-                quiz = 1.3,
-                difficulty = 1,
-                style = "multiple choice",
-                modules = listOf("if","Chapter1"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-
-            val question14 = Question(
-                question_number =4.1,
-                question_text = "Question with ID 14",
-                question_text2=" ",
-                quiz = 1.3,
-                difficulty = 3,
-                style = "multiple choice",
-                modules = listOf("for","if","Chapter1"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question15 = Question(
-                question_number =4.2,
-                question_text = "Question with ID 15",
-                question_text2=" ",
-                quiz = 1.3,
-                difficulty = 1,
-                style = "multiple choice",
-                modules = listOf("for","if","Chapter3"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question16 = Question(
-                question_number =4.3,
-                question_text = "Question with ID 16",
-                question_text2=" ",
-                difficulty = 1,
-                style = "multiple choice",
-                modules = listOf("for","if","Chapter3"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question17 = Question(
-                question_number =4.4,
-                question_text = "Question with ID 17",
-                question_text2=" ",
-                quiz = 1.4,
-                difficulty = 1,
-                style = "multiple choice",
-                modules = listOf("for","if","Chapter3"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question18 = Question(
-                question_number =4.5,
-                question_text = "Question with ID 18",
-                question_text2=" ",
-                quiz = 1.4,
-                difficulty = 3,
-                style = "multiple choice",
-                modules = listOf("for","if","Chapter3"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question19 = Question(
-                question_number =5.1,
-                question_text = "Question with ID 19",
-                question_text2=" ",
-                quiz = 1.4,
-                difficulty = 3,
-                style = "multiple choice",
-                modules = listOf("for","if","Chapter3"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question20 = Question(
-                question_number =5.2,
-                question_text = "Question with ID 20",
-                question_text2=" ",
-                quiz = 1.5,
-                difficulty = 3,
-                style = "multiple choice",
-                modules = listOf("for","if","Chapter2"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question21 = Question(
-                question_number =5.3,
-                question_text = "Question with ID 21",
-                question_text2=" ",
-                quiz = 1.5,
-                difficulty = 3,
-                style = "multiple choice",
-                modules = listOf("for","if","Chapter2"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question22 = Question(
-                question_number =5.4,
-                question_text = "Question with ID 22",
-                question_text2=" ",
-                quiz = 1.5,
-                difficulty = 3,
-                style = "multiple choice",
-                modules = listOf("for","if","Chapter2"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question23 = Question(
-                question_number =5.6,
-                question_text = "Question with ID 23",
-                question_text2=" ",
-                quiz = 1.5,
-                difficulty = 3,
-                style = "multiple choice",
-                modules = listOf("for","if","Chapter2"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question24 = Question(
-                question_number =6.1,
-                question_text = "Question with ID 24",
-                question_text2=" ",
-                quiz = 1.5,
-                difficulty = 3,
-                style = "multiple choice",
-                modules = listOf("for","if","Chapter2"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question25 = Question(
-                question_number =3.4,
-                question_text = "Question with ID 25",
-                question_text2=" ",
-                quiz = 2.1,
-                difficulty = 3,
-                style = "multiple choice",
-                modules = listOf("for","if"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question26 = Question(
-                question_number =3.4,
-                question_text = "Question with ID 26",
-                question_text2=" ",
-                quiz = 2.1,
-                difficulty = 3,
-                style = "multiple choice",
-                modules = listOf("for","if"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question27 = Question(
-                question_number =3.4,
-                question_text = "Question with ID 27",
-                question_text2=" ",
-                quiz = 2.1,
-                difficulty = 3,
-                style = "multiple choice",
-                modules = listOf("for","if"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question28 = Question(
-                question_number =3.4,
-                question_text = "Question with ID 28",
-                question_text2=" ",
-                quiz = 2.1,
-                difficulty = 3,
-                style = "multiple choice",
-                modules = listOf("for","if"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question29 = Question(
-                question_number =3.4,
-                question_text = "Question with ID 29",
-                question_text2=" ",
-                quiz = 2.2,
-                difficulty = 3,
-                style = "multiple choice",
-                modules = listOf("for","if"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question30 = Question(
-                question_number =3.4,
-                question_text = "Question with ID 30",
-                question_text2=" ",
-                quiz = 2.2,
-                difficulty = 3,
-                style = "multiple choice",
-                modules = listOf("for","if"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question31 = Question(
-                question_number =3.4,
-                question_text = "Question with ID 31",
-                question_text2=" ",
-                quiz = 2.2,
-                difficulty = 3,
-                style = "multiple choice",
-                modules = listOf("for","if"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question32 = Question(
-                question_number =3.4,
-                question_text = "Question with ID 32",
-                question_text2=" ",
-                quiz = 2.2,
-                difficulty = 3,
-                style = "multiple choice",
-                modules = listOf("for","if"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question33 = Question(
-                question_number =3.4,
-                question_text = "Question with ID 33",
-                question_text2=" ",
-                quiz = 2.3,
-                difficulty = 3,
-                style = "multiple choice",
-                modules = listOf("for","if"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question34 = Question(
-                question_number =3.4,
-                question_text = "Question with ID 34",
-                question_text2=" ",
-                quiz = 2.3,
-                difficulty = 3,
-                style = "multiple choice",
-                modules = listOf("for","if"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-            val question35 = Question(
-                question_number =3.4,
-                question_text = "Question with ID 35",
-                question_text2=" ",
-                quiz = 2.3,
-                difficulty = 3,
-                style = "multiple choice",
-                modules = listOf("for","if"),
-                possibleAnswers = listOf("Aldous Huxley", "George Orwell", "Ray Bradbury", "Thomas More"),
-                correctAnswers = listOf(1) // George Orwell
-            )
-
-
-             */
-
-            // Insert the data into the database
-
-            questionsDao.addQuestion(question6)
-            questionsDao.addQuestion(question4)
-            questionsDao.addQuestion(question1)
-            questionsDao.addQuestion(question2)
-            questionsDao.addQuestion(question3)
-            questionsDao.addQuestion(question7)
-            questionsDao.addQuestion(question5)
-
-
-
-            questionsDao.addQuestion(question8)
-            questionsDao.addQuestion(question9)
-            questionsDao.addQuestion(question10)
-
-            questionsDao.addQuestion(question11)
-            questionsDao.addQuestion(question12)
-            questionsDao.addQuestion(question13)
-            questionsDao.addQuestion(question14)
-            questionsDao.addQuestion(question15)
-            questionsDao.addQuestion(question16)
-            questionsDao.addQuestion(question17)
-            questionsDao.addQuestion(question18)
-            questionsDao.addQuestion(question19)
-
-           questionsDao.addQuestion(question20)
-           questionsDao.addQuestion(question21)
-
-           questionsDao.addQuestion(question22)
-           questionsDao.addQuestion(question23)
-
-           questionsDao.addQuestion(question24)
-           questionsDao.addQuestion(question25)
-           questionsDao.addQuestion(question26)
-
-
-          questionsDao.addQuestion(question27)
-          questionsDao.addQuestion(question28)
-
-          questionsDao.addQuestion(question29)
-          questionsDao.addQuestion(question30)
-
-          questionsDao.addQuestion(question5ο)
-            questionsDao.addQuestion(question31)
-            questionsDao.addQuestion(question3ο)
-            questionsDao.addQuestion(question6ο)
-
-            /*
-                      questionsDao.addQuestion(question35)
-                      questionsDao.addQuestion(question36)
-                      questionsDao.addQuestion(question37)
-                      questionsDao.addQuestion(question38)
-                      questionsDao.addQuestion(question39)
-                      questionsDao.addQuestion(question40)
-            */
-            /*
-            questionsDao.addQuestion(question31)
-            questionsDao.addQuestion(question32)
-            questionsDao.addQuestion(question33)
-            questionsDao.addQuestion(question34)
-            questionsDao.addQuestion(question35)
-*/
-
+            allQuestions.chunked(batchSize).forEach { batch ->
+                questionsDao.addQuestions(batch)
+            }
         }
     }
 }

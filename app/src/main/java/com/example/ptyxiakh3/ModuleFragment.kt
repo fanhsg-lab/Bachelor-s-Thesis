@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ptyxiakh3.MainActivity.Companion.myList2
 import com.example.ptyxiakh3.data.Question
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.yourpackage.NetworkUtil
@@ -88,9 +89,7 @@ class ModuleFragment : Fragment() {
     }
 
     private fun setupModuleModels() {
-        val myList = listOf(
-            "Πανελλήνιες", "Κεφάλαιο1","Θεωρία"
-        )
+        val myList = myList2
 
         moduleModels.clear() // Clear existing data to handle reset correctly
         // Initialize moduleModels with placeholders for each module in myList

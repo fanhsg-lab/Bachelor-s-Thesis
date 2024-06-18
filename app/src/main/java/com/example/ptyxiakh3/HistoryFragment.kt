@@ -161,9 +161,10 @@ class HistoryFragment : Fragment() {
     }
 
     private fun setupHistoryModels() {
-        historyModels.add(HistoryModel("Κεφάλαιο 1", "Εισαγωγή στην ψευδογλώσσα", "fasdfasdf", R.drawable.logo, 5))
-        historyModels.add(HistoryModel("Κεφάλαιο 2", "Δομές Ακολουθίας", "fasdfasdf", R.drawable.logo, 6))
-        historyModels.add(HistoryModel("Κεφάλαιο 3", "Δομές Επανάληψης", "fasdfasdf", R.drawable.logo, 7))
-        historyModels.add(HistoryModel("Κεφάλαιο 4", "Λες απλές προτάσεις, μιλάς στον πληθυντικό sdfg sdsdfg ssdf", "fasdfasdf", R.drawable.logo, 8))
+        historyModels.clear()
+        historyModels.add(HistoryModel("Κεφάλαιο 1", "Η έννοια πρόβλημα", "Μαθαίνεις ατα βασικά για το τι σημαίνει πρόβλημα στο ΑΕΠΠ", R.drawable.logo, 6))
+        historyModels.add(HistoryModel("Κεφάλαιο 2", "Επίλυση προβλημάτων", "Αντιλαμβάνεσαι πως να λύσεις προβλήματα", R.drawable.logo, 7))
+        historyModels.add(HistoryModel("Κεφάλαιο 3", "Βασικές έννοιες αλγορίθμων", "Τι είναι αλγόριθμος και πως βοηθάει στην επίλυση προβλημάτων;", R.drawable.logo, 5))
+        historyModels.add(HistoryModel("Κεφάλαιο 4", "Εισαγωγή στην ψευδογλώσσα", "Μαθαίνεις για τους τελεστές και τις μεταβλήτες που χρησιμοποιούνται στο ΑΕΠΠ", R.drawable.logo, 8))
     }
 }

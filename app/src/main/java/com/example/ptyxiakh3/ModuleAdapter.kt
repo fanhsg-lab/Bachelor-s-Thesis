@@ -14,6 +14,7 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
+import java.util.Locale
 
 class AdapterModule(private val context: Context, private val ModuleModels: ArrayList<ModuleModel>,private val navController: NavController) :
     RecyclerView.Adapter<AdapterModule.MyViewHolder>() {
@@ -29,10 +30,21 @@ class AdapterModule(private val context: Context, private val ModuleModels: Arra
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         Log.d("QuestionLog", "Question ID ${ModuleModels[position].answered} + ${ModuleModels[position].tests}")
-        val progress = ((ModuleModels[position].answered).toFloat() / (ModuleModels[position].tests).toFloat()) * 100
-        val formattedProgress = String.format("%.1f", progress)
-        Log.d("QuestionLog", "Progress: $formattedProgress")
-        holder.myView.setProgress(formattedProgress.toFloat(),ModuleModels[position].text)
+
+        Log.d("QuestionLog", "Question ID2 ${(ModuleModels[position].answered).toFloat()} / ${(ModuleModels[position].tests).toFloat()}")
+if (ModuleModels[position].answered != 0){
+    val progress = ((ModuleModels[position].answered).toFloat() / (ModuleModels[position].tests).toFloat()) * 100
+    Log.d("QuestionLog3", "Progress1: $progress")
+    val formattedProgress = String.format(Locale.US, "%.1f", progress)
+
+    Log.d("QuestionLog3", "Progress2: $formattedProgress")
+    holder.myView.setProgress(formattedProgress.toFloat(),ModuleModels[position].text)
+}else
+{
+    holder.myView.setProgress(0.0.toFloat(),ModuleModels[position].text)
+}
+
+
     }
 
 

@@ -22,6 +22,7 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.ScrollView
 import android.widget.TextView
+import android.widget.Toast
 import com.example.ptyxiakh3.DbQuery.myProfile
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -35,6 +36,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ptyxiakh3.MainActivity.Companion.myList2
 import com.example.ptyxiakh3.data.Question
 import com.example.ptyxiakh3.databinding.FragmentQuizBinding
 import com.google.android.gms.ads.AdError
@@ -137,11 +139,45 @@ class QuizFragment : Fragment()  {
             val myQuizNumber = args.quiz
             val quiz = myQuizNumber+myPosition*0.1
             val questionsLiveDataFromViewModel = questionsViewModel.getQuestionsByQuizNumber(quiz)
+            val questionsRepeat = mutableListOf<Question>()
+
+            // Assuming this is within a Fragment or Activity
+
+// Observe the LiveData
+            // Observe the LiveData for questions by quiz number
+            questionsViewModel.getQuestionsByQuizNumber(quiz).observe(viewLifecycleOwner, Observer { quizQuestions ->
+                if (quizQuestions.isNullOrEmpty()) {
+                    // If no questions are found for the quiz, observe readAllData
+                    var moduleString="Κεφάλαιο${myQuizNumber}"
+                    Log.d("epanalhjh", "moduleString $moduleString")
+                    questionsViewModel.getQuestionsByModule(moduleString).observe(viewLifecycleOwner, Observer { allQuestions ->
+                        val questionsRepeat = mutableListOf<Question>()
+                        allQuestions.forEach { question ->
+                            val startIndex = ((question.question_id - 1) * 5).toInt()
+                            val historySegment = myProfile.qHistory.substring(startIndex, startIndex + 1)
+                            Log.d("epanalhjh", "startIndex: $historySegment  moduleString $moduleString")
+
+                            if (historySegment == "F") {
+                                Log.d("epanalhjh", "Mphka: $historySegment")
+                                questionsRepeat.add(question)
+                            }
+                        }
+
+                        // Update the questionsLiveData with the filtered questions
+                        val shuffledList = questionsRepeat.toMutableList().apply { shuffle() }
+                        questionsLiveData.value = shuffledList
+                        Log.d("epanalhjh", "No questions found for this quiz.")
+                    })
+                } else {
+                    val shuffledList = quizQuestions.toMutableList().apply { shuffle() }
+                    questionsLiveData.value = shuffledList
+                    Log.d("epanalhjh", "Questions found: ${quizQuestions.size}")
+                }
+            })
+
 
             // Observe LiveData from ViewModel and post its value to your MutableLiveData
-            questionsLiveDataFromViewModel.observe(viewLifecycleOwner, Observer { questions ->
-                questionsLiveData.value = questions
-            })
+
 
 
         } else if (sourceFragment == "Module") {
@@ -152,9 +188,7 @@ class QuizFragment : Fragment()  {
                 Log.d("ModulesCh","Only nnnnnnnn")
                 var questionsdata: LiveData<List<Question>>? = null
 
-                val myList = listOf(
-                    "Πανελλήνιες", "Κεφάλαιο1","Θεωρία"
-                )
+                val myList = myList2
 
                 // Get the corresponding module string using Module number adjusted for zero-index
                 Log.d("ModulesCh","gia na doume $Module")
@@ -201,8 +235,8 @@ class QuizFragment : Fragment()  {
                         if (processedQuestions == totalQuestions) {
                             Log.d("DataQuiz", "Question ID: mphka33")
                             // All questions processed, now check the size
-                            val randomQuestions: List<Question> = if (questionsWithOnlyN.size >= 10) {
-                                questionsWithOnlyN.shuffled().take(10)
+                            val randomQuestions: List<Question> = if (questionsWithOnlyN.size >= 5) {
+                                questionsWithOnlyN.shuffled().take(5)
                             } else {
                                 questionsWithOnlyN.shuffled()
                             }
@@ -221,25 +255,7 @@ class QuizFragment : Fragment()  {
                 var questionsdata: LiveData<List<Question>>? = null
 
 
-                val myList = listOf(
-                    "Python",           // Index 0 -> Module 1
-                    "Chapter1",         // Index 1 -> Module 2
-                    "Programming",      // Index 2 -> Module 3
-                    "Data Structures",  // Index 3 -> Module 4
-                    "Syntax",           // Index 4 -> Module 5
-                    "Functions",        // Index 5 -> Module 6
-                    "Data Types",       // Index 6 -> Module 7
-                    "Control Structures", // Index 7 -> Module 8
-                    "Operators",        // Index 8 -> Module 9
-                    "Variables",        // Index 9 -> Module 10
-                    "Lists",            // Index 10 -> Module 11
-                    "Conditional",      // Index 11 -> Module 12
-                    "Loops",            // Index 12 -> Module 13
-                    "Conditions",       // Index 13 -> Module 14
-                    "Operations",       // Index 14 -> Module 15
-                    "Testing",          // Index 15 -> Module 16
-                    "List Comprehension" // Index 16 -> Module 17
-                )
+                val myList = myList2
 
                 // Get the corresponding module string using Module number adjusted for zero-index
                 Log.d("ModulesCh","gia na doume $Module")
@@ -323,25 +339,7 @@ class QuizFragment : Fragment()  {
                 Log.d("ModulesCh","Only nnnnnnnn")
                 var questionsdata: LiveData<List<Question>>? = null
 
-                val myList = listOf(
-                    "Python",           // Index 0 -> Module 1
-                    "Chapter1",         // Index 1 -> Module 2
-                    "Programming",      // Index 2 -> Module 3
-                    "Data Structures",  // Index 3 -> Module 4
-                    "Syntax",           // Index 4 -> Module 5
-                    "Functions",        // Index 5 -> Module 6
-                    "Data Types",       // Index 6 -> Module 7
-                    "Control Structures", // Index 7 -> Module 8
-                    "Operators",        // Index 8 -> Module 9
-                    "Variables",        // Index 9 -> Module 10
-                    "Lists",            // Index 10 -> Module 11
-                    "Conditional",      // Index 11 -> Module 12
-                    "Loops",            // Index 12 -> Module 13
-                    "Conditions",       // Index 13 -> Module 14
-                    "Operations",       // Index 14 -> Module 15
-                    "Testing",          // Index 15 -> Module 16
-                    "List Comprehension" // Index 16 -> Module 17
-                )
+                val myList = myList2
 
                 // Get the corresponding module string using Module number adjusted for zero-index
                 Log.d("ModulesCh","gia na doume $Module")
@@ -455,8 +453,9 @@ class QuizFragment : Fragment()  {
                     Log.d("DataQuiz", "Question ID: ${question.question_id}")
                 }
             } else {
+                findNavController().navigateUp()
                 // If there are no questions, show a Toast message
-              //  Toast.makeText(context, "No questions found for quiz $myQuizNumber", Toast.LENGTH_SHORT).show()
+          Toast.makeText(context, "No more questions found ", Toast.LENGTH_SHORT).show()
             }
 
             val bookmarkImageView = activity?.findViewById<ImageView>(R.id.qa_bookmarkB)
@@ -469,24 +468,23 @@ class QuizFragment : Fragment()  {
             if (question != null) {
                 Log.d("book13", "Question ID: ${question.question_id} pathsa")
                 Log.d("book13", DbQuery.g_bmIdList.toString() +" edo")
+                Log.d("error chapter2","mphka2")
+
                 questionIdText?.text = question.style
 
-
+                Log.d("error chapter2","mphka")
 
                 if (question.style == "SouLou") {
-                    println("x is 1")
-                    chapterInfo?.text="Διάλεξε Σωστό ή Λάθος ανάλογα τι πιστεύεις ότι η πρόταση είναι."
+                    chapterInfo?.text="Διάλεξε Σωστό ή Λάθος ανάλογα με την ορθότητα της πρότασης."
+                    Log.d("error chapter2","mphka Soulou")
                 } else if (question.style == "Kena") {
-                    println("x is 2")
                     chapterInfo?.text="Γέμισε τα κενά με τις πιθανές απαντήσεις που έχεις στην διάθεση σου. Χρησιμοποίησε τα κουμπιά <> και <> σε περίπτωση που τα χρειαστείς"
                 } else if (question.style == "Mistakes") {
-                    println("x is 3")
                     chapterInfo?.text="Mistakes"
                 } else if (question.style == "multiple choice") {
-                    println("x is not 1, 2, or 3")
-                    chapterInfo?.text="multiple choice"
+                    Log.d("error chapter2","mphka multi")
+                    chapterInfo?.text="Διάλεξε Σωστό ή Λάθος ανάλογα τι πιστεύεις ότι η πρόταση είναι."
                 } else if (question.style == "Queue") {
-                    println("x is not 1, 2, or 3")
                     chapterInfo?.text="Queue"
                 }else if (question.style == "Fill") {
                     chapterInfo?.text="Fill"
@@ -617,6 +615,7 @@ class QuizFragment : Fragment()  {
             val optionB = activity?.findViewById<TextView>(R.id.optionB)
             val optionC = activity?.findViewById<TextView>(R.id.optionC)
             val optionD = activity?.findViewById<TextView>(R.id.optionD)
+            val optionE = activity?.findViewById<TextView>(R.id.optionE)
             val result = activity?.findViewById<TextView>(R.id.result)
             val lasttext = activity?.findViewById<TextView>(R.id.lasttext)
 
@@ -654,15 +653,21 @@ class QuizFragment : Fragment()  {
                     text?.text = question.question_text
                     result?.visibility = View.VISIBLE
 
-                    if (question.correctAnswers[0].toInt() == 1) {
+                    result?.text = textFromAnswer
+
+                    if(flag) {
                         result?.text = "Σωστά"
-                    } else {
+                        result?.setTextColor(ContextCompat.getColor(requireContext(), R.color.muted_orange))
+                    }else{
                         result?.text = "Λάθος"
+                        result?.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
                     }
+
                     optionA?.visibility = View.GONE
                     optionB?.visibility = View.GONE
                     optionC?.visibility = View.GONE
                     optionD?.visibility = View.GONE
+                    optionE?.visibility = View.GONE
                 }
 
                 if (question?.style == "Kena") {
@@ -672,6 +677,7 @@ class QuizFragment : Fragment()  {
                     optionB?.visibility = View.GONE
                     optionC?.visibility = View.GONE
                     optionD?.visibility = View.GONE
+                    optionE?.visibility = View.GONE
                     result?.visibility = View.GONE
                     val sequence = question.correctAnswers.first().toString()
                     var updatedQuestionText = question.question_text
@@ -679,14 +685,7 @@ class QuizFragment : Fragment()  {
                     val placeholders = mutableListOf<Pair<String, IntRange>>()
                     Log.d("Kenatext",textFromAnswer)
 
-                    textFromAnswer = textFromAnswer.trimIndent()
 
-                    // Extract mistake positions from the textFromAnswer string
-                    val regex = """expected (\w+)""".toRegex()
-                    val matchResults = regex.findAll(textFromAnswer)
-                    Log.d("Kenatext"," matchResults + $matchResults")
-                    val wordsAfterExpected = matchResults.map { it.groupValues[1] }.toList()
-                    Log.d("Kenatext"," wordsAfterExpected + $wordsAfterExpected")
                     sequence.forEachIndexed { index, digit ->
                         val answerIndex = if (digit == '0') 9 else digit.toString().toInt() - 1
                         val answer = question.possibleAnswers[answerIndex]
@@ -697,7 +696,7 @@ class QuizFragment : Fragment()  {
                         if (blankStart != -1) {
                             // Calculate the end position for the answer
                             val answerEnd = blankStart + answer.length
-
+                            Log.d("Kenatext3"," answer + $answer")
                             // Replace the first "[____]" with the answer and update the text
                             updatedQuestionText = updatedQuestionText.replaceFirst("[____]", answer)
 
@@ -710,13 +709,30 @@ class QuizFragment : Fragment()  {
                     val spannableString = SpannableString(updatedQuestionText)
 
 // Apply color spans to each answer
+                    textFromAnswer = textFromAnswer.trimIndent()
+
+                    // Extract mistake positions from the textFromAnswer string
+                    val regex = """expected (\w+)""".toRegex()
+                    val matchResults = regex.findAll(textFromAnswer)
+                    Log.d("Kenatext"," matchResults + $matchResults")
+                    val wordsAfterExpected = matchResults.map { it.groupValues[1] }.toList()
+                    Log.d("Kenatext6"," wordsAfterExpected + $wordsAfterExpected")
+                    val Anumbers = mutableListOf<String>()
+                    wordsAfterExpected.forEach { answer ->
+
+                        Anumbers.add(question.possibleAnswers[answer.toInt()-1])
+                        Log.d("Kenatext6"," answer1 + ${question.possibleAnswers[answer.toInt()-1]}")
+                    }
+
 
                     placeholders.forEach { (answer, range) ->
                         // Check if the answer is in the matchResults
-                        val isAnswerInMatchResults = wordsAfterExpected.contains(answer)
-                        Log.d("Kenatext"," answer + $answer")
-                        Log.d("Kenatext"," wordsAfterExpected + $wordsAfterExpected")
+                        Log.d("Kenatext6"," answer2 + $answer")
+                        val isAnswerInMatchResults = Anumbers.contains(answer)
+                        Log.d("Kenatext2"," answer + $answer")
+                        Log.d("Kenatext2"," wordsAfterExpected + $wordsAfterExpected")
                         // Select the color based on the check
+                        Log.d("Kenatext2"," isAnswerInMatchResults + $answer")
                         val textColor = if (isAnswerInMatchResults) {
                             ContextCompat.getColor(requireContext(), android.R.color.holo_red_light)
                         } else {
@@ -746,8 +762,10 @@ class QuizFragment : Fragment()  {
                     result?.visibility = View.VISIBLE
                     if(flag) {
                         result?.text = "Σωστά"
+                        result?.setTextColor(ContextCompat.getColor(requireContext(), R.color.muted_orange))
                     }else{
                         result?.text = "Λάθος"
+                        result?.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
                     }
                 }
 
@@ -759,6 +777,7 @@ class QuizFragment : Fragment()  {
                     optionB?.visibility = View.GONE
                     optionC?.visibility = View.GONE
                     optionD?.visibility = View.GONE
+                    optionE?.visibility = View.GONE
                     result?.visibility = View.GONE
                     lasttext?.visibility = View.GONE
                     // Create a SpannableString from the question text
@@ -862,8 +881,10 @@ class QuizFragment : Fragment()  {
                         result?.visibility = View.VISIBLE
                         if (flag) {
                             result?.text = "Σωστά"
+                            result?.setTextColor(ContextCompat.getColor(requireContext(), R.color.muted_orange))
                         } else {
                             result?.text = "Λάθος"
+                            result?.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
                         }
                     }
 
@@ -959,8 +980,10 @@ class QuizFragment : Fragment()  {
                         result?.visibility = View.VISIBLE
                         if (flag) {
                             result?.text = "Σωστά"
+                            result?.setTextColor(ContextCompat.getColor(requireContext(), R.color.muted_orange))
                         } else {
                             result?.text = "Λάθος"
+                            result?.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
                         }
                     }
                 }
@@ -973,6 +996,7 @@ class QuizFragment : Fragment()  {
                     optionB?.visibility = View.GONE
                     optionC?.visibility = View.GONE
                     optionD?.visibility = View.GONE
+                    optionE?.visibility = View.GONE
 
 
 
@@ -983,7 +1007,7 @@ class QuizFragment : Fragment()  {
                     val wordsAfterExpected = matchResults.map { it.groupValues[1] }.toList()
 
                     wordsAfterExpected.forEach { option ->
-                        Log.d("mpmpmp","$option")
+                        Log.d("MultipleTExt","$option")
                     }
 
 
@@ -995,6 +1019,7 @@ class QuizFragment : Fragment()  {
                             1 -> optionB
                             2 -> optionC
                             3 -> optionD
+                            4 -> optionE
                             else -> null // Add more cases if you have more options
                         }
 
@@ -1022,7 +1047,7 @@ class QuizFragment : Fragment()  {
                             optionTextView?.textSize = 22f
 
                         }
-
+/*
                         if (wordsAfterExpected.contains(index.toString())){
                             optionTextView?.setTextColor(
                                 ContextCompat.getColor(
@@ -1032,14 +1057,16 @@ class QuizFragment : Fragment()  {
                             );
 
                             optionTextView?.textSize = 22f
-                        }
+                        }*/
                     }
                     Log.d("Mistakesall", "point2")
                     result?.visibility = View.VISIBLE
                     if(flag) {
                         result?.text = "Σωστά"
+                        result?.setTextColor(ContextCompat.getColor(requireContext(), R.color.muted_orange))
                     }else{
                         result?.text = "Λάθος"
+                        result?.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
                     }
 
                 }
@@ -1091,13 +1118,17 @@ class QuizFragment : Fragment()  {
                     optionB?.visibility = View.GONE
                     optionC?.visibility = View.GONE
                     optionD?.visibility = View.GONE
+                    optionE?.visibility = View.GONE
 
 
                     result?.visibility = View.VISIBLE
                     if(flag) {
                         result?.text = "Σωστά"
+                        result?.setTextColor(ContextCompat.getColor(requireContext(), R.color.muted_orange))
                     }else{
                         result?.text = "Λάθος"
+                        Log.d("Color","1")
+                        result?.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
                     }
                 }
 
@@ -1111,19 +1142,27 @@ class QuizFragment : Fragment()  {
                     optionB?.visibility = View.GONE
                     optionC?.visibility = View.GONE
                     optionD?.visibility = View.GONE
+                    optionE?.visibility = View.GONE
                     Log.d("Fillerror","mphka 1")
                     val options: List<TextView?> = listOf(
+                        optionE,
                         optionD,
                         optionC,
                         optionB,
                         optionA
                     )
 
+                    options.forEach { option ->
+                        // Perform operations on each TextView
+                        option?.setTextColor(ContextCompat.getColor(requireContext(), R.color.muted_orange))
+                    }
 
                     if(flag) {
                         result?.text = "Σωστά"
+                        result?.setTextColor(ContextCompat.getColor(requireContext(), R.color.muted_orange))
                     }else{
                         result?.text = "Λάθος"
+                        result?.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
                     }
 
                     var index = 0;
@@ -1179,7 +1218,26 @@ class QuizFragment : Fragment()  {
                     val currentPos = layoutManager.findFirstVisibleItemPosition()
                     val question = quizAdapter.getQuestionAtPosition(currentPos+1)
                     val questionIdText = activity?.findViewById<TextView>(R.id.qa_catName)
+                    val chapterInfo = activity?.findViewById<TextView>(R.id.chapterInfo)
                     if (question != null) {
+
+
+                        if (question.style == "SouLou") {
+                            chapterInfo?.text="Διάλεξε Σωστό ή Λάθος ανάλογα με την ορθότητα της πρότασης."
+                            Log.d("error chapter2","mphka Soulou")
+                        } else if (question.style == "Kena") {
+                            chapterInfo?.text="Γέμισε τα κενά με τις πιθανές απαντήσεις που έχεις στην διάθεση σου. Χρησιμοποίησε τα κουμπιά <> και <> σε περίπτωση που τα χρειαστείς"
+                        } else if (question.style == "Mistakes") {
+                            chapterInfo?.text="Mistakes"
+                        } else if (question.style == "multiple choice") {
+                            Log.d("error chapter2","mphka multi")
+                            chapterInfo?.text="Διάλεξε Σωστό ή Λάθος ανάλογα τι πιστεύεις ότι η πρόταση είναι."
+                        } else if (question.style == "Queue") {
+                            chapterInfo?.text="Queue"
+                        }else if (question.style == "Fill") {
+                            chapterInfo?.text="Fill"
+                        }
+
                         questionIdText?.text = question.style
                         Log.d("book13", "Question ID: ${question.question_id} pathsa")
                         Log.d("book13", DbQuery.g_bmIdList.toString() +" edo")

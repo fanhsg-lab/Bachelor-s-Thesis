@@ -40,7 +40,7 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
 
         // Initialize an empty LinkedHashMap
         // Initialize an empty LinkedHashMap with chapters as keys
-        val chapters = listOf("Πανελλήνιες", "Κεφάλαιο1","Θεωρία")
+        val chapters = MainActivity.myList2
         val data: LinkedHashMap<String, List<Quartet<String, Int, Long, String>>> = linkedMapOf<String, List<Quartet<String, Int, Long, String>>>().apply {
             chapters.forEach { chapter ->
                 this[chapter] = listOf()
@@ -140,6 +140,7 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
                     val optionB = view?.findViewById<TextView>(R.id.optionB)
                     val optionC = view?.findViewById<TextView>(R.id.optionC)
                     val optionD = view?.findViewById<TextView>(R.id.optionD)
+                    val optionE = view?.findViewById<TextView>(R.id.optionE)
                     val result = view?.findViewById<TextView>(R.id.result)
                     val lasttext = view?.findViewById<TextView>(R.id.lasttext)
 
@@ -164,6 +165,7 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
                         optionB?.visibility = View.GONE
                         optionC?.visibility = View.GONE
                         optionD?.visibility = View.GONE
+                        optionE?.visibility = View.GONE
                     }
 
                     if (question.style == "Kena") {
@@ -173,6 +175,7 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
                         optionB?.visibility = View.GONE
                         optionC?.visibility = View.GONE
                         optionD?.visibility = View.GONE
+                        optionE?.visibility = View.GONE
                         result?.visibility = View.GONE
                         val sequence = question.correctAnswers.first().toString()
                         var updatedQuestionText = question.question_text
@@ -222,6 +225,38 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
                         text?.text = spannableString
                     }
 
+                    if (question.style == "Fill") {
+                        text?.visibility = View.VISIBLE
+                        lasttext?.visibility = View.GONE
+                        text?.text = question.question_text
+                        result?.visibility = View.VISIBLE
+                        optionA?.visibility = View.GONE
+                        optionB?.visibility = View.GONE
+                        optionC?.visibility = View.GONE
+                        optionD?.visibility = View.GONE
+                        optionE?.visibility = View.GONE
+
+                        val options: List<TextView?> = listOf(
+                            optionE,
+                            optionD,
+                            optionC,
+                            optionB,
+                            optionA
+                        )
+
+                        var index = 0;
+
+                        question.correctAnswers.forEach { correctAnswer ->
+                            // Perform your action with each checkBox here
+                            options[index]?.text = "${question.possibleAnswers[index]} = $correctAnswer"
+                            options[index]?.visibility = View.VISIBLE
+                            options[index]?.textSize = 20f
+                            index++
+                        }
+                        text?.text=question.question_text
+
+                    }
+
                     if (question.style == "Mistakes") {
                         Log.d("apapapa","edo2")
                         text?.visibility = View.VISIBLE
@@ -229,6 +264,7 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
                         optionB?.visibility = View.GONE
                         optionC?.visibility = View.GONE
                         optionD?.visibility = View.GONE
+                        optionE?.visibility = View.GONE
                         result?.visibility = View.GONE
                         lasttext?.visibility=View.VISIBLE
 
@@ -270,23 +306,8 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
                         val spannableBuilder = SpannableStringBuilder(prefixText)
 
 // Assuming question.question_module is a List<String>
-                        val questionModule = question.question_module
 
-// Append each word from the list and apply styles
-                        questionModule.forEach { word ->
-                            val start = spannableBuilder.length
-                            spannableBuilder.append(word + ", ")
-                            val end = spannableBuilder.length
 
-                            // Apply color span
-                            val textColor = ContextCompat.getColor(requireContext(), R.color.muted_orange)
-                            val colorSpan = ForegroundColorSpan(textColor)
-                            spannableBuilder.setSpan(colorSpan, start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
-
-                            // Apply size span
-                            val sizeSpan = RelativeSizeSpan(1.3f)  // Adjust this value as needed
-                            spannableBuilder.setSpan(sizeSpan, start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
-                        }
 
 // Set the SpannableStringBuilder to a TextView
                         lasttext?.text = spannableBuilder
@@ -308,6 +329,7 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
                                 1 -> optionB
                                 2 -> optionC
                                 3 -> optionD
+                                4 -> optionE
                                 else -> null // Add more cases if you have more options
                             }
 
@@ -343,6 +365,7 @@ class  AllQuestionsFragment : Fragment(), ChildItemClickListener {
                         optionB?.visibility = View.GONE
                         optionC?.visibility = View.GONE
                         optionD?.visibility = View.GONE
+                        optionE?.visibility = View.GONE
                     }
                     // Ensure it's always visible (if you have previously set it to gone somewhere)
                     it.visibility = View.VISIBLE
