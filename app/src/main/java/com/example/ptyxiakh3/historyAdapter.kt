@@ -71,10 +71,10 @@ class AdapterHistory(
         val buttons = arrayOf(holder.Button1,holder.Button2,holder.Button3,holder.Button4,holder.Button5,holder.Button6,holder.Button7,holder.Button8,holder.Button9,holder.Button10,holder.Button11,holder.Button12 )
 
         buttons.forEachIndexed { index, button ->
-                if (index <= tests) {
+                if (index +1 <= tests) {
 
 
-                    val str = "${position + 1}.${index + 1}"
+                    val str = "${position + 1}.${index+1 }"
                     println("Button $str clicked")
                     Log.d("moveto", "position: $position , index $index, tests $tests")
                     if (DbQuery.myProfile.quizs.contains(str)) {

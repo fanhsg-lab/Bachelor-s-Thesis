@@ -8,6 +8,7 @@ import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.text.style.ForegroundColorSpan
 import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -117,6 +118,7 @@ class quizAdapter(
             }
             question.possibleAnswers.forEachIndexed { index, answer ->
                 if (index < questionTextViews.size) {
+                    questionTextViews[index].setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f);
                     questionTextViews[index].text = answer
                     questionTextViews[index].visibility = View.VISIBLE
                 }
@@ -866,7 +868,7 @@ class quizAdapter(
 
 
                     // Now you can use isChecked1, isChecked2, isChecked3, isChecked4, isChecked5
-                    // For example, logging their values
+                    // For example, logging their values:
 
                     return Pair(flag,text)
                 }
